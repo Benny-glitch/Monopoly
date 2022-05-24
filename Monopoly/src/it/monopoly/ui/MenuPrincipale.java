@@ -114,7 +114,7 @@ public class MenuPrincipale {
                 }
             }
         }while(same_name);
-        gestoreGiocatori.addGiocatore(nome);
+      //  gestoreGiocatori.addGiocatore(nome);
     }
 
     private void Avviailgioco() {

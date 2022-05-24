@@ -5,17 +5,15 @@ import java.util.*;
 
 public class Giocatore {
     //pedine
-    public static final int WHEELBARROW      = 0;
-    public static final int BATTLESHIP       = 1;
-    public static final int SACK_OF_MONEY    = 2;
-    public static final int HORSE_AND_RIDER  = 3;
-    public static final int CAR              = 4;
-    public static final int TRAIN            = 5;
-    public static final int THIMBLE          = 6;
-    public static final int CANNON           = 5;
-    public static final int BOOT             = 8;
-    public static final int TOP_HAT          = 9;
-    public static final int IRON             = 10;
+    public static final int CARRIOLA             = 0;
+    public static final int NAVE_DA_GUERRA       = 1;
+    public static final int SACCO_DI_SOLDI       = 2;
+    public static final int CAVALLO_E_CAVALIERE  = 3;
+    public static final int MACCHINA             = 4;
+    public static final int TRENO                = 5;
+    public static final int DITALE               = 6;
+    public static final int CANNONE              = 7;
+    public static final int STIVALE              = 8;
 
     private String username;
     private int money;
@@ -25,10 +23,11 @@ public class Giocatore {
     private int typeofpawn;
 
 
-    public Giocatore(String username, boolean isinjail, int shiftsinjail){
+    public Giocatore(String username, boolean isinjail, int shiftsinjail, int typeofpawn){
         this.username = username;
         this.isinjail = isinjail;
         this.shiftsinjail = shiftsinjail; //turni in prigione
+        this.typeofpawn = typeofpawn;
     }
 
     public double getMoney() {

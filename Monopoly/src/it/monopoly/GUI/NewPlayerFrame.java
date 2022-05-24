@@ -11,7 +11,7 @@ public class NewPlayerFrame extends JFrame {
         setTitle("Inserisci Nuovo Giocatore");
         setContentPane(newPlayerForm.getPanel());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setMinimumSize(new Dimension(800,500));
+        setMinimumSize(new Dimension(800,600));
     }
 
 

@@ -13,8 +13,8 @@ public class GestoreGiocatori {
 
     Random rand = new Random();
 
-    public void addGiocatore(String username) {
-        Giocatore giocatore = new Giocatore(username, false, 0);
+    public void addGiocatore(String username, int typeofpawn) {
+        Giocatore giocatore = new Giocatore(username, false, 0, typeofpawn);
         giocatori.add(giocatore);
     }
 
@@ -83,7 +83,7 @@ public class GestoreGiocatori {
         }
         Collections.shuffle(giocatori);
 
-        schermataTurno.SchermataTurno(giocatori,contratti);
+        //schermataTurno.SchermataTurno(giocatori,contratti);
     }
 
     public int getNumgiocatori() {
