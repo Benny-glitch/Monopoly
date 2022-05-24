@@ -7,11 +7,17 @@ public class NewPlayerFrame extends JFrame {
 
     public NewPlayerFrame(){
         super();
-        NewPlayerForm newPlayerForm = new NewPlayerForm();
+        NewPlayerForm newPlayerForm = new NewPlayerForm(this);
         setTitle("Inserisci Nuovo Giocatore");
         setContentPane(newPlayerForm.getPanel());
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setMinimumSize(new Dimension(500,800));
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setMinimumSize(new Dimension(800,500));
+    }
+
+
+    @Override
+    public void setVisible(boolean b) {
+        super.setVisible(b);
     }
 
 }

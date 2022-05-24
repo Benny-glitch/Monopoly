@@ -16,20 +16,26 @@ public class PrincipalInterfaceForm {
     private JLabel monopolyLabel;
     private JLabel giocaLabel;
     private JLabel continuaLabel;
+    private JLabel esciLabel;
     private Font font;
     private NewPlayerFrame newplayerFrame;
 
-    public PrincipalInterfaceForm(){
+    public PrincipalInterfaceForm(MainFrame mainFrame){
         set_font_startUP();
         newplayerFrame = new NewPlayerFrame();
         giocaLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 newplayerFrame.setVisible(true);
-
             }
         });
 
+        esciLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                mainFrame.dispose();
+            }
+        });
 
     }
     public JPanel getPanel(){
@@ -47,5 +53,6 @@ public class PrincipalInterfaceForm {
         monopolyLabel.setFont(font.deriveFont(Font.TRUETYPE_FONT,72));
         giocaLabel.setFont(font.deriveFont(Font.TRUETYPE_FONT,36));
         continuaLabel.setFont(font.deriveFont(Font.TRUETYPE_FONT,36));
+        esciLabel.setFont(font.deriveFont(Font.TRUETYPE_FONT,36));
     }
 }

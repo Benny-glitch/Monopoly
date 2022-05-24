@@ -10,7 +10,7 @@ public class PlayerFrame extends JFrame {
         PlayerForm playerForm = new PlayerForm();
         setTitle("Inserisci Giocatore");
         setContentPane(playerForm.getPanel());
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setMinimumSize(new Dimension(500,800));
         formWindowActivated();
     }
@@ -28,7 +28,6 @@ public class PlayerFrame extends JFrame {
         // Move the window
         this.setLocation(x, y);
     }
-
 
 
 }

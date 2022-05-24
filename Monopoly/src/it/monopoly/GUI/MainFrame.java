@@ -8,7 +8,7 @@ import java.awt.*;
 public class MainFrame extends JFrame {
     public MainFrame(){
         super();
-        PrincipalInterfaceForm Form = new PrincipalInterfaceForm();
+        PrincipalInterfaceForm Form = new PrincipalInterfaceForm(this);
         setTitle("Monopoly");
         setContentPane(Form.getPanel());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
