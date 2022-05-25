@@ -1,8 +1,9 @@
 package it.monopoly.app;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Player {
+public class Player implements Serializable {
     //pedine
     public static final int MACCHINA             = 0;
     public static final int NAVE_DA_GUERRA       = 1;
@@ -20,13 +21,18 @@ public class Player {
     private int typeofpawn;
 
 
-    public Player(String username, boolean isinjail, int shiftsinjail, int typeofpawn, int position){
+    public Player(String username, boolean isinjail, int shiftsinjail, int typeofpawn, int position) throws NullNameException{
+        if(username.isEmpty()){
+            throw new NullNameException();
+        }
+
         this.username = username;
         this.isinjail = isinjail;
         this.shiftsinjail = shiftsinjail; //turni in prigione
         this.typeofpawn = typeofpawn;
         this.position = position;
     }
+
 
     public double getMoney() {
         return this.money;

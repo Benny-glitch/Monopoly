@@ -6,7 +6,7 @@ import java.util.Scanner;
 import it.monopoly.app.PlayerHandler;
 
 public class MenuPrincipale {
-    PlayerHandler playerHandler = new PlayerHandler();
+    PlayerHandler playerHandler = PlayerHandler.getInstance();
     SchermataTurno schermataTurno = new SchermataTurno();
 
     public void esegui() {

@@ -1,6 +1,7 @@
 package it.monopoly.GUI;
 
 import com.sun.tools.javac.Main;
+import it.monopoly.app.PlayerHandler;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,6 +39,22 @@ public class PrincipalInterfaceForm {
             }
         });
 
+
+        continuaLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                try {
+                    PlayerHandler.initialize();
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(
+                            mainFrame,
+                            "Non è stato possibile caricare la partita: " + ex.getMessage(),
+                            "Errore apertura file",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                }
+            }
+        });
     }
     public JPanel getPanel(){
         return this.menuPanel;

@@ -1,19 +1,67 @@
 package it.monopoly.app;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class PlayerHandler {
-    private ArrayList<Player> players = new ArrayList<>(6);
-    private ContractsHandler contracts = new ContractsHandler();
+public class PlayerHandler implements Serializable{
+    public static final long serialVersionUID = 1L;
+    private static PlayerHandler instance;
+
+    private ArrayList<Player> players ;
+    private ContractsHandler contracts;
     private int moneytoremove;
+
+    public static void initialize() throws IOException {
+        PlayerHandler.instance = PlayerHandler.load();
+    }
+
+    public static PlayerHandler getInstance() {
+        if(instance == null){
+              instance = new PlayerHandler();
+        }
+        return PlayerHandler.instance;
+    }
+
+    private PlayerHandler(){
+        players = new ArrayList<>(6);
+        contracts = new ContractsHandler();
+    }
 
     Random rand = new Random();
 
-    public void addPlayer(String username, int typeofpawn) {
-        Player player = new Player(username, false, 0, typeofpawn, 0);
-        players.add(player);
+    public void addPlayer(String username, int typeofpawn) throws IOException, NullNameException {
+        try{
+            Player player = new Player(username, false, 0, typeofpawn, 0);
+            players.add(player);
+            this.savePlayer();
+        } catch (NullNameException|IOException e) {
+            throw e;
+        }
+    }
+
+    private void savePlayer() throws IOException{
+        try (
+                FileOutputStream fileOutputStream = new FileOutputStream("menu.sr");
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)
+        ) {
+            objectOutputStream.writeObject(this);
+        }
+    }
+
+    private static PlayerHandler load() throws IOException {
+        try (
+                FileInputStream fileInputStream = new FileInputStream("menu.sr");
+                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)
+        ) {
+            Object o = objectInputStream.readObject();
+            return (PlayerHandler) o;
+        } catch (FileNotFoundException e) {
+            return new PlayerHandler();
+        } catch (ClassNotFoundException ignore) {
+            return null;
+        }
     }
 
     public void setPlayer_Money_and_Contracts() {

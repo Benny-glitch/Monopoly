@@ -1,4 +1,4 @@
 package it.monopoly.app;
 
-public class InvalidPositionException {
+public class InvalidPositionException extends Exception{
 }

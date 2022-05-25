@@ -1,7 +1,10 @@
 package it.monopoly.GUI;
 
+import it.monopoly.app.PlayerHandler;
+
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class MainFrame extends JFrame {
     public static final Dimension DEFAULT_DIMENSION = new Dimension(800,600);

@@ -1,4 +1,4 @@
 package it.monopoly.app;
 
-public class InvalidMoneyException {
+public class InvalidMoneyException extends Exception{
 }

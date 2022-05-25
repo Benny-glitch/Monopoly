@@ -1,4 +1,4 @@
 package it.monopoly.app;
 
-public class NullNameException {
+public class NullNameException extends Exception{
 }

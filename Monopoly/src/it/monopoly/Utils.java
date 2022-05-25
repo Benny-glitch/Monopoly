@@ -29,18 +29,12 @@ public class Utils {
     }
 
     private static void load_icon()  {
-        BufferedImage bufferedImage = null;
-        try {
-            bufferedImage = ImageIO.read(new File("/Users/benedettotesta/Documents/GitHub/Monopoly/Monopoly/src/it/monopoly/resizedPedine/car.png"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        icons.add(new ImageIcon(bufferedImage));
-        icons.add(new ImageIcon("it/monopoly/resizedPedine/war_ship.png"));
-        icons.add(new ImageIcon("it/monopoly/resizedPedine/boot.png"));
-        icons.add(new ImageIcon("it/monopoly/resizedPedine/top_hat.png"));
-        icons.add(new ImageIcon("it/monopoly/resizedPedine/thimble.png"));
-        icons.add(new ImageIcon("it/monopoly/resizedPedine/dog.png"));
+        icons.add(new ImageIcon("src/it/monopoly/resizedPedine/car.png"));
+        icons.add(new ImageIcon("src/it/monopoly/resizedPedine/war_ship.png"));
+        icons.add(new ImageIcon("src/it/monopoly/resizedPedine/boot.png"));
+        icons.add(new ImageIcon("src/it/monopoly/resizedPedine/top_hat.png"));
+        icons.add(new ImageIcon("src/it/monopoly/resizedPedine/thimble.png"));
+        icons.add(new ImageIcon("src/it/monopoly/resizedPedine/dog.png"));
     }
 
 }

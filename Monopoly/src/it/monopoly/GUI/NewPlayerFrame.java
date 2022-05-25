@@ -6,8 +6,6 @@ import java.awt.*;
 public class NewPlayerFrame extends JFrame {
     public static final Dimension DEFAULT_DIMENSION = new Dimension(800,600);
 
-
-
     public NewPlayerFrame(){
         super("Inserisci Nuovo Giocatore");
         setDeafultConfiguration();

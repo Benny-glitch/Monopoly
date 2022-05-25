@@ -15,7 +15,6 @@ public class PlayerForm {
     private int shift = 0;
     private int totalshift = 0;
 
-
     public PlayerForm(PlayerHandler giocatori, PlayerFrame playerFrame){
 
         giocatori.setPlayer_Money_and_Contracts();
