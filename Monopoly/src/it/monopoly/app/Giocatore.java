@@ -5,15 +5,12 @@ import java.util.*;
 
 public class Giocatore {
     //pedine
-    public static final int CARRIOLA             = 0;
+    public static final int MACCHINA             = 0;
     public static final int NAVE_DA_GUERRA       = 1;
-    public static final int SACCO_DI_SOLDI       = 2;
-    public static final int CAVALLO_E_CAVALIERE  = 3;
-    public static final int MACCHINA             = 4;
-    public static final int TRENO                = 5;
-    public static final int DITALE               = 6;
-    public static final int CANNONE              = 7;
-    public static final int STIVALE              = 8;
+    public static final int STIVALE              = 2;
+    public static final int CILINDRO             = 3;
+    public static final int DITALE               = 4;
+    public static final int CAVALLO              = 5;
 
     private String username;
     private int money;
@@ -70,6 +67,9 @@ public class Giocatore {
         return lista_contratti.replace("null", "");
     }
 
+    public Contratto get_listContratti(int i){
+        return contracts.get(i);
+    }
     public void addMoney(int money_toadd){
         this.money += money_toadd;
     }

@@ -1,14 +1,16 @@
 package it.monopoly.GUI;
 
+import it.monopoly.app.GestoreGiocatori;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class PlayerFrame extends JFrame {
 
-    public PlayerFrame(){
+    public PlayerFrame(GestoreGiocatori gestoreGiocatori){
         super();
-        PlayerForm playerForm = new PlayerForm();
-        setTitle("Inserisci Giocatore");
+        PlayerForm playerForm = new PlayerForm(gestoreGiocatori);
+        setTitle("Giocatore");
         setContentPane(playerForm.getPanel());
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setMinimumSize(new Dimension(500,800));

@@ -1,20 +1,23 @@
 package it.monopoly.GUI;
 
-import com.sun.tools.javac.Main;
-
 import javax.swing.*;
 import java.awt.*;
 
 public class MainFrame extends JFrame {
+    public static final Dimension DEFAULT_DIMENSION = new Dimension(800,600);
     public MainFrame(){
-        super();
+        super("Monopoly");
+        setDeafultConfiguration();
         PrincipalInterfaceForm Form = new PrincipalInterfaceForm(this);
-        setTitle("Monopoly");
         setContentPane(Form.getPanel());
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setMinimumSize(new Dimension(800,600));
+
     }
 
+    private void setDeafultConfiguration() {
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setPreferredSize(DEFAULT_DIMENSION);
+        this.setMinimumSize(DEFAULT_DIMENSION);
+    }
 
 
 }

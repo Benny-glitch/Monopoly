@@ -34,20 +34,28 @@ public class NewPlayerForm extends JFrame{
     private JLabel nameLabelp6;
     private JTextField nameTextFileld;
     private JLabel avviagiocoLabel;
+    private JLabel maxplayerLabel;
     private JButton annullaButton;
     private Font font;
 
     public NewPlayerForm(NewPlayerFrame newPlayerFrame){
         GestoreGiocatori gestoreGiocatori = new GestoreGiocatori();
-        String[] Pedina = {"carriola", "gatto", "macchina", "cavallo", "scarpa", "ditale", "nave"};
-        
+
         set_font_startUP();
-        inserisciLabel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                gestoreGiocatori.addGiocatore(nameTextFileld.getText(), pedinaCombobox.getSelectedIndex());
-            }
-        });
+
+            inserisciLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    if(gestoreGiocatori.getNumgiocatori() <= 6){
+                        gestoreGiocatori.addGiocatore(nameTextFileld.getText(), pedinaCombobox.getSelectedIndex());
+                        int x = pedinaCombobox.getSelectedIndex();
+                        pedinaCombobox.removeItemAt(x);
+                        nameTextFileld.setText("");
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Numero di giocatori massimo raggiunto","Errore" ,JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            });
 
         annullaLabel.addMouseListener(new MouseAdapter() {
             @Override
@@ -59,12 +67,20 @@ public class NewPlayerForm extends JFrame{
         avviagiocoLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                gestoreGiocatori.setGiocatoreSoldiEcontratti();
-                System.out.println(gestoreGiocatori.getGiocatore(0));
-                System.out.println(gestoreGiocatori.getGiocatore(1));
-                System.out.println(gestoreGiocatori.getGiocatore(2));
+                if(gestoreGiocatori.getNumgiocatori() < 2){
+                    JOptionPane.showMessageDialog(null, "Numero di giocatori troppo basso","Errore" ,JOptionPane.ERROR_MESSAGE);
+                }else{
+                    PlayerFrame playerFrame = new PlayerFrame(gestoreGiocatori);
+                    TabelloneFrame tabelloneFrame = new TabelloneFrame();
+                    playerFrame.setVisible(true);
+                    newPlayerFrame.dispose();
+                }
             }
         });
+    }
+
+    private void set_Image_Name(int x){
+        //TODO da fare setta il nome e immagine del player
     }
 
     public JPanel getPanel(){

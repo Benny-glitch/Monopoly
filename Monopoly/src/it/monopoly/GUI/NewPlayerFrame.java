@@ -14,7 +14,6 @@ public class NewPlayerFrame extends JFrame {
         setMinimumSize(new Dimension(800,600));
     }
 
-
     @Override
     public void setVisible(boolean b) {
         super.setVisible(b);

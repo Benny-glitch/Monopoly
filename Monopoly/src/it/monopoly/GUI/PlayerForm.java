@@ -1,5 +1,7 @@
 package it.monopoly.GUI;
 
+import it.monopoly.app.GestoreGiocatori;
+
 import javax.swing.*;
 
 public class PlayerForm {
@@ -8,20 +10,22 @@ public class PlayerForm {
     private JLabel turnoLabel;
     private JLabel soldLabel;
     private JList contrattiList;
+    private DefaultListModel demoList;
 
-    public PlayerForm(){
+    public PlayerForm(GestoreGiocatori giocatori){
+        demoList = new DefaultListModel();
+        giocatori.setGiocatoreSoldiEcontratti();
+        for(int i = 0; i < 5; i++){
+            demoList.addElement(giocatori.getGiocatore(0).get_listContratti(i));
+        }
+        turnoLabel.setText(giocatori.getGiocatore(0).getUsername());
+        soldLabel.setText(giocatori.getGiocatore(0).getMoney() + "€");
 
+        contrattiList.setModel(demoList);
     }
 
     public JPanel getPanel(){
         return this.playerPanel;
     }
 
-    private void createUIComponents() {
-        String week[]= { "Monday","Tuesday","Wednesday",
-                "Thursday","Friday","Saturday","Sunday"};
-        //TODO qui inserisco i contratti che appartengono al giocatore
-        contrattiList = new JList(week);
-
-    }
 }

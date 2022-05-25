@@ -27,6 +27,7 @@ public class PrincipalInterfaceForm {
             @Override
             public void mouseClicked(MouseEvent e) {
                 newplayerFrame.setVisible(true);
+                mainFrame.dispose();
             }
         });
 
