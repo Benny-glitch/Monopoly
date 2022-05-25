@@ -25,7 +25,7 @@ public class SchermataTurno {
                 if (this.num_player == 1) {
                     System.out.println("Il giocatore " + giocatori.get(i).getUsername() + " ha vinto");
                 } else {
-                    if (!this.giocatori.get(i).getIsinjail()) {
+                    if (!this.giocatori.get(i).getIsInJail()) {
                         if (this.giocatori.get(i).getMoney() > 0) {
                             terminaTurno = false;
                             do {
@@ -103,12 +103,12 @@ public class SchermataTurno {
             System.out.println(this.contractsHandler.ContrattoLibero().replace("null", ""));
             System.out.println("Inserisci l'ID del contratto");
             id_contratto = scanner1.nextInt();
-            if(contractsHandler.get(id_contratto).getAcquistato()){
+            if(contractsHandler.get(id_contratto).getPurchased()){
                 System.out.println("Contratto gia' acquistato \n");
                 acquistato = true;
             }else{
                 giocatori.get(i).setContracts(contractsHandler.get(id_contratto));
-                contractsHandler.get(id_contratto).setAcquistato();
+                contractsHandler.get(id_contratto).setPurchased();
                 acquistato = false;
             }
         }while(acquistato);
@@ -161,7 +161,7 @@ public class SchermataTurno {
     }
 
     private void vaiInprigione(int i) {
-        giocatori.get(i).setIsinjail(true);
+        giocatori.get(i).setIsInJail(true);
         giocatori.get(i).setShiftsinjail(1);
         System.out.println("Sei in prigione");
     }
@@ -175,13 +175,13 @@ public class SchermataTurno {
             case 1 -> {
                 System.out.println("Non sei piu' in prigione");
                 giocatori.get(i).setShiftsinjail(0);
-                giocatori.get(i).setIsinjail(false);
+                giocatori.get(i).setIsInJail(false);
                 this.avviaTurno();
             }
             case 2 -> {
                 giocatori.get(i).addMoney(-125);
                 System.out.println("Sei uscito dalla prigione ma ti sono stati decurtati 125$");
-                giocatori.get(i).setIsinjail(false);
+                giocatori.get(i).setIsInJail(false);
             }
             case 3 -> System.out.println("Resterai in prigione un'altro turno\n");
         }

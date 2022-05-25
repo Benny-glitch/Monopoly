@@ -17,17 +17,16 @@ public class Player implements Serializable {
     private int position;
     private int shiftsinjail;
     private List<Contract> contracts = new ArrayList<>();
-    private boolean isinjail;
+    private boolean IsInJail;
     private int typeofpawn;
 
 
-    public Player(String username, boolean isinjail, int shiftsinjail, int typeofpawn, int position) throws NullNameException{
+    public Player(String username, boolean IsInJail, int shiftsinjail, int typeofpawn, int position) throws NullNameException{
         if(username.isEmpty()){
             throw new NullNameException();
         }
-
         this.username = username;
-        this.isinjail = isinjail;
+        this.IsInJail = IsInJail;
         this.shiftsinjail = shiftsinjail; //turni in prigione
         this.typeofpawn = typeofpawn;
         this.position = position;
@@ -38,8 +37,8 @@ public class Player implements Serializable {
         return this.money;
     }
 
-    public boolean getIsinjail(){
-        return this.isinjail;
+    public boolean getIsInJail(){
+        return this.IsInJail;
     }
 
     public String getUsername(){
@@ -69,28 +68,28 @@ public class Player implements Serializable {
     public String getContractListString(){
         String lista_contratti = null;
         for(int i = 0; i < contracts.size(); i++){
-            lista_contratti += i +" Nome:" + contracts.get(i).getNome() + " Affitto: " + contracts.get(i).getAffitto() + "\n";
+            lista_contratti += i +" Nome:" + contracts.get(i).getName() + " Affitto: " + contracts.get(i).getRent() + "\n";
         }
         return lista_contratti.replace("null", "");
     }
 
-    public Contract get_ContractList(int i){
+    public Contract getContractList(int i){
         return contracts.get(i);
     }
 
-    public String get_ContractList_Name(int i){
-        return contracts.get(i).getNome();
+    public String getContractListName(int i){
+        return contracts.get(i).getName();
     }
 
-    public int get_Num_Contracts(){
+    public int getNumContracts(){
         return contracts.size();
     }
     public void addMoney(int money_toadd){
         this.money += money_toadd;
     }
 
-    public void setIsinjail(boolean isinjail){
-        this.isinjail = isinjail;
+    public void setIsInJail(boolean IsInJail){
+        this.IsInJail = IsInJail;
     }
 
     public void setShiftsinjail(int shiftsinjail){
@@ -98,6 +97,6 @@ public class Player implements Serializable {
     }
 
     public int getRentContract(int i){
-        return contracts.get(i).getAffitto();
+        return contracts.get(i).getRent();
     }
 }

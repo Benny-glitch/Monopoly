@@ -116,7 +116,7 @@ public class MenuPrincipale {
     }
 
     private void Avviailgioco() {
-        playerHandler.setPlayer_Money_and_Contracts(); //qui setto i contratti e i soldi in base al numero dei giocatori
+        playerHandler.setPlayerMoneyandContracts(); //qui setto i contratti e i soldi in base al numero dei giocatori
     }
 
 

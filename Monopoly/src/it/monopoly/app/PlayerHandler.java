@@ -12,10 +12,12 @@ public class PlayerHandler implements Serializable{
     private ArrayList<Player> players ;
     private ContractsHandler contracts;
     private int moneytoremove;
+    private Random rand;
 
-    public static void initialize() throws IOException {
+    //TODO caricamento con il pulsante CONTINUA
+   /* public static void initialize() throws IOException {
         PlayerHandler.instance = PlayerHandler.load();
-    }
+    }*/
 
     public static PlayerHandler getInstance() {
         if(instance == null){
@@ -27,20 +29,23 @@ public class PlayerHandler implements Serializable{
     private PlayerHandler(){
         players = new ArrayList<>(6);
         contracts = new ContractsHandler();
+        rand = new Random();
     }
 
-    Random rand = new Random();
 
-    public void addPlayer(String username, int typeofpawn) throws IOException, NullNameException {
+
+    public void addPlayer(String username, int typeofpawn) throws NullNameException {
         try{
             Player player = new Player(username, false, 0, typeofpawn, 0);
             players.add(player);
-            this.savePlayer();
-        } catch (NullNameException|IOException e) {
+            //this.savePlayer();
+        } catch (NullNameException e) {
             throw e;
         }
     }
 
+    //TODO salvataggio e caricamento
+    /*
     private void savePlayer() throws IOException{
         try (
                 FileOutputStream fileOutputStream = new FileOutputStream("menu.sr");
@@ -63,16 +68,16 @@ public class PlayerHandler implements Serializable{
             return null;
         }
     }
-
-    public void setPlayer_Money_and_Contracts() {
+*/
+    public void setPlayerMoneyandContracts() {
         for (int i = 0; i < players.size(); i++) {
             if (players.size() == 2) {
                 for (int j = 0; j < 7; j++) {
                     Contract contract = contracts.get(rand.nextInt(26));
-                    if (!contract.getAcquistato()) {
+                    if (!contract.getPurchased()) {
                         players.get(i).setContracts(contract);
-                        moneytoremove+=contract.getPrezzo();
-                        contract.setAcquistato();
+                        moneytoremove+=contract.getPrice();
+                        contract.setPurchased();
                     } else {
                         j--;
                     }
@@ -82,10 +87,10 @@ public class PlayerHandler implements Serializable{
             if (players.size() == 3) {
                 for (int j = 0; j < 6; j++) {
                     Contract contract = contracts.get(rand.nextInt(26));
-                    if (!contract.getAcquistato()) {
+                    if (!contract.getPurchased()) {
                         players.get(i).setContracts(contract);
-                        moneytoremove+=contract.getPrezzo();
-                        contract.setAcquistato();
+                        moneytoremove+=contract.getPrice();
+                        contract.setPurchased();
                     } else {
                         j--;
                     }
@@ -95,10 +100,10 @@ public class PlayerHandler implements Serializable{
             if (players.size() == 4) {
                 for (int j = 0; j < 5; j++) {
                     Contract contract = contracts.get(rand.nextInt(26));
-                    if (!contract.getAcquistato()) {
+                    if (!contract.getPurchased()) {
                         players.get(i).setContracts(contract);
-                        moneytoremove+=contract.getPrezzo();
-                        contract.setAcquistato();
+                        moneytoremove+=contract.getPrice();
+                        contract.setPurchased();
                     } else {
                         j--;
                     }
@@ -108,10 +113,10 @@ public class PlayerHandler implements Serializable{
             if (players.size() == 5) {
                 for (int j = 0; j < 4; j++) {
                     Contract contract = contracts.get(rand.nextInt(26));
-                    if (!contract.getAcquistato()) {
+                    if (!contract.getPurchased()) {
                         players.get(i).setContracts(contract);
-                        moneytoremove+=contract.getPrezzo();
-                        contract.setAcquistato();
+                        moneytoremove+=contract.getPrice();
+                        contract.setPurchased();
                     } else {
                         j--;
                     }
@@ -121,10 +126,10 @@ public class PlayerHandler implements Serializable{
             if (players.size() == 6) {
                 for (int j = 0; j < 3; j++) {
                     Contract contract = contracts.get(rand.nextInt(26));
-                    if (!contract.getAcquistato()) {
+                    if (!contract.getPurchased()) {
                         players.get(i).setContracts(contract);
-                        moneytoremove+=contract.getPrezzo();
-                        contract.setAcquistato();
+                        moneytoremove+=contract.getPrice();
+                        contract.setPurchased();
                     } else {
                         j--;
                     }

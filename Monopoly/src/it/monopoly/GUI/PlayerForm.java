@@ -3,6 +3,9 @@ package it.monopoly.GUI;
 import it.monopoly.app.PlayerHandler;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 
 public class PlayerForm {
 
@@ -12,12 +15,13 @@ public class PlayerForm {
     private JList contrattiList;
     private JButton shiftendButton;
     private JLabel shiftLabel;
+    private JLabel proprietyLabel;
     private int shift = 0;
     private int totalshift = 0;
 
     public PlayerForm(PlayerHandler giocatori, PlayerFrame playerFrame){
 
-        giocatori.setPlayer_Money_and_Contracts();
+        giocatori.setPlayerMoneyandContracts();
 
         update_UI(giocatori, shift);
 
@@ -34,6 +38,13 @@ public class PlayerForm {
             shiftLabel.setText(String.valueOf(totalshift));
         });
 
+        contrattiList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                proprietyLabel.setText(contrattiList.getSelectedValue().toString());
+                proprietyLabel.setForeground(Color.BLACK);
+            }
+        });
     }
 
     private void update_UI(PlayerHandler giocatori, int shift){
@@ -45,8 +56,8 @@ public class PlayerForm {
 
     private void setContractsList(PlayerHandler giocatori,int shiftplayer){
         DefaultListModel demoList = new DefaultListModel();
-        for(int i = 0; i < giocatori.getPlayer(shiftplayer).get_Num_Contracts(); i++){
-            demoList.addElement(giocatori.getPlayer(shiftplayer).get_ContractList(i));
+        for(int i = 0; i < giocatori.getPlayer(shiftplayer).getNumContracts(); i++){
+            demoList.addElement(giocatori.getPlayer(shiftplayer).getContractList(i));
         }
         contrattiList.setModel(demoList);
     }

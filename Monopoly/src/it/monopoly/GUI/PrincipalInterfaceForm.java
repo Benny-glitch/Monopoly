@@ -22,7 +22,7 @@ public class PrincipalInterfaceForm {
     private NewPlayerFrame newplayerFrame;
 
     public PrincipalInterfaceForm(MainFrame mainFrame){
-        set_font_startUP();
+        setFontStartUP();
         newplayerFrame = new NewPlayerFrame();
         giocaLabel.addMouseListener(new MouseAdapter() {
             @Override
@@ -39,8 +39,8 @@ public class PrincipalInterfaceForm {
             }
         });
 
-
-        continuaLabel.addMouseListener(new MouseAdapter() {
+        //TODO continua Label per il salvataggio dello stato
+        /*continuaLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
@@ -54,13 +54,13 @@ public class PrincipalInterfaceForm {
                     );
                 }
             }
-        });
+        });*/
     }
     public JPanel getPanel(){
         return this.menuPanel;
     }
 
-    private void set_font_startUP(){
+    private void setFontStartUP(){
         try {
             font = Font.createFont(Font.TRUETYPE_FONT, new File("src/it/monopoly/fonts/KabelBd-Normal.ttf"));
         } catch (FontFormatException e) {

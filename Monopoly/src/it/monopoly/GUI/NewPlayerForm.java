@@ -1,7 +1,6 @@
 package it.monopoly.GUI;
 
 import javax.swing.*;
-import javax.swing.plaf.multi.MultiToolTipUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,7 +49,7 @@ public class NewPlayerForm extends JFrame {
         playerHandler = PlayerHandler.getInstance();
         utils = Utils.getInstance();
 
-        set_font_startUP();
+        setFontStartUP();
 
         inserisciLabel.addMouseListener(new MouseAdapter() {
             @Override
@@ -60,22 +59,23 @@ public class NewPlayerForm extends JFrame {
                         playerHandler.addPlayer(
                                 nameTextFileld.getText(),
                                 pedinaCombobox.getSelectedIndex());
-                    } catch(NullNameException ex){
+
+                        int x = pedinaCombobox.getSelectedIndex();
+                        pedinaCombobox.removeItemAt(x);
+                        nameTextFileld.setText("");
+                    } catch (NullNameException ex) {
                         JOptionPane.showMessageDialog(
                                 newplayerForm,
                                 "Errore nel nome campo non compilato",
                                 "Errore",
                                 JOptionPane.ERROR_MESSAGE);
-                    } catch(IOException ex){
+                    } /*catch (IOException ex) {
                         JOptionPane.showMessageDialog(
                                 newplayerForm,
                                 "Errore nello stato del salvataggio del gioco",
                                 "Errore",
                                 JOptionPane.ERROR_MESSAGE);
-                    }
-                    int x = pedinaCombobox.getSelectedIndex();
-                    pedinaCombobox.removeItemAt(x);
-                    nameTextFileld.setText("");
+                    }*/
                 } else {
                     JOptionPane.showMessageDialog(
                             newplayerForm,
@@ -83,7 +83,9 @@ public class NewPlayerForm extends JFrame {
                             "Errore",
                             JOptionPane.ERROR_MESSAGE);
                 }
+                System.out.println(playerHandler.getNumPlayer());
             }
+
         });
 
         annullaLabel.addMouseListener(new MouseAdapter() {
@@ -111,18 +113,28 @@ public class NewPlayerForm extends JFrame {
                 }
             }
         });
+
         pedinaCombobox.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int x = pedinaCombobox.getSelectedIndex();
-                imagepawnLabel.setIcon(utils.getIcons(x));
-                System.out.println(imagepawnLabel.getIcon() + imagepawnLabel.getSize().toString());
-                newPlayerFrame.pack();
+                try{
+                    int x = pedinaCombobox.getSelectedIndex();
+                    imagepawnLabel.setIcon(utils.getIcons(x));
+                    System.out.println(imagepawnLabel.getIcon() + imagepawnLabel.getSize().toString());
+                    newPlayerFrame.pack();
+                }catch (IndexOutOfBoundsException ex){
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Numero di giocatori troppo basso",
+                            "Errore",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+
             }
         });
     }
 
-    private void set_Image_Name(int x) {
+    private void setImageName(int x) {
         //TODO da fare setta il nome e immagine del player
     }
 
@@ -130,7 +142,7 @@ public class NewPlayerForm extends JFrame {
         return newplayerForm;
     }
 
-    private void set_font_startUP() {
+    private void setFontStartUP() {
         try {
             font = Font.createFont(Font.TRUETYPE_FONT, new File("src/it/monopoly/fonts/KabelBd-Normal.ttf"));
         } catch (FontFormatException | IOException e) {

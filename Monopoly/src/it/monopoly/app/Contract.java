@@ -1,50 +1,50 @@
 package it.monopoly.app;
 
 public class Contract {
-    private String nome;
-    private int prezzo;
-    private int affitto;
-    private Player proprietario;
+    private String name;
+    private int price;
+    private int rent;
+    private Player owner;
     private int id;
-    private boolean acquistato;
+    private boolean purchased;
 
-    public Contract(String nome, int prezzo, int affitto){
-        this.nome = nome;
-        this.prezzo = prezzo;
-        this.affitto = affitto;
-        this.acquistato = false;
+    public Contract(String name, int price, int rent){
+        this.name = name;
+        this.price = price;
+        this.rent = rent;
+        this.purchased = false;
     }
 
-    public void setAcquistato() {
-        this.acquistato = true;
+    public void setPurchased() {
+        this.purchased = true;
     }
 
-    public void setProprietario(Player player){
-        this.proprietario = player;
+    public void setOwner(Player player){
+        this.owner = player;
     }
 
-    public String getNome(){
-        return this.nome;
+    public String getName(){
+        return this.name;
     }
 
-    public int getPrezzo(){
-        return this.prezzo;
+    public int getPrice(){
+        return this.price;
     }
 
-    public int getAffitto(){
-        return this.affitto;
+    public int getRent(){
+        return this.rent;
     }
 
-    public Player getProprietario() {
-        return this.proprietario;
+    public Player getOwner() {
+        return this.owner;
     }
 
-    public boolean getAcquistato() {
-        return this.acquistato;
+    public boolean getPurchased() {
+        return this.purchased;
     }
 
     public String toString(){
-        return "nome Proprieta'= " + this.nome + " Affitto= " + this.affitto + "\n";
+        return "nome Proprieta'= " + this.name + " Affitto= " + this.rent + "\n";
     }
 
 }

@@ -11,6 +11,7 @@ import java.util.*;
 public class Utils {
     private static List<ImageIcon> icons;
     private static Utils instance;
+    private static Random random;
 
     public static Utils getInstance() {
         if(instance == null){
@@ -21,10 +22,14 @@ public class Utils {
 
     private Utils(){
         icons = new ArrayList<>(6);
+        random = new Random();
         load_icon();
     }
 
-    public ImageIcon getIcons(int j) {
+    public ImageIcon getIcons(int j) throws IndexOutOfBoundsException{
+        if(j > 6){
+            throw new IndexOutOfBoundsException();
+        }
         return icons.get(j);
     }
 
@@ -36,5 +41,11 @@ public class Utils {
         icons.add(new ImageIcon("src/it/monopoly/resizedPedine/thimble.png"));
         icons.add(new ImageIcon("src/it/monopoly/resizedPedine/dog.png"));
     }
+
+    public void get_dice(){
+
+    }
+
+
 
 }
