@@ -1,21 +1,27 @@
 package it.monopoly.GUI;
 
-import it.monopoly.app.GestoreGiocatori;
+import it.monopoly.app.PlayerHandler;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class PlayerFrame extends JFrame {
+    public static final Dimension DEFAULT_DIMENSION = new Dimension(500,800);
 
-    public PlayerFrame(GestoreGiocatori gestoreGiocatori){
-        super();
-        PlayerForm playerForm = new PlayerForm(gestoreGiocatori);
-        setTitle("Giocatore");
+    public PlayerFrame(PlayerHandler playerHandler){
+        super("Giocatore");
+        PlayerForm playerForm = new PlayerForm(playerHandler, this);
         setContentPane(playerForm.getPanel());
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setMinimumSize(new Dimension(500,800));
+        setDeafultConfiguration();
         formWindowActivated();
     }
+
+    private void setDeafultConfiguration() {
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setPreferredSize(DEFAULT_DIMENSION);
+        this.setMinimumSize(DEFAULT_DIMENSION);
+    }
+
 
     private void formWindowActivated() {
         // Get the size of the screen

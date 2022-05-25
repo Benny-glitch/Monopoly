@@ -1,9 +1,8 @@
 package it.monopoly.app;
-import org.w3c.dom.ls.LSOutput;
 
 import java.util.*;
 
-public class Giocatore {
+public class Player {
     //pedine
     public static final int MACCHINA             = 0;
     public static final int NAVE_DA_GUERRA       = 1;
@@ -14,17 +13,19 @@ public class Giocatore {
 
     private String username;
     private int money;
+    private int position;
     private int shiftsinjail;
-    private List<Contratto> contracts = new ArrayList<>();
+    private List<Contract> contracts = new ArrayList<>();
     private boolean isinjail;
     private int typeofpawn;
 
 
-    public Giocatore(String username, boolean isinjail, int shiftsinjail, int typeofpawn){
+    public Player(String username, boolean isinjail, int shiftsinjail, int typeofpawn, int position){
         this.username = username;
         this.isinjail = isinjail;
         this.shiftsinjail = shiftsinjail; //turni in prigione
         this.typeofpawn = typeofpawn;
+        this.position = position;
     }
 
     public double getMoney() {
@@ -55,11 +56,11 @@ public class Giocatore {
         this.money = money;
     }
 
-    public void setContracts(Contratto contracts){
+    public void setContracts(Contract contracts){
         this.contracts.add(contracts);
     }
 
-    public String getListaContratti(){
+    public String getContractListString(){
         String lista_contratti = null;
         for(int i = 0; i < contracts.size(); i++){
             lista_contratti += i +" Nome:" + contracts.get(i).getNome() + " Affitto: " + contracts.get(i).getAffitto() + "\n";
@@ -67,8 +68,16 @@ public class Giocatore {
         return lista_contratti.replace("null", "");
     }
 
-    public Contratto get_listContratti(int i){
+    public Contract get_ContractList(int i){
         return contracts.get(i);
+    }
+
+    public String get_ContractList_Name(int i){
+        return contracts.get(i).getNome();
+    }
+
+    public int get_Num_Contracts(){
+        return contracts.size();
     }
     public void addMoney(int money_toadd){
         this.money += money_toadd;
@@ -82,7 +91,7 @@ public class Giocatore {
         this.shiftsinjail = shiftsinjail;
     }
 
-    public int getAffittocontratto(int i){
+    public int getRentContract(int i){
         return contracts.get(i).getAffitto();
     }
 }

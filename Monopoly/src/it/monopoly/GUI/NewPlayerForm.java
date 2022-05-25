@@ -1,14 +1,17 @@
 package it.monopoly.GUI;
 
 import javax.swing.*;
+import javax.swing.plaf.multi.MultiToolTipUI;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import it.monopoly.app.GestoreGiocatori;
+
+import it.monopoly.Utils;
+import it.monopoly.app.PlayerHandler;
 
 public class NewPlayerForm extends JFrame{
 
@@ -35,19 +38,24 @@ public class NewPlayerForm extends JFrame{
     private JTextField nameTextFileld;
     private JLabel avviagiocoLabel;
     private JLabel maxplayerLabel;
+    private JLabel imagepawnLabel;
     private JButton annullaButton;
     private Font font;
+    private Utils utils;
+
+
 
     public NewPlayerForm(NewPlayerFrame newPlayerFrame){
-        GestoreGiocatori gestoreGiocatori = new GestoreGiocatori();
+        PlayerHandler playerHandler = new PlayerHandler();
+        utils = Utils.getInstance();
 
         set_font_startUP();
 
             inserisciLabel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    if(gestoreGiocatori.getNumgiocatori() <= 6){
-                        gestoreGiocatori.addGiocatore(nameTextFileld.getText(), pedinaCombobox.getSelectedIndex());
+                    if(playerHandler.getNumPlayer() <= 6){
+                        playerHandler.addPlayer(nameTextFileld.getText(), pedinaCombobox.getSelectedIndex());
                         int x = pedinaCombobox.getSelectedIndex();
                         pedinaCombobox.removeItemAt(x);
                         nameTextFileld.setText("");
@@ -61,20 +69,31 @@ public class NewPlayerForm extends JFrame{
             @Override
             public void mouseClicked(MouseEvent e) {
                  newPlayerFrame.dispose();
+
             }
         });
 
         avviagiocoLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if(gestoreGiocatori.getNumgiocatori() < 2){
+                if(playerHandler.getNumPlayer() < 2){
                     JOptionPane.showMessageDialog(null, "Numero di giocatori troppo basso","Errore" ,JOptionPane.ERROR_MESSAGE);
                 }else{
-                    PlayerFrame playerFrame = new PlayerFrame(gestoreGiocatori);
-                    TabelloneFrame tabelloneFrame = new TabelloneFrame();
+                    PlayerFrame playerFrame = new PlayerFrame(playerHandler);
+                    ScoreboardFrame scoreboardFrame = new ScoreboardFrame();
                     playerFrame.setVisible(true);
+                    scoreboardFrame.setVisible(true);
                     newPlayerFrame.dispose();
                 }
+            }
+        });
+        pedinaCombobox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int x = pedinaCombobox.getSelectedIndex();
+                imagepawnLabel.setIcon(utils.getIcons(x));
+                System.out.println(imagepawnLabel.getIcon() + imagepawnLabel.getSize().toString());
+                newPlayerFrame.pack();
             }
         });
     }

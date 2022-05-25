@@ -3,12 +3,10 @@ package it.monopoly.ui;
 
 import java.util.Scanner;
 
-import it.monopoly.app.GestoreContratti;
-import it.monopoly.app.Giocatore;
-import it.monopoly.app.GestoreGiocatori;
+import it.monopoly.app.PlayerHandler;
 
 public class MenuPrincipale {
-    GestoreGiocatori gestoreGiocatori = new GestoreGiocatori();
+    PlayerHandler playerHandler = new PlayerHandler();
     SchermataTurno schermataTurno = new SchermataTurno();
 
     public void esegui() {
@@ -72,22 +70,22 @@ public class MenuPrincipale {
         int scelta = scanner.nextInt();
         switch (scelta) {
             case 1:
-                if(gestoreGiocatori.getNumgiocatori() <= 6){
+                if(playerHandler.getNumPlayer() <= 6){
                     avviaInserimentoGiocatore();
                 }else{
                     System.out.println("Hai raggiunto il limite massimo di giocatori");
                 }
                 return false;
             case 2:
-                if (gestoreGiocatori.getNumgiocatori() >= 2) {
+                if (playerHandler.getNumPlayer() >= 2) {
                     Avviailgioco();
                 } else {
                     System.out.println("Non si può avviare il gioco con meno di due giocatori");
                 }
                 return false;
             case 3:
-                for(int i = 0; i < gestoreGiocatori.getNumgiocatori(); i++){
-                    System.out.println(gestoreGiocatori.getGiocatore(i).toString().replace("[", " ").replace("]", " ") + "\n");
+                for(int i = 0; i < playerHandler.getNumPlayer(); i++){
+                    System.out.println(playerHandler.getPlayer(i).toString().replace("[", " ").replace("]", " ") + "\n");
                 }
                 return false;
             case 0:
@@ -105,8 +103,8 @@ public class MenuPrincipale {
         do{
             System.out.print("Nome giocatore: ");
             nome = scanner1.nextLine();
-            for(int i = 0; i < gestoreGiocatori.getNumgiocatori(); i++){
-                if(nome.equals(gestoreGiocatori.getGiocatore(i).getUsername())){
+            for(int i = 0; i < playerHandler.getNumPlayer(); i++){
+                if(nome.equals(playerHandler.getPlayer(i).getUsername())){
                     System.out.println("Il nome e' gia' stato inserito.");
                     same_name = true;
                 }else{
@@ -118,7 +116,7 @@ public class MenuPrincipale {
     }
 
     private void Avviailgioco() {
-        gestoreGiocatori.setGiocatoreSoldiEcontratti(); //qui setto i contratti e i soldi in base al numero dei giocatori
+        playerHandler.setPlayer_Money_and_Contracts(); //qui setto i contratti e i soldi in base al numero dei giocatori
     }
 
 

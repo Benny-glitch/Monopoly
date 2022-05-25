@@ -2,19 +2,19 @@ package it.monopoly.ui;
 
 import java.util.*;
 
-import it.monopoly.app.GestoreContratti;
-import it.monopoly.app.Giocatore;
+import it.monopoly.app.ContractsHandler;
+import it.monopoly.app.Player;
 
 
 public class SchermataTurno {
     private int num_player;
-    private ArrayList<Giocatore> giocatori = new ArrayList<>();
-    private GestoreContratti gestoreContratti;
+    private ArrayList<Player> giocatori = new ArrayList<>();
+    private ContractsHandler contractsHandler;
     boolean terminaTurno;
 
-    public void SchermataTurno(ArrayList<Giocatore> giocatore, GestoreContratti contratti) {
-        this.gestoreContratti = contratti;
-        this.giocatori = giocatore;
+    public void SchermataTurno(ArrayList<Player> player, ContractsHandler contratti) {
+        this.contractsHandler = contratti;
+        this.giocatori = player;
         this.num_player = this.giocatori.size();
         this.avviaTurno();
     }
@@ -92,7 +92,7 @@ public class SchermataTurno {
     }
 
     private void ContrattiPosseduti(int i) {
-        System.out.println(this.giocatori.get(i).getListaContratti());
+        System.out.println(this.giocatori.get(i).getContractListString());
     }
 
     private void AcquistaContratto(int i) {
@@ -100,15 +100,15 @@ public class SchermataTurno {
         boolean acquistato = false;
         Scanner scanner1 = new Scanner(System.in);
         do{
-            System.out.println(this.gestoreContratti.ContrattoLibero().replace("null", ""));
+            System.out.println(this.contractsHandler.ContrattoLibero().replace("null", ""));
             System.out.println("Inserisci l'ID del contratto");
             id_contratto = scanner1.nextInt();
-            if(gestoreContratti.get(id_contratto).getAcquistato()){
+            if(contractsHandler.get(id_contratto).getAcquistato()){
                 System.out.println("Contratto gia' acquistato \n");
                 acquistato = true;
             }else{
-                giocatori.get(i).setContracts(gestoreContratti.get(id_contratto));
-                gestoreContratti.get(id_contratto).setAcquistato();
+                giocatori.get(i).setContracts(contractsHandler.get(id_contratto));
+                contractsHandler.get(id_contratto).setAcquistato();
                 acquistato = false;
             }
         }while(acquistato);
@@ -122,7 +122,7 @@ public class SchermataTurno {
         for (int j = 0; j < giocatori.size(); j++) {
             if (i != j) {
                 System.out.println(j + ".Nome giocatore: " + giocatori.get(j).getUsername() + "\n");
-                System.out.println("Lista contratti: \n" + giocatori.get(j).getListaContratti().replace("null", ""));
+                System.out.println("Lista contratti: \n" + giocatori.get(j).getContractListString().replace("null", ""));
                 player_ingame[i] = j;
             }
         }
@@ -141,7 +141,7 @@ public class SchermataTurno {
 
         System.out.println("Inserisci l'id del contratto da pagare: ");
         int id_contratto = scanner.nextInt();
-        int tassa = giocatori.get(id_giocatore).getAffittocontratto(id_contratto);
+        int tassa = giocatori.get(id_giocatore).getRentContract(id_contratto);
         giocatori.get(i).addMoney(-tassa);
         giocatori.get(id_giocatore).addMoney(tassa);
     }
