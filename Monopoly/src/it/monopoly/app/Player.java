@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.*;
 
 public class Player implements Serializable {
+    public static final long serialVersionUID = 1L;
     //pedine
     public static final int MACCHINA             = 0;
     public static final int NAVE_DA_GUERRA       = 1;
@@ -86,6 +87,11 @@ public class Player implements Serializable {
 
     public int getNumContracts(){
         return contracts.size();
+    }
+
+    public void buyContracts(Contract contract){
+        buy(contract.getPrice());
+        this.contracts.add(contract);
     }
     public void addMoney(int money_toadd){
         this.money += money_toadd;

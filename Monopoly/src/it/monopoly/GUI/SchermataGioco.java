@@ -121,16 +121,16 @@ public class SchermataGioco extends JFrame{
                         giocatoreAffitto.setVisible(true);
                         denaroAffitto.setVisible(true);
                     }
-                    /*else
+                    else
                         if (!caselle.get(giocatori.getPlayer(i).getPosition()).getPurchased()){
                             AcquistaProprietaForm acquistaProprietaForm =
-                                    new AcquistaProprietaForm(caselle.(giocatori.getPlayer(i).getPosition()), giocatori.(i), contrattiList, saldo);
+                                    new AcquistaProprietaForm(caselle.get(giocatori.getPlayer(i).getPosition()),giocatori.getPlayer(i), contrattiList, saldo);
                             acquistaProprietaForm.setVisible(true);
 
                             update_UI(giocatori, i);
                             setContractsList(giocatori, i);
                         }
-*/
+
 
                     if(dadi.isDouble())
                         doub++;
@@ -246,8 +246,8 @@ public class SchermataGioco extends JFrame{
 
     private void setContractsList(PlayerHandler giocatori,int shiftplayer){
         DefaultListModel demoList = new DefaultListModel();
-        for(int i = 0; i < giocatori.getPlayer(shiftplayer).getNumContracts(); i++){
-            demoList.addElement(giocatori.getPlayer(shiftplayer).getContract(i));
+        for(int i = 0; i < PlayerHandler.getInstance().getPlayer(shiftplayer).getNumContracts(); i++){
+            demoList.addElement(PlayerHandler.getInstance().getPlayer(shiftplayer).getContract(i));
         }
         contrattiList.setModel(demoList);
     }

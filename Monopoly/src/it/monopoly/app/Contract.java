@@ -1,6 +1,10 @@
 package it.monopoly.app;
 
-public class Contract {
+import java.io.Serializable;
+
+public class Contract implements Serializable {
+    public static final long serialVersionUID = 1L;
+
     private String name;
     private int price;
     private int rent;
@@ -46,5 +50,6 @@ public class Contract {
     public String toString(){
         return "nome Proprieta'= " + this.name + " Affitto= " + this.rent + "\n";
     }
+
 
 }

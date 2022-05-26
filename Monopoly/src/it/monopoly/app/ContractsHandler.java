@@ -1,9 +1,12 @@
 package it.monopoly.app;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
 
-public class ContractsHandler {
+public class ContractsHandler implements Serializable {
+    public static final long serialVersionUID = 1L;
+
     private List<Contract> contracts;
 
     public ContractsHandler() {

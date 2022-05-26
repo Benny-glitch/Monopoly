@@ -105,6 +105,7 @@ public class NewPlayerForm extends JFrame {
                             "Errore",
                             JOptionPane.ERROR_MESSAGE);
                 } else {
+                    playerHandler.setPlayerMoneyandContracts();
                     SchermataGioco scoreboardFrame = new SchermataGioco(contractsHandler,playerHandler);
                     scoreboardFrame.setVisible(true);
                     newPlayerFrame.dispose();
@@ -124,7 +125,7 @@ public class NewPlayerForm extends JFrame {
 
     private void setFontStartUP() {
         try {
-            font = Font.createFont(Font.TRUETYPE_FONT, new File("src/it/monopoly/fonts/KabelBd-Normal.ttf"));
+            font = Font.createFont(Font.TRUETYPE_FONT, new File("Monopoly/src/it/monopoly/fonts/KabelBd-Normal.ttf"));
         } catch (FontFormatException | IOException e) {
             throw new RuntimeException(e);
         }
