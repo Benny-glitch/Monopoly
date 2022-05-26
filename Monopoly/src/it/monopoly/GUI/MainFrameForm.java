@@ -1,18 +1,13 @@
 package it.monopoly.GUI;
 
-import com.sun.tools.javac.Main;
-import it.monopoly.app.PlayerHandler;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 
-public class PrincipalInterfaceForm {
+public class MainFrameForm {
     private JPanel menuPanel;
     private JLabel monopolyLabel;
     private JLabel giocaLabel;
@@ -21,7 +16,7 @@ public class PrincipalInterfaceForm {
     private Font font;
     private NewPlayerFrame newplayerFrame;
 
-    public PrincipalInterfaceForm(MainFrame mainFrame){
+    public MainFrameForm(MainFrame mainFrame){
         setFontStartUP();
         newplayerFrame = new NewPlayerFrame();
         giocaLabel.addMouseListener(new MouseAdapter() {
@@ -62,15 +57,13 @@ public class PrincipalInterfaceForm {
 
     private void setFontStartUP(){
         try {
-            font = Font.createFont(Font.TRUETYPE_FONT, new File("Monopoly/src/it/monopoly/fonts/KabelBd-Normal.ttf"));
-        } catch (FontFormatException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
+            font = Font.createFont(Font.TRUETYPE_FONT, new File("src/it/monopoly/fonts/KabelBd-Normal.ttf"));
+        } catch (FontFormatException | IOException e) {
             throw new RuntimeException(e);
         }
-        monopolyLabel.setFont(font.deriveFont(Font.TRUETYPE_FONT,72));
-        giocaLabel.setFont(font.deriveFont(Font.TRUETYPE_FONT,36));
-        continuaLabel.setFont(font.deriveFont(Font.TRUETYPE_FONT,36));
-        esciLabel.setFont(font.deriveFont(Font.TRUETYPE_FONT,36));
+        monopolyLabel.setFont(font.deriveFont(Font.PLAIN,72));
+        giocaLabel.setFont(font.deriveFont(Font.PLAIN,36));
+        continuaLabel.setFont(font.deriveFont(Font.PLAIN,36));
+        esciLabel.setFont(font.deriveFont(Font.PLAIN,36));
     }
 }

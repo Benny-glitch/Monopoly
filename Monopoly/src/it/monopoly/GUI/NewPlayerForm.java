@@ -2,8 +2,6 @@ package it.monopoly.GUI;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -98,21 +96,25 @@ public class NewPlayerForm extends JFrame {
         avviagiocoLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (playerHandler.getNumPlayer() < 2) {
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Numero di giocatori troppo basso",
-                            "Errore",
-                            JOptionPane.ERROR_MESSAGE);
-                } else {
-                    playerHandler.setPlayerMoneyandContracts();
-                    SchermataGioco scoreboardFrame = new SchermataGioco(contractsHandler,playerHandler);
-                    scoreboardFrame.setVisible(true);
-                    newPlayerFrame.dispose();
-                }
+                maxPlayers(newPlayerFrame);
             }
         });
 
+    }
+
+    private void maxPlayers(Frame newPlayerFrame){
+        if (playerHandler.getNumPlayer() < 2) {
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Numero di giocatori troppo basso",
+                    "Errore",
+                    JOptionPane.ERROR_MESSAGE);
+        } else {
+            playerHandler.setPlayerMoneyandContracts();
+            ScoreBoardForm scoreboardFrame = new ScoreBoardForm(contractsHandler,playerHandler);
+            scoreboardFrame.setVisible(true);
+            newPlayerFrame.dispose();
+        }
     }
 
     private void setImageName(int x) {
@@ -125,7 +127,7 @@ public class NewPlayerForm extends JFrame {
 
     private void setFontStartUP() {
         try {
-            font = Font.createFont(Font.TRUETYPE_FONT, new File("Monopoly/src/it/monopoly/fonts/KabelBd-Normal.ttf"));
+            font = Font.createFont(Font.TRUETYPE_FONT, new File("src/it/monopoly/fonts/KabelBd-Normal.ttf"));
         } catch (FontFormatException | IOException e) {
             throw new RuntimeException(e);
         }
