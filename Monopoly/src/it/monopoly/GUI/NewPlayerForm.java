@@ -8,7 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 import it.monopoly.Utils;
-import it.monopoly.app.ContractsHandler;
+import it.monopoly.app.BoxesHandler;
 import it.monopoly.app.NullNameException;
 import it.monopoly.app.PlayerHandler;
 
@@ -42,12 +42,12 @@ public class NewPlayerForm extends JFrame {
     private Font font;
     private Utils utils;
     private PlayerHandler playerHandler;
-    private ContractsHandler contractsHandler;
+    private BoxesHandler boxesHandler;
 
 
     public NewPlayerForm(NewPlayerFrame newPlayerFrame) {
         playerHandler = PlayerHandler.getInstance();
-        contractsHandler = new ContractsHandler();
+        boxesHandler = new BoxesHandler();
         utils = Utils.getInstance();
 
         setFontStartUP();
@@ -111,7 +111,7 @@ public class NewPlayerForm extends JFrame {
                     JOptionPane.ERROR_MESSAGE);
         } else {
             playerHandler.setPlayerMoneyandContracts();
-            ScoreBoardForm scoreboardFrame = new ScoreBoardForm(contractsHandler,playerHandler);
+            ScoreBoardForm scoreboardFrame = new ScoreBoardForm(boxesHandler,playerHandler);
             scoreboardFrame.setVisible(true);
             newPlayerFrame.dispose();
         }

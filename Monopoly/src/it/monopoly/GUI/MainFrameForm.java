@@ -1,11 +1,10 @@
 package it.monopoly.GUI;
 
-import it.monopoly.app.ContractsHandler;
+import it.monopoly.app.BoxesHandler;
 import it.monopoly.app.PlayerHandler;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -19,14 +18,13 @@ public class MainFrameForm {
     private JLabel esciLabel;
     private Font font;
     private NewPlayerFrame newplayerFrame;
-    private ContractsHandler contractsHandler;
+    private BoxesHandler boxesHandler;
     private PlayerHandler playerHandler;
 
     public MainFrameForm(MainFrame mainFrame) {
         setFontStartUP();
-        contractsHandler = new ContractsHandler();
         newplayerFrame = new NewPlayerFrame();
-        playerHandler = PlayerHandler.getInstance();
+
         giocaLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -48,9 +46,9 @@ public class MainFrameForm {
             public void mouseClicked(MouseEvent ee) {
                 try {
                     playerHandler = PlayerHandler.load();
-                    contractsHandler = ContractsHandler.load();
-                    ScoreBoardForm schermataGioco = new ScoreBoardForm(contractsHandler, playerHandler);
-                    schermataGioco.setVisible(true);
+                    boxesHandler = BoxesHandler.load();
+                    ScoreBoardForm scoreBoardForm = new ScoreBoardForm(boxesHandler, playerHandler);
+                    scoreBoardForm.setVisible(true);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }

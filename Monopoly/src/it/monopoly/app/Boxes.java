@@ -2,7 +2,7 @@ package it.monopoly.app;
 
 import java.io.Serializable;
 
-public class Contract implements Serializable {
+public class Boxes implements Serializable {
     public static final long serialVersionUID = 1L;
 
     private String name;
@@ -12,7 +12,7 @@ public class Contract implements Serializable {
     private int id;
     private boolean purchased;
 
-    public Contract(String name, int price, int rent){
+    public Boxes(String name, int price, int rent){
         this.name = name;
         this.price = price;
         this.rent = rent;

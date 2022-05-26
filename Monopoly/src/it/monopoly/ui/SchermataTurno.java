@@ -2,18 +2,18 @@ package it.monopoly.ui;
 
 import java.util.*;
 
-import it.monopoly.app.ContractsHandler;
+import it.monopoly.app.BoxesHandler;
 import it.monopoly.app.Player;
 
 
 public class SchermataTurno {
     private int num_player;
     private ArrayList<Player> giocatori = new ArrayList<>();
-    private ContractsHandler contractsHandler;
+    private BoxesHandler boxesHandler;
     boolean terminaTurno;
 
-    public void SchermataTurno(ArrayList<Player> player, ContractsHandler contratti) {
-        this.contractsHandler = contratti;
+    public void SchermataTurno(ArrayList<Player> player, BoxesHandler contratti) {
+        this.boxesHandler = contratti;
         this.giocatori = player;
         this.num_player = this.giocatori.size();
         this.avviaTurno();
@@ -100,15 +100,15 @@ public class SchermataTurno {
         boolean acquistato = false;
         Scanner scanner1 = new Scanner(System.in);
         do{
-            System.out.println(this.contractsHandler.getFreeContracts().replace("null", ""));
+            System.out.println(this.boxesHandler.getFreeContracts().replace("null", ""));
             System.out.println("Inserisci l'ID del contratto");
             id_contratto = scanner1.nextInt();
-            if(contractsHandler.get(id_contratto).getPurchased()){
+            if(boxesHandler.get(id_contratto).getPurchased()){
                 System.out.println("Contratto gia' acquistato \n");
                 acquistato = true;
             }else{
-                giocatori.get(i).setContracts(contractsHandler.get(id_contratto));
-                contractsHandler.get(id_contratto).setPurchased();
+                giocatori.get(i).setContracts(boxesHandler.get(id_contratto));
+                boxesHandler.get(id_contratto).setPurchased();
                 acquistato = false;
             }
         }while(acquistato);

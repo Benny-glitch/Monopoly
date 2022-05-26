@@ -11,7 +11,7 @@ public class PlayerHandler implements Serializable {
     private static PlayerHandler instance;
 
     private ArrayList<Player> players;
-    private ContractsHandler contracts;
+    private BoxesHandler contracts;
     private int moneytoremove;
     private Random rand;
 
@@ -29,7 +29,7 @@ public class PlayerHandler implements Serializable {
 
     private PlayerHandler() {
         players = new ArrayList<>(6);
-        contracts = new ContractsHandler();
+        contracts = new BoxesHandler();
         rand = new Random();
     }
 
@@ -47,11 +47,11 @@ public class PlayerHandler implements Serializable {
         for (int i = 0; i < players.size(); i++) {
             if (players.size() == 2) {
                 for (int j = 0; j < 7; j++) {
-                    Contract contract = contracts.get(rand.nextInt(26));
-                    if (!contract.getPurchased()) {
-                        players.get(i).setContracts(contract);
-                        moneytoremove += contract.getPrice();
-                        contract.setPurchased();
+                    Boxes boxes = contracts.get(rand.nextInt(26));
+                    if (!boxes.getPurchased()) {
+                        players.get(i).setContracts(boxes);
+                        moneytoremove += boxes.getPrice();
+                        boxes.setPurchased();
                     } else {
                         j--;
                     }
@@ -60,11 +60,11 @@ public class PlayerHandler implements Serializable {
             }
             if (players.size() == 3) {
                 for (int j = 0; j < 6; j++) {
-                    Contract contract = contracts.get(rand.nextInt(26));
-                    if (!contract.getPurchased()) {
-                        players.get(i).setContracts(contract);
-                        moneytoremove += contract.getPrice();
-                        contract.setPurchased();
+                    Boxes boxes = contracts.get(rand.nextInt(26));
+                    if (!boxes.getPurchased()) {
+                        players.get(i).setContracts(boxes);
+                        moneytoremove += boxes.getPrice();
+                        boxes.setPurchased();
                     } else {
                         j--;
                     }
@@ -73,11 +73,11 @@ public class PlayerHandler implements Serializable {
             }
             if (players.size() == 4) {
                 for (int j = 0; j < 5; j++) {
-                    Contract contract = contracts.get(rand.nextInt(26));
-                    if (!contract.getPurchased()) {
-                        players.get(i).setContracts(contract);
-                        moneytoremove += contract.getPrice();
-                        contract.setPurchased();
+                    Boxes boxes = contracts.get(rand.nextInt(26));
+                    if (!boxes.getPurchased()) {
+                        players.get(i).setContracts(boxes);
+                        moneytoremove += boxes.getPrice();
+                        boxes.setPurchased();
                     } else {
                         j--;
                     }
@@ -86,11 +86,11 @@ public class PlayerHandler implements Serializable {
             }
             if (players.size() == 5) {
                 for (int j = 0; j < 4; j++) {
-                    Contract contract = contracts.get(rand.nextInt(26));
-                    if (!contract.getPurchased()) {
-                        players.get(i).setContracts(contract);
-                        moneytoremove += contract.getPrice();
-                        contract.setPurchased();
+                    Boxes boxes = contracts.get(rand.nextInt(26));
+                    if (!boxes.getPurchased()) {
+                        players.get(i).setContracts(boxes);
+                        moneytoremove += boxes.getPrice();
+                        boxes.setPurchased();
                     } else {
                         j--;
                     }
@@ -99,11 +99,11 @@ public class PlayerHandler implements Serializable {
             }
             if (players.size() == 6) {
                 for (int j = 0; j < 3; j++) {
-                    Contract contract = contracts.get(rand.nextInt(26));
-                    if (!contract.getPurchased()) {
-                        players.get(i).setContracts(contract);
-                        moneytoremove += contract.getPrice();
-                        contract.setPurchased();
+                    Boxes boxes = contracts.get(rand.nextInt(26));
+                    if (!boxes.getPurchased()) {
+                        players.get(i).setContracts(boxes);
+                        moneytoremove += boxes.getPrice();
+                        boxes.setPurchased();
                     } else {
                         j--;
                     }
@@ -126,7 +126,7 @@ public class PlayerHandler implements Serializable {
 
     public void salvaStato() throws IOException {
         try (
-                FileOutputStream fileOutputStream = new FileOutputStream("src/it/monopoly/Giocatori.sr");
+                FileOutputStream fileOutputStream = new FileOutputStream("Giocatori.sr");
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)
         ) {
             objectOutputStream.writeObject(this);
@@ -135,7 +135,7 @@ public class PlayerHandler implements Serializable {
 
     public static PlayerHandler load() throws IOException {
         try (
-                FileInputStream fileInputStream = new FileInputStream("src/it/monopoly/Giocatori.sr");
+                FileInputStream fileInputStream = new FileInputStream("Giocatori.sr");
                 ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)
         ) {
             Object o = objectInputStream.readObject();

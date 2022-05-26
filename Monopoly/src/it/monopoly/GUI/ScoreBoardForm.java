@@ -1,7 +1,7 @@
 package it.monopoly.GUI;
 
 import it.monopoly.app.Dado;
-import it.monopoly.app.ContractsHandler;
+import it.monopoly.app.BoxesHandler;
 import it.monopoly.app.PlayerHandler;
 import it.monopoly.app.Turno;
 
@@ -79,7 +79,7 @@ public class ScoreBoardForm extends JFrame{
     private int doub;
     private final List<JLabel> positions;
 
-    public ScoreBoardForm(ContractsHandler boxes, PlayerHandler giocatori){
+    public ScoreBoardForm(BoxesHandler boxes, PlayerHandler giocatori){
         super("Tabellone");
         formWindowActivated();
         positions = new ArrayList<>();
@@ -101,7 +101,6 @@ public class ScoreBoardForm extends JFrame{
 
 
         rolldiceButton.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                     int roll = dice.roll();

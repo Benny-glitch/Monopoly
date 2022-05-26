@@ -1,9 +1,6 @@
 package it.monopoly.GUI;
 
-import it.monopoly.app.Contract;
-import it.monopoly.app.Player;
-import it.monopoly.app.Contract;
-import it.monopoly.app.PlayerHandler;
+import it.monopoly.app.Boxes;
 import it.monopoly.app.Player;
 
 import javax.swing.*;
@@ -18,7 +15,7 @@ public class AcquistaProprietaForm extends JFrame {
     private JLabel prezzo;
     private JLabel labelContratto;
 
-    public AcquistaProprietaForm(Contract contratto, Player giocatore, JList contratti, JLabel saldo) {
+    public AcquistaProprietaForm(Boxes contratto, Player giocatore, JList contratti, JLabel saldo) {
         super();
         this.setVisible(true);
         setContentPane(this.getPanel());

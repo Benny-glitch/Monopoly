@@ -17,7 +17,7 @@ public class Player implements Serializable {
     private int money;
     private int position;
     private int shiftsinjail;
-    private List<Contract> contracts = new ArrayList<>();
+    private List<Boxes> boxes = new ArrayList<>();
     private boolean IsInJail;
     private String typeofpawn;
 
@@ -55,21 +55,21 @@ public class Player implements Serializable {
     }
 
     public String toString(){
-        return " Username =" + this.username + " Soldi=" + this.money + " TipodiPedina=" + this.typeofpawn + " Contratti=" + this.contracts;
+        return " Username =" + this.username + " Soldi=" + this.money + " TipodiPedina=" + this.typeofpawn + " Contratti=" + this.boxes;
     }
 
     public void setMoney(int money) {
         this.money = money;
     }
 
-    public void setContracts(Contract contracts){
-        this.contracts.add(contracts);
+    public void setContracts(Boxes contracts){
+        this.boxes.add(contracts);
     }
 
     public String getContractListString(){
         String lista_contratti = null;
-        for(int i = 0; i < contracts.size(); i++){
-            lista_contratti += i +" Nome:" + contracts.get(i).getName() + " Affitto: " + contracts.get(i).getRent() + "\n";
+        for(int i = 0; i < boxes.size(); i++){
+            lista_contratti += i +" Nome:" + boxes.get(i).getName() + " Affitto: " + boxes.get(i).getRent() + "\n";
         }
         return lista_contratti.replace("null", "");
     }
@@ -77,21 +77,21 @@ public class Player implements Serializable {
         reciving.addMoney(moneytorecive);
         addMoney(-moneytorecive);
     }
-    public Contract getContractList(int i){
-        return contracts.get(i);
+    public Boxes getContractList(int i){
+        return boxes.get(i);
     }
 
     public String getContractListName(int i){
-        return contracts.get(i).getName();
+        return boxes.get(i).getName();
     }
 
     public int getNumContracts(){
-        return contracts.size();
+        return boxes.size();
     }
 
-    public void buyContracts(Contract contract){
-        buy(contract.getPrice());
-        this.contracts.add(contract);
+    public void buyContracts(Boxes boxes){
+        buy(boxes.getPrice());
+        this.boxes.add(boxes);
     }
     public void addMoney(int money_toadd){
         this.money += money_toadd;
@@ -106,7 +106,7 @@ public class Player implements Serializable {
     }
 
     public int getRentContract(int i){
-        return contracts.get(i).getRent();
+        return boxes.get(i).getRent();
     }
 
     public int getPosition(){
@@ -121,8 +121,8 @@ public class Player implements Serializable {
         }
     }
 
-    public Contract getContract(int i){
-        return this.contracts.get(i);
+    public Boxes getContract(int i){
+        return this.boxes.get(i);
     }
 
     public void buy(int moneyto){
