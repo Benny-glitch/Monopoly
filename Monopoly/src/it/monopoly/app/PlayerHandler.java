@@ -34,7 +34,7 @@ public class PlayerHandler implements Serializable{
 
 
 
-    public void addPlayer(String username, int typeofpawn) throws NullNameException {
+    public void addPlayer(String username, String typeofpawn) throws NullNameException {
         try{
             Player player = new Player(username, false, 0, typeofpawn, 0);
             players.add(player);

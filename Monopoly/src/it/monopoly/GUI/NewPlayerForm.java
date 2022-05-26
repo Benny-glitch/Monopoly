@@ -54,12 +54,9 @@ public class NewPlayerForm extends JFrame {
         inserisciLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (playerHandler.getNumPlayer() <= 6) {
+                if (playerHandler.getNumPlayer() < 6) {
                     try {
-                        playerHandler.addPlayer(
-                                nameTextFileld.getText(),
-                                pedinaCombobox.getSelectedIndex());
-
+                        playerHandler.addPlayer(nameTextFileld.getText(),String.valueOf(pedinaCombobox.getSelectedItem()));
                         int x = pedinaCombobox.getSelectedIndex();
                         pedinaCombobox.removeItemAt(x);
                         nameTextFileld.setText("");
@@ -76,6 +73,7 @@ public class NewPlayerForm extends JFrame {
                                 "Errore",
                                 JOptionPane.ERROR_MESSAGE);
                     }*/
+
                 } else {
                     JOptionPane.showMessageDialog(
                             newplayerForm,
@@ -83,7 +81,6 @@ public class NewPlayerForm extends JFrame {
                             "Errore",
                             JOptionPane.ERROR_MESSAGE);
                 }
-                System.out.println(playerHandler.getNumPlayer());
             }
 
         });
@@ -105,33 +102,13 @@ public class NewPlayerForm extends JFrame {
                             "Errore",
                             JOptionPane.ERROR_MESSAGE);
                 } else {
-                    PlayerFrame playerFrame = new PlayerFrame(playerHandler);
-                    ScoreboardFrame scoreboardFrame = new ScoreboardFrame();
-                    playerFrame.setVisible(true);
+                    ScoreboardFrame scoreboardFrame = new ScoreboardFrame(playerHandler);
                     scoreboardFrame.setVisible(true);
                     newPlayerFrame.dispose();
                 }
             }
         });
 
-        pedinaCombobox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try{
-                    int x = pedinaCombobox.getSelectedIndex();
-                    imagepawnLabel.setIcon(utils.getIcons(x));
-                    System.out.println(imagepawnLabel.getIcon() + imagepawnLabel.getSize().toString());
-                    newPlayerFrame.pack();
-                }catch (IndexOutOfBoundsException ex){
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Numero di giocatori troppo basso",
-                            "Errore",
-                            JOptionPane.ERROR_MESSAGE);
-                }
-
-            }
-        });
     }
 
     private void setImageName(int x) {

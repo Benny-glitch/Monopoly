@@ -18,10 +18,10 @@ public class Player implements Serializable {
     private int shiftsinjail;
     private List<Contract> contracts = new ArrayList<>();
     private boolean IsInJail;
-    private int typeofpawn;
+    private String typeofpawn;
 
 
-    public Player(String username, boolean IsInJail, int shiftsinjail, int typeofpawn, int position) throws NullNameException{
+    public Player(String username, boolean IsInJail, int shiftsinjail, String typeofpawn, int position) throws NullNameException{
         if(username.isEmpty()){
             throw new NullNameException();
         }
@@ -45,7 +45,7 @@ public class Player implements Serializable {
         return this.username;
     }
 
-    public int getTypeofpawn() {
+    public String getTypeofpawn() {
         return this.typeofpawn;
     }
 
