@@ -100,7 +100,7 @@ public class SchermataTurno {
         boolean acquistato = false;
         Scanner scanner1 = new Scanner(System.in);
         do{
-            System.out.println(this.contractsHandler.ContrattoLibero().replace("null", ""));
+            System.out.println(this.contractsHandler.getFreeContracts().replace("null", ""));
             System.out.println("Inserisci l'ID del contratto");
             id_contratto = scanner1.nextInt();
             if(contractsHandler.get(id_contratto).getPurchased()){

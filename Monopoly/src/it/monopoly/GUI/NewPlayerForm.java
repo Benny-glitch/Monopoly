@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 import it.monopoly.Utils;
+import it.monopoly.app.ContractsHandler;
 import it.monopoly.app.NullNameException;
 import it.monopoly.app.PlayerHandler;
 
@@ -43,10 +44,12 @@ public class NewPlayerForm extends JFrame {
     private Font font;
     private Utils utils;
     private PlayerHandler playerHandler;
+    private ContractsHandler contractsHandler;
 
 
     public NewPlayerForm(NewPlayerFrame newPlayerFrame) {
         playerHandler = PlayerHandler.getInstance();
+        contractsHandler = new ContractsHandler();
         utils = Utils.getInstance();
 
         setFontStartUP();
@@ -102,7 +105,7 @@ public class NewPlayerForm extends JFrame {
                             "Errore",
                             JOptionPane.ERROR_MESSAGE);
                 } else {
-                    ScoreboardFrame scoreboardFrame = new ScoreboardFrame(playerHandler);
+                    SchermataGioco scoreboardFrame = new SchermataGioco(contractsHandler,playerHandler);
                     scoreboardFrame.setVisible(true);
                     newPlayerFrame.dispose();
                 }

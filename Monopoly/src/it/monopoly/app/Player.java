@@ -72,7 +72,10 @@ public class Player implements Serializable {
         }
         return lista_contratti.replace("null", "");
     }
-
+    public void pay(Player reciving, int moneytorecive){
+        reciving.addMoney(moneytorecive);
+        addMoney(-moneytorecive);
+    }
     public Contract getContractList(int i){
         return contracts.get(i);
     }
@@ -99,4 +102,34 @@ public class Player implements Serializable {
     public int getRentContract(int i){
         return contracts.get(i).getRent();
     }
+
+    public int getPosition(){
+        return this.position;
+    }
+
+    public void changePosition(int roll){
+        position+=roll;
+        if(position > position% 39){
+            this.addMoney(500);
+            position = position % 39;
+        }
+    }
+
+    public Contract getContract(int i){
+        return this.contracts.get(i);
+    }
+
+    public void buy(int moneyto){
+        this.money -= moneyto;
+    }
+
+    public void exitPrison(){
+        this.shiftsinjail = 0;
+        this.IsInJail = false;
+    }
+
+    public String getPawn(){
+        return this.typeofpawn;
+    }
+
 }

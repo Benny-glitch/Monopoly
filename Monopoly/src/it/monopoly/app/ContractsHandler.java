@@ -40,7 +40,7 @@ public class ContractsHandler {
         return contracts.get(num);
     }
 
-    public String ContrattoLibero() {
+    public String getFreeContracts() {
         String contratti_liberi = null;
         for(int i = 0; i < contracts.size(); i++){
             if(!contracts.get(i).getPurchased()){
