@@ -1,7 +1,11 @@
 package it.monopoly.GUI;
 
+import it.monopoly.app.ContractsHandler;
+import it.monopoly.app.PlayerHandler;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -15,10 +19,14 @@ public class MainFrameForm {
     private JLabel esciLabel;
     private Font font;
     private NewPlayerFrame newplayerFrame;
+    private ContractsHandler contractsHandler;
+    private PlayerHandler playerHandler;
 
-    public MainFrameForm(MainFrame mainFrame){
+    public MainFrameForm(MainFrame mainFrame) {
         setFontStartUP();
+        contractsHandler = new ContractsHandler();
         newplayerFrame = new NewPlayerFrame();
+        playerHandler = PlayerHandler.getInstance();
         giocaLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -34,36 +42,35 @@ public class MainFrameForm {
             }
         });
 
-        //TODO continua Label per il salvataggio dello stato
-        /*continuaLabel.addMouseListener(new MouseAdapter() {
+
+        continuaLabel.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
+            public void mouseClicked(MouseEvent ee) {
                 try {
-                    PlayerHandler.initialize();
+                    playerHandler = PlayerHandler.load();
+                    contractsHandler = ContractsHandler.load();
+                    ScoreBoardForm schermataGioco = new ScoreBoardForm(contractsHandler, playerHandler);
+                    schermataGioco.setVisible(true);
                 } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(
-                            mainFrame,
-                            "Non è stato possibile caricare la partita: " + ex.getMessage(),
-                            "Errore apertura file",
-                            JOptionPane.ERROR_MESSAGE
-                    );
+                    ex.printStackTrace();
                 }
             }
-        });*/
+        });
     }
-    public JPanel getPanel(){
+
+    public JPanel getPanel() {
         return this.menuPanel;
     }
 
-    private void setFontStartUP(){
+    private void setFontStartUP() {
         try {
             font = Font.createFont(Font.TRUETYPE_FONT, new File("src/it/monopoly/fonts/KabelBd-Normal.ttf"));
         } catch (FontFormatException | IOException e) {
             throw new RuntimeException(e);
         }
-        monopolyLabel.setFont(font.deriveFont(Font.PLAIN,72));
-        giocaLabel.setFont(font.deriveFont(Font.PLAIN,36));
-        continuaLabel.setFont(font.deriveFont(Font.PLAIN,36));
-        esciLabel.setFont(font.deriveFont(Font.PLAIN,36));
+        monopolyLabel.setFont(font.deriveFont(Font.PLAIN, 72));
+        giocaLabel.setFont(font.deriveFont(Font.PLAIN, 36));
+        continuaLabel.setFont(font.deriveFont(Font.PLAIN, 36));
+        esciLabel.setFont(font.deriveFont(Font.PLAIN, 36));
     }
 }

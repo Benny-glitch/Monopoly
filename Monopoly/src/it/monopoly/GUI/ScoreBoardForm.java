@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +72,7 @@ public class ScoreBoardForm extends JFrame{
     private JLabel pagatoAffitto;
     private JLabel giocatoreAffitto;
     private JLabel denaroAffitto;
+    private JLabel aLabel;
     private final Dado dice;
     private final Turno turn;
     private int i;
@@ -118,6 +120,7 @@ public class ScoreBoardForm extends JFrame{
                         pagatoAffitto.setVisible(true);
                         giocatoreAffitto.setVisible(true);
                         denaroAffitto.setVisible(true);
+                        aLabel.setVisible(true);
                     }
                     else
                         if (!boxes.get(giocatori.getPlayer(i).getPosition()).getPurchased()){
@@ -149,6 +152,10 @@ public class ScoreBoardForm extends JFrame{
         endturnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                pagatoAffitto.setVisible(false);
+                giocatoreAffitto.setVisible(false);
+                denaroAffitto.setVisible(false);
+                aLabel.setVisible(false);
                 doub = 0;
                 pagatoAffitto.setVisible(false);
                 messaggioUscitaPrigione.setVisible(false);
@@ -174,12 +181,12 @@ public class ScoreBoardForm extends JFrame{
                 else
                     JailPanel.setVisible(false);
 
-                /*try {
+                try {
                     giocatori.salvaStato();
                     boxes.salvaStato();
                 } catch (IOException ex) {
                     ex.printStackTrace();
-                }*/
+                }
             }
         });
         payexitButton.addActionListener(new ActionListener() {

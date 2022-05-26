@@ -5,29 +5,29 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-public class PlayerHandler implements Serializable{
+public class PlayerHandler implements Serializable {
     public static final long serialVersionUID = 1L;
-    
+
     private static PlayerHandler instance;
 
-    private ArrayList<Player> players ;
+    private ArrayList<Player> players;
     private ContractsHandler contracts;
     private int moneytoremove;
     private Random rand;
 
     //TODO caricamento con il pulsante CONTINUA
-   /* public static void initialize() throws IOException {
+    public static void initialize() throws IOException {
         PlayerHandler.instance = PlayerHandler.load();
-    }*/
+    }
 
     public static PlayerHandler getInstance() {
-        if(instance == null){
-              instance = new PlayerHandler();
+        if (instance == null) {
+            instance = new PlayerHandler();
         }
         return PlayerHandler.instance;
     }
 
-    private PlayerHandler(){
+    private PlayerHandler() {
         players = new ArrayList<>(6);
         contracts = new ContractsHandler();
         rand = new Random();
@@ -35,40 +35,14 @@ public class PlayerHandler implements Serializable{
 
 
     public void addPlayer(String username, String typeofpawn) throws NullNameException {
-        try{
+        try {
             Player player = new Player(username, false, 0, typeofpawn, 0);
             players.add(player);
-            //this.savePlayer();
         } catch (NullNameException e) {
             throw e;
         }
     }
 
-    //TODO salvataggio e caricamento
-    /*
-    private void savePlayer() throws IOException{
-        try (
-                FileOutputStream fileOutputStream = new FileOutputStream("menu.sr");
-                ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)
-        ) {
-            objectOutputStream.writeObject(this);
-        }
-    }
-
-    private static PlayerHandler load() throws IOException {
-        try (
-                FileInputStream fileInputStream = new FileInputStream("menu.sr");
-                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)
-        ) {
-            Object o = objectInputStream.readObject();
-            return (PlayerHandler) o;
-        } catch (FileNotFoundException e) {
-            return new PlayerHandler();
-        } catch (ClassNotFoundException ignore) {
-            return null;
-        }
-    }
-*/
     public void setPlayerMoneyandContracts() {
         for (int i = 0; i < players.size(); i++) {
             if (players.size() == 2) {
@@ -76,7 +50,7 @@ public class PlayerHandler implements Serializable{
                     Contract contract = contracts.get(rand.nextInt(26));
                     if (!contract.getPurchased()) {
                         players.get(i).setContracts(contract);
-                        moneytoremove+=contract.getPrice();
+                        moneytoremove += contract.getPrice();
                         contract.setPurchased();
                     } else {
                         j--;
@@ -89,7 +63,7 @@ public class PlayerHandler implements Serializable{
                     Contract contract = contracts.get(rand.nextInt(26));
                     if (!contract.getPurchased()) {
                         players.get(i).setContracts(contract);
-                        moneytoremove+=contract.getPrice();
+                        moneytoremove += contract.getPrice();
                         contract.setPurchased();
                     } else {
                         j--;
@@ -102,7 +76,7 @@ public class PlayerHandler implements Serializable{
                     Contract contract = contracts.get(rand.nextInt(26));
                     if (!contract.getPurchased()) {
                         players.get(i).setContracts(contract);
-                        moneytoremove+=contract.getPrice();
+                        moneytoremove += contract.getPrice();
                         contract.setPurchased();
                     } else {
                         j--;
@@ -115,7 +89,7 @@ public class PlayerHandler implements Serializable{
                     Contract contract = contracts.get(rand.nextInt(26));
                     if (!contract.getPurchased()) {
                         players.get(i).setContracts(contract);
-                        moneytoremove+=contract.getPrice();
+                        moneytoremove += contract.getPrice();
                         contract.setPurchased();
                     } else {
                         j--;
@@ -128,7 +102,7 @@ public class PlayerHandler implements Serializable{
                     Contract contract = contracts.get(rand.nextInt(26));
                     if (!contract.getPurchased()) {
                         players.get(i).setContracts(contract);
-                        moneytoremove+=contract.getPrice();
+                        moneytoremove += contract.getPrice();
                         contract.setPurchased();
                     } else {
                         j--;
@@ -146,8 +120,31 @@ public class PlayerHandler implements Serializable{
         return this.players.size();
     }
 
-    public Player getPlayer(int i){
+    public Player getPlayer(int i) {
         return players.get(i);
+    }
+
+    public void salvaStato() throws IOException {
+        try (
+                FileOutputStream fileOutputStream = new FileOutputStream("src/it/monopoly/Giocatori.sr");
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)
+        ) {
+            objectOutputStream.writeObject(this);
+        }
+    }
+
+    public static PlayerHandler load() throws IOException {
+        try (
+                FileInputStream fileInputStream = new FileInputStream("src/it/monopoly/Giocatori.sr");
+                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)
+        ) {
+            Object o = objectInputStream.readObject();
+            return (PlayerHandler) o;
+        } catch (FileNotFoundException e) {
+            return null;
+        } catch (ClassNotFoundException ignore) {
+            return new PlayerHandler();
+        }
     }
 
 }

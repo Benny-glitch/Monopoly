@@ -1,6 +1,6 @@
 package it.monopoly.app;
 
-import java.io.Serializable;
+import java.io.*;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -52,4 +52,28 @@ public class ContractsHandler implements Serializable {
         }
         return contratti_liberi;
     }
+
+    public void salvaStato() throws IOException {
+        try (
+                FileOutputStream fileOutputStream = new FileOutputStream("src/it/unimol/monopoly/file/Giocatori.sr");
+                ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)
+        ) {
+            objectOutputStream.writeObject(this);
+        }
+    }
+
+    public static ContractsHandler load() throws IOException {
+        try (
+                FileInputStream fileInputStream = new FileInputStream("src/it/unimol/monopoly/file/Giocatori.sr");
+                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)
+        ) {
+            Object o = objectInputStream.readObject();
+            return (ContractsHandler) o;
+        } catch (FileNotFoundException e) {
+            return null;
+        } catch (ClassNotFoundException ignore) {
+            return new ContractsHandler();
+        }
+    }
+
 }
