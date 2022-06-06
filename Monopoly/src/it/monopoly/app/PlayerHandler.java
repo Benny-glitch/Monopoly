@@ -15,7 +15,7 @@ public class PlayerHandler implements Serializable {
     private int moneytoremove;
     private Random rand;
 
-    //TODO caricamento con il pulsante CONTINUA
+    
     public static void initialize() throws IOException {
         PlayerHandler.instance = PlayerHandler.load();
     }
@@ -47,7 +47,7 @@ public class PlayerHandler implements Serializable {
         for (int i = 0; i < players.size(); i++) {
             if (players.size() == 2) {
                 for (int j = 0; j < 7; j++) {
-                    Boxes boxes = contracts.get(rand.nextInt(26));
+                    Boxes boxes = this.contracts.get(rand.nextInt(26));
                     if (!boxes.getPurchased()) {
                         players.get(i).setContracts(boxes);
                         moneytoremove += boxes.getPrice();
@@ -60,7 +60,7 @@ public class PlayerHandler implements Serializable {
             }
             if (players.size() == 3) {
                 for (int j = 0; j < 6; j++) {
-                    Boxes boxes = contracts.get(rand.nextInt(26));
+                    Boxes boxes = this.contracts.get(rand.nextInt(26));
                     if (!boxes.getPurchased()) {
                         players.get(i).setContracts(boxes);
                         moneytoremove += boxes.getPrice();
@@ -73,7 +73,7 @@ public class PlayerHandler implements Serializable {
             }
             if (players.size() == 4) {
                 for (int j = 0; j < 5; j++) {
-                    Boxes boxes = contracts.get(rand.nextInt(26));
+                    Boxes boxes = this.contracts.get(rand.nextInt(26));
                     if (!boxes.getPurchased()) {
                         players.get(i).setContracts(boxes);
                         moneytoremove += boxes.getPrice();
@@ -86,7 +86,7 @@ public class PlayerHandler implements Serializable {
             }
             if (players.size() == 5) {
                 for (int j = 0; j < 4; j++) {
-                    Boxes boxes = contracts.get(rand.nextInt(26));
+                    Boxes boxes = this.contracts.get(rand.nextInt(26));
                     if (!boxes.getPurchased()) {
                         players.get(i).setContracts(boxes);
                         moneytoremove += boxes.getPrice();
@@ -99,7 +99,7 @@ public class PlayerHandler implements Serializable {
             }
             if (players.size() == 6) {
                 for (int j = 0; j < 3; j++) {
-                    Boxes boxes = contracts.get(rand.nextInt(26));
+                    Boxes boxes = this.contracts.get(rand.nextInt(26));
                     if (!boxes.getPurchased()) {
                         players.get(i).setContracts(boxes);
                         moneytoremove += boxes.getPrice();

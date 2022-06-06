@@ -55,35 +55,8 @@ public class NewPlayerForm extends JFrame {
         inserisciLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (playerHandler.getNumPlayer() < 6) {
-                    try {
-                        playerHandler.addPlayer(nameTextFileld.getText(),String.valueOf(pedinaCombobox.getSelectedItem()));
-                        int x = pedinaCombobox.getSelectedIndex();
-                        pedinaCombobox.removeItemAt(x);
-                        nameTextFileld.setText("");
-                    } catch (NullNameException ex) {
-                        JOptionPane.showMessageDialog(
-                                newplayerForm,
-                                "Errore nel nome campo non compilato",
-                                "Errore",
-                                JOptionPane.ERROR_MESSAGE);
-                    } /*catch (IOException ex) {
-                        JOptionPane.showMessageDialog(
-                                newplayerForm,
-                                "Errore nello stato del salvataggio del gioco",
-                                "Errore",
-                                JOptionPane.ERROR_MESSAGE);
-                    }*/
-
-                } else {
-                    JOptionPane.showMessageDialog(
-                            newplayerForm,
-                            "Numero di giocatori massimo raggiunto",
-                            "Errore",
-                            JOptionPane.ERROR_MESSAGE);
-                }
+                addPlayer();
             }
-
         });
 
         annullaLabel.addMouseListener(new MouseAdapter() {
@@ -100,6 +73,36 @@ public class NewPlayerForm extends JFrame {
             }
         });
 
+    }
+
+    private void addPlayer() {
+        if (playerHandler.getNumPlayer() < 6) {
+            try {
+                playerHandler.addPlayer(nameTextFileld.getText(),String.valueOf(pedinaCombobox.getSelectedItem()));
+                int x = pedinaCombobox.getSelectedIndex();
+                pedinaCombobox.removeItemAt(x);
+                nameTextFileld.setText("");
+            } catch (NullNameException ex) {
+                JOptionPane.showMessageDialog(
+                        newplayerForm,
+                        "Errore nel nome campo non compilato",
+                        "Errore",
+                        JOptionPane.ERROR_MESSAGE);
+            } /*catch (IOException ex) {
+                        JOptionPane.showMessageDialog(
+                                newplayerForm,
+                                "Errore nello stato del salvataggio del gioco",
+                                "Errore",
+                                JOptionPane.ERROR_MESSAGE);
+                    }*/
+
+        } else {
+            JOptionPane.showMessageDialog(
+                    newplayerForm,
+                    "Numero di giocatori massimo raggiunto",
+                    "Errore",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void maxPlayers(Frame newPlayerFrame){

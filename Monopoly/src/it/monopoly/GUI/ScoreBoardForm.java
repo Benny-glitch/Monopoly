@@ -1,6 +1,6 @@
 package it.monopoly.GUI;
 
-import it.monopoly.app.Dado;
+import it.monopoly.app.Dice;
 import it.monopoly.app.BoxesHandler;
 import it.monopoly.app.PlayerHandler;
 import it.monopoly.app.Turno;
@@ -73,7 +73,7 @@ public class ScoreBoardForm extends JFrame{
     private JLabel giocatoreAffitto;
     private JLabel denaroAffitto;
     private JLabel aLabel;
-    private final Dado dice;
+    private final Dice dice;
     private final Turno turn;
     private int i;
     private int doub;
@@ -84,7 +84,7 @@ public class ScoreBoardForm extends JFrame{
         formWindowActivated();
         positions = new ArrayList<>();
         this.setVisible(true);
-        dice = new Dado();
+        dice = new Dice();
         turn = new Turno(giocatori);
         setContentPane(this.getPanel());
         JailPanel.setVisible(false);
