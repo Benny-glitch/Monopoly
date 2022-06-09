@@ -14,8 +14,8 @@ public class PlayerHandler implements Serializable {
     private BoxesHandler contracts;
     private int moneytoremove;
     private Random rand;
-
     
+
     public static void initialize() throws IOException {
         PlayerHandler.instance = PlayerHandler.load();
     }
