@@ -1,9 +1,9 @@
-package it.monopoly.GUI;
+package it.monopoly.gui;
 
 import it.monopoly.app.Dice;
 import it.monopoly.app.BoxesHandler;
 import it.monopoly.app.PlayerHandler;
-import it.monopoly.app.Turno;
+import it.monopoly.app.Turn;
 
 import javax.swing.*;
 import java.awt.*;
@@ -74,7 +74,7 @@ public class ScoreBoardForm extends JFrame{
     private JLabel denaroAffitto;
     private JLabel aLabel;
     private final Dice dice;
-    private final Turno turn;
+    private final Turn turn;
     private int i;
     private int doub;
     private final List<JLabel> positions;
@@ -85,7 +85,7 @@ public class ScoreBoardForm extends JFrame{
         positions = new ArrayList<>();
         this.setVisible(true);
         dice = new Dice();
-        turn = new Turno(giocatori);
+        turn = new Turn(giocatori);
         setContentPane(this.getPanel());
         JailPanel.setVisible(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -110,7 +110,7 @@ public class ScoreBoardForm extends JFrame{
                     controlGoToJail(i);
                     setPosition(i);
 
-                    if(boxes.get(giocatori.getPlayer(i).getPosition()).getPurchased() &&
+                    if(boxes.get(giocatori.getPlayer(i).getPosition()).getCanBeBought() &&
                             boxes.get(giocatori.getPlayer(i).getPosition()).getOwner() != null) {
                         giocatori.getPlayer(i).pay(boxes.get(giocatori.getPlayer(i).getPosition()).getOwner(),
                                 boxes.get(giocatori.getPlayer(i).getPosition()).getRent());
@@ -122,7 +122,7 @@ public class ScoreBoardForm extends JFrame{
                         aLabel.setVisible(true);
                     }
                     else
-                        if (!boxes.get(giocatori.getPlayer(i).getPosition()).getPurchased()){
+                        if (!boxes.get(giocatori.getPlayer(i).getPosition()).getCanBeBought()){
                             AcquistaProprietaForm acquistaProprietaForm =
                                     new AcquistaProprietaForm(boxes.get(giocatori.getPlayer(i).getPosition()),giocatori.getPlayer(i), contrattiList, saldo);
                             acquistaProprietaForm.setVisible(true);
@@ -159,7 +159,7 @@ public class ScoreBoardForm extends JFrame{
                 pagatoAffitto.setVisible(false);
                 messaggioUscitaPrigione.setVisible(false);
                 cleanPosition(i);
-                i = turn.Turni();
+                i = turn.Turns();
                 update_UI(giocatori, i);
                 rolldiceButton.setVisible(true);
                 setPosition(i);
@@ -182,7 +182,7 @@ public class ScoreBoardForm extends JFrame{
 
                 try {
                     giocatori.salvaStato();
-                    boxes.salvaStato();
+                    boxes.saveState();
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }

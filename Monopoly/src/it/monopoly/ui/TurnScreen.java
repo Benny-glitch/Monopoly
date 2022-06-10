@@ -6,7 +6,7 @@ import it.monopoly.app.BoxesHandler;
 import it.monopoly.app.Player;
 
 
-public class SchermataTurno {
+public class TurnScreen {
     private int num_player;
     private ArrayList<Player> giocatori = new ArrayList<>();
     private BoxesHandler boxesHandler;
@@ -103,7 +103,7 @@ public class SchermataTurno {
             System.out.println(this.boxesHandler.getFreeContracts().replace("null", ""));
             System.out.println("Inserisci l'ID del contratto");
             id_contratto = scanner1.nextInt();
-            if(boxesHandler.get(id_contratto).getPurchased()){
+            if(boxesHandler.get(id_contratto).getCanBeBought()){
                 System.out.println("Contratto gia' acquistato \n");
                 acquistato = true;
             }else{

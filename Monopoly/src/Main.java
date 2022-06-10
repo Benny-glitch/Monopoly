@@ -1,5 +1,4 @@
-import it.monopoly.GUI.MainFrame;
-import it.monopoly.ui.MenuPrincipale;
+import it.monopoly.gui.MainFrame;
 
 public class Main {
     public static void main(String[] args) {

@@ -11,12 +11,13 @@ public class Boxes implements Serializable {
     private Player owner;
     private int id;
     private boolean purchased;
+    private boolean canbebought;
 
-    public Boxes(String name, int price, int rent){
+    public Boxes(String name, int price, int rent, boolean canbebought){
         this.name = name;
         this.price = price;
         this.rent = rent;
-        this.purchased = false;
+        this.canbebought = canbebought;
     }
 
     public void setPurchased() {
@@ -43,8 +44,8 @@ public class Boxes implements Serializable {
         return this.owner;
     }
 
-    public boolean getPurchased() {
-        return this.purchased;
+    public boolean getCanBeBought() {
+        return this.canbebought;
     }
 
     public String toString(){

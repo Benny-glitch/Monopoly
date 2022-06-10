@@ -1,13 +1,17 @@
 package it.monopoly.ui;
 
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import it.monopoly.app.PlayerHandler;
 
-public class MenuPrincipale {
+public class PrincipalMenu {
     PlayerHandler playerHandler = PlayerHandler.getInstance();
-    SchermataTurno schermataTurno = new SchermataTurno();
+    TurnScreen turnScreen = new TurnScreen();
+
+    public PrincipalMenu() throws FileNotFoundException {
+    }
 
     public void esegui() {
         System.out.println("Benvenuto");
