@@ -6,8 +6,8 @@ import java.util.*;
 public class Player implements Serializable {
     public static final long serialVersionUID = 1L;
     //pedine
-    public static final int MACCHINA             = 0;
-    public static final int NAVE_DA_GUERRA       = 1;
+    public static final int CAR             = 0;
+    public static final int BATTLE_SHIP       = 1;
     public static final int STIVALE              = 2;
     public static final int CILINDRO             = 3;
     public static final int DITALE               = 4;

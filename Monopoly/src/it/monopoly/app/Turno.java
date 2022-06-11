@@ -1,8 +1,8 @@
 package it.monopoly.app;
-
+//
 public class Turno {
     private int n;
-    private PlayerHandler giocatori;
+    private PlayerHandler playerHandler;
     private int i;
 
     public Turno(PlayerHandler giocatori){
