@@ -1,9 +1,8 @@
 package it.monopoly.app;
 
 import java.io.*;
-import java.util.InputMismatchException;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class BoxesHandler implements Serializable {
@@ -19,7 +18,7 @@ public class BoxesHandler implements Serializable {
     private void loadBoxes() {
         int rent, price;
         String name;
-        boolean canbebought = false;
+        boolean canBeBought;
         Scanner scanner = null;
 
         try {
@@ -34,9 +33,9 @@ public class BoxesHandler implements Serializable {
             name = scanner.next();
             price = scanner.nextInt();
             rent = scanner.nextInt();
-            canbebought = scanner.next().equals("true");
+            canBeBought = scanner.next().equals("true");
             try {
-                this.addContracts(name.replace("\n", ""), price, rent, canbebought);
+                this.addContracts(name.replace("\n", ""), price, rent, canBeBought);
             } catch (Exception e) {
                 e.printStackTrace();
             }

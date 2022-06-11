@@ -13,9 +13,9 @@ import java.io.IOException;
 public class MainFrameForm {
     private JPanel menuPanel;
     private JLabel monopolyLabel;
-    private JLabel giocaLabel;
-    private JLabel continuaLabel;
-    private JLabel esciLabel;
+    private JLabel playLabel;
+    private JLabel continueGameLabel;
+    private JLabel exitLabel;
     private Font font;
     private NewPlayerFrame newplayerFrame;
     private BoxesHandler boxesHandler;
@@ -25,7 +25,7 @@ public class MainFrameForm {
         setFontStartUP();
         newplayerFrame = new NewPlayerFrame();
 
-        giocaLabel.addMouseListener(new MouseAdapter() {
+        playLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 newplayerFrame.setVisible(true);
@@ -33,7 +33,7 @@ public class MainFrameForm {
             }
         });
 
-        esciLabel.addMouseListener(new MouseAdapter() {
+        exitLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 mainFrame.dispose();
@@ -41,7 +41,7 @@ public class MainFrameForm {
         });
 
 
-        continuaLabel.addMouseListener(new MouseAdapter() {
+        continueGameLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent ee) {
                 try {
@@ -67,8 +67,8 @@ public class MainFrameForm {
             throw new RuntimeException(e);
         }
         monopolyLabel.setFont(font.deriveFont(Font.PLAIN, 72));
-        giocaLabel.setFont(font.deriveFont(Font.PLAIN, 36));
-        continuaLabel.setFont(font.deriveFont(Font.PLAIN, 36));
-        esciLabel.setFont(font.deriveFont(Font.PLAIN, 36));
+        playLabel.setFont(font.deriveFont(Font.PLAIN, 36));
+        continueGameLabel.setFont(font.deriveFont(Font.PLAIN, 36));
+        exitLabel.setFont(font.deriveFont(Font.PLAIN, 36));
     }
 }

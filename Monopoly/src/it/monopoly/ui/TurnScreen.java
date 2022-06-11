@@ -25,7 +25,7 @@ public class TurnScreen {
                 if (this.num_player == 1) {
                     System.out.println("Il giocatore " + giocatori.get(i).getUsername() + " ha vinto");
                 } else {
-                    if (!this.giocatori.get(i).getIsInJail()) {
+                    if (!this.giocatori.get(i).isInJail()) {
                         if (this.giocatori.get(i).getMoney() > 0) {
                             terminaTurno = false;
                             do {
@@ -39,7 +39,7 @@ public class TurnScreen {
                             giocatori.remove(i);
                         }
                     } else {
-                        System.out.println("Il giocatore " + giocatori.get(i).getUsername() + " e' in prigione per " + giocatori.get(i).getShiftsinjail() + " turni");
+                        System.out.println("Il giocatore " + giocatori.get(i).getUsername() + " e' in prigione per " + giocatori.get(i).getShiftsInJail() + " turni");
                         Prigione(i);
                     }
                 }
@@ -162,7 +162,7 @@ public class TurnScreen {
 
     private void vaiInprigione(int i) {
         giocatori.get(i).setIsInJail(true);
-        giocatori.get(i).setShiftsinjail(1);
+        giocatori.get(i).setShiftsInJail(1);
         System.out.println("Sei in prigione");
     }
 
@@ -174,7 +174,7 @@ public class TurnScreen {
         switch (scelta) {
             case 1 -> {
                 System.out.println("Non sei piu' in prigione");
-                giocatori.get(i).setShiftsinjail(0);
+                giocatori.get(i).setShiftsInJail(0);
                 giocatori.get(i).setIsInJail(false);
                 this.avviaTurno();
             }

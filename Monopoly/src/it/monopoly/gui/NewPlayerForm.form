@@ -7,7 +7,7 @@
     <properties/>
     <border type="none"/>
     <children>
-      <component id="48b70" class="javax.swing.JLabel" binding="nomeLabel">
+      <component id="48b70" class="javax.swing.JLabel" binding="nameLabel">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
@@ -18,7 +18,7 @@
           <text value="Nome"/>
         </properties>
       </component>
-      <component id="57313" class="javax.swing.JLabel" binding="pedinaLabel">
+      <component id="57313" class="javax.swing.JLabel" binding="pawnLabel">
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
@@ -225,7 +225,7 @@
           </component>
         </children>
       </grid>
-      <component id="49eb0" class="javax.swing.JLabel" binding="inserisciLabel">
+      <component id="49eb0" class="javax.swing.JLabel" binding="addPlayerLabel">
         <constraints>
           <grid row="4" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
@@ -234,7 +234,7 @@
           <text value="INSERISCI"/>
         </properties>
       </component>
-      <component id="e03a8" class="javax.swing.JLabel" binding="annullaLabel">
+      <component id="e03a8" class="javax.swing.JLabel" binding="cancelLabel">
         <constraints>
           <grid row="6" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
@@ -243,7 +243,7 @@
           <text value="ANNULLA"/>
         </properties>
       </component>
-      <component id="3f489" class="javax.swing.JComboBox" binding="pedinaCombobox">
+      <component id="3f489" class="javax.swing.JComboBox" binding="pawnCombobox">
         <constraints>
           <grid row="2" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="2" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
@@ -289,7 +289,7 @@
           <preferredSize width="350" height="30"/>
         </properties>
       </component>
-      <component id="2552d" class="javax.swing.JLabel" binding="avviagiocoLabel">
+      <component id="2552d" class="javax.swing.JLabel" binding="startGameLabel">
         <constraints>
           <grid row="8" column="2" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>

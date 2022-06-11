@@ -9,15 +9,18 @@ public class Boxes implements Serializable {
     private int price;
     private int rent;
     private Player owner;
-    private int id;
     private boolean purchased;
-    private boolean canbebought;
+    private boolean beBought;
 
-    public Boxes(String name, int price, int rent, boolean canbebought){
+    public Boxes(String name, int price, int rent, boolean beBought){
         this.name = name;
         this.price = price;
         this.rent = rent;
-        this.canbebought = canbebought;
+        this.beBought = beBought;
+    }
+
+    public boolean isPurchased() {
+        return this.purchased;
     }
 
     public void setPurchased() {
@@ -45,7 +48,7 @@ public class Boxes implements Serializable {
     }
 
     public boolean getCanBeBought() {
-        return this.canbebought;
+        return this.beBought;
     }
 
     public String toString(){
