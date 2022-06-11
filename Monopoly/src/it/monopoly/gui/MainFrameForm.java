@@ -1,4 +1,4 @@
-package it.monopoly.GUI;
+package it.monopoly.gui;
 
 import it.monopoly.app.BoxesHandler;
 import it.monopoly.app.PlayerHandler;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="it.monopoly.GUI.MainFrameForm">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="it.monopoly.gui.MainFrameForm">
   <grid id="27dc6" binding="menuPanel" layout-manager="GridBagLayout">
     <constraints>
       <xy x="20" y="20" width="889" height="647"/>
@@ -57,7 +57,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <icon value="it/monopoly/Imges/monopolyIcon623 x 230.png"/>
+          <icon value="it/monopoly/images/monopolyIcon623 x 230.png"/>
           <text value=""/>
         </properties>
       </component>

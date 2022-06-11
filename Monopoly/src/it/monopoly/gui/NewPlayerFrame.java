@@ -1,4 +1,4 @@
-package it.monopoly.GUI;
+package it.monopoly.gui;
 
 import javax.swing.*;
 import java.awt.*;
