@@ -27,6 +27,4 @@ public class MainFrame extends JFrame {
         this.setPreferredSize(DEFAULT_DIMENSION);
         this.setMinimumSize(DEFAULT_DIMENSION);
     }
-
-
 }

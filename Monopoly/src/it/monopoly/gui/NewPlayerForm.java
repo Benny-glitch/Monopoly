@@ -17,11 +17,11 @@ public class NewPlayerForm extends JFrame {
     private JPanel newplayerForm;
     private JPanel playerimagesPanel;
 
-    private JLabel annullaLabel;
-    private JLabel inserisciLabel;
-    private JComboBox pedinaCombobox;
-    private JLabel nomeLabel;
-    private JLabel pedinaLabel;
+    private JLabel cancelLabel;
+    private JLabel addPlayerLabel;
+    private JComboBox pawnCombobox;
+    private JLabel nameLabel;
+    private JLabel pawnLabel;
     private JLabel imageLabelp1;
     private JLabel imageLabelp2;
     private JLabel imageLabelp3;
@@ -35,10 +35,10 @@ public class NewPlayerForm extends JFrame {
     private JLabel nameLabelp5;
     private JLabel nameLabelp6;
     private JTextField nameTextFileld;
-    private JLabel avviagiocoLabel;
+    private JLabel startGameLabel;
     private JLabel maxplayerLabel;
     private JLabel imagepawnLabel;
-    private JButton annullaButton;
+    private JButton cancelButton;
     private Font font;
     private Utils utils;
     private PlayerHandler playerHandler;
@@ -52,21 +52,21 @@ public class NewPlayerForm extends JFrame {
 
         setFontStartUP();
 
-        inserisciLabel.addMouseListener(new MouseAdapter() {
+        addPlayerLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 addPlayer();
             }
         });
 
-        annullaLabel.addMouseListener(new MouseAdapter() {
+        cancelLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 newPlayerFrame.dispose();
             }
         });
 
-        avviagiocoLabel.addMouseListener(new MouseAdapter() {
+        startGameLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 maxPlayers(newPlayerFrame);
@@ -78,9 +78,9 @@ public class NewPlayerForm extends JFrame {
     private void addPlayer() {
         if (playerHandler.getNumPlayer() < 6) {
             try {
-                playerHandler.addPlayer(nameTextFileld.getText(),String.valueOf(pedinaCombobox.getSelectedItem()));
-                int x = pedinaCombobox.getSelectedIndex();
-                pedinaCombobox.removeItemAt(x);
+                playerHandler.addPlayer(nameTextFileld.getText(),String.valueOf(pawnCombobox.getSelectedItem()));
+                int x = pawnCombobox.getSelectedIndex();
+                pawnCombobox.removeItemAt(x);
                 nameTextFileld.setText("");
             } catch (NullNameException ex) {
                 JOptionPane.showMessageDialog(
@@ -113,7 +113,7 @@ public class NewPlayerForm extends JFrame {
                     "Errore",
                     JOptionPane.ERROR_MESSAGE);
         } else {
-            playerHandler.setPlayerMoneyandContracts();
+            playerHandler.setPlayerMoneyAndContracts();
             ScoreBoardForm scoreboardFrame = new ScoreBoardForm(boxesHandler,playerHandler);
             scoreboardFrame.setVisible(true);
             newPlayerFrame.dispose();
@@ -140,11 +140,11 @@ public class NewPlayerForm extends JFrame {
         imageLabelp4.setFont(font.deriveFont(Font.PLAIN, 36));
         imageLabelp5.setFont(font.deriveFont(Font.PLAIN, 36));
         imageLabelp6.setFont(font.deriveFont(Font.PLAIN, 36));
-        annullaLabel.setFont(font.deriveFont(Font.PLAIN, 38));
-        inserisciLabel.setFont(font.deriveFont(Font.PLAIN, 38));
-        avviagiocoLabel.setFont(font.deriveFont(Font.PLAIN, 38));
-        nomeLabel.setFont(font.deriveFont(Font.PLAIN, 15));
-        pedinaLabel.setFont(font.deriveFont(Font.PLAIN, 15));
+        cancelLabel.setFont(font.deriveFont(Font.PLAIN, 38));
+        addPlayerLabel.setFont(font.deriveFont(Font.PLAIN, 38));
+        startGameLabel.setFont(font.deriveFont(Font.PLAIN, 38));
+        nameLabel.setFont(font.deriveFont(Font.PLAIN, 15));
+        pawnLabel.setFont(font.deriveFont(Font.PLAIN, 15));
 
     }
 }

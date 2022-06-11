@@ -7,15 +7,35 @@ import java.util.Random;
 
 public class PlayerHandler implements Serializable {
     public static final long serialVersionUID = 1L;
-
     private static PlayerHandler instance;
+
+    private static final int TWO_PLAYER = 2;
+    private static final int THREE_PLAYER = 3;
+    private static final int FOUR_PLAYER = 4;
+    private static final int FIVE_PLAYER = 5;
+    private static final int SIX_PLAYER = 6;
+
+    private static final int NUM_CONTRACTS = 26;
+
+    private static final int CONTRATCTS_TWO_PLAYER = 7;
+    private static final int CONTRATCTS_THREE_PLAYER = 6;
+    private static final int CONTRATCTS_FOUR_PLAYER = 5;
+    private static final int CONTRATCTS_FIVE_PLAYER = 4;
+    private static final int CONTRATCTS_SIX_PLAYER = 3;
+
+    private static final int MONEY_TWO_PLAYER = 8750;
+    private static final int MONEY_THREE_PLAYER = 7500;
+    private static final int MONEY_FOUR_PLAYER = 6250;
+    private static final int MONEY_FIVE_PLAYER = 5000;
+    private static final int MONEY_SIX_PLAYER = 3750;
+
 
     private ArrayList<Player> players;
     private BoxesHandler boxes;
-    private int moneytoremove;
-    private Random rand;
+    private int moneyToRemove;
+    private Random random;
 
-    
+
     public static void initialize() throws IOException {
         PlayerHandler.instance = PlayerHandler.load();
     }
@@ -30,9 +50,8 @@ public class PlayerHandler implements Serializable {
     private PlayerHandler() {
         players = new ArrayList<>(6);
         boxes = new BoxesHandler();
-        rand = new Random();
+        random = new Random();
     }
-
 
     public void addPlayer(String username, String typeofpawn) throws NullNameException {
         try {
@@ -43,72 +62,72 @@ public class PlayerHandler implements Serializable {
         }
     }
 
-    public void setPlayerMoneyandContracts() {
+    public void setPlayerMoneyAndContracts() {
         for (int i = 0; i < players.size(); i++) {
-            if (players.size() == 2) {
-                for (int j = 0; j < 7; j++) {
-                    Boxes boxes = this.boxes.get(rand.nextInt(26));
+            if (players.size() == TWO_PLAYER) {
+                for (int j = 0; j < CONTRATCTS_TWO_PLAYER; j++) {
+                    Boxes boxes = this.boxes.get(random.nextInt(NUM_CONTRACTS));
                     if (boxes.getCanBeBought()) {
                         players.get(i).setContracts(boxes);
-                        moneytoremove += boxes.getPrice();
+                        moneyToRemove += boxes.getPrice();
                         boxes.setPurchased();
                     } else {
                         j--;
                     }
                 }
-                players.get(i).setMoney(8750 - moneytoremove);
+                players.get(i).setMoney(MONEY_TWO_PLAYER - moneyToRemove);
             }
-            if (players.size() == 3) {
-                for (int j = 0; j < 6; j++) {
-                    Boxes boxes = this.boxes.get(rand.nextInt(26));
+            if (players.size() == THREE_PLAYER) {
+                for (int j = 0; j < CONTRATCTS_THREE_PLAYER; j++) {
+                    Boxes boxes = this.boxes.get(random.nextInt(NUM_CONTRACTS));
                     if (boxes.getCanBeBought()) {
                         players.get(i).setContracts(boxes);
-                        moneytoremove += boxes.getPrice();
+                        moneyToRemove += boxes.getPrice();
                         boxes.setPurchased();
                     } else {
                         j--;
                     }
                 }
-                players.get(i).setMoney(7500 - moneytoremove);
+                players.get(i).setMoney(MONEY_THREE_PLAYER - moneyToRemove);
             }
-            if (players.size() == 4) {
-                for (int j = 0; j < 5; j++) {
-                    Boxes boxes = this.boxes.get(rand.nextInt(26));
+            if (players.size() == FOUR_PLAYER) {
+                for (int j = 0; j < CONTRATCTS_FOUR_PLAYER; j++) {
+                    Boxes boxes = this.boxes.get(random.nextInt(NUM_CONTRACTS));
                     if (boxes.getCanBeBought()) {
                         players.get(i).setContracts(boxes);
-                        moneytoremove += boxes.getPrice();
+                        moneyToRemove += boxes.getPrice();
                         boxes.setPurchased();
                     } else {
                         j--;
                     }
                 }
-                players.get(i).setMoney(6250 - moneytoremove);
+                players.get(i).setMoney(MONEY_FOUR_PLAYER - moneyToRemove);
             }
-            if (players.size() == 5) {
-                for (int j = 0; j < 4; j++) {
-                    Boxes boxes = this.boxes.get(rand.nextInt(26));
+            if (players.size() == FIVE_PLAYER) {
+                for (int j = 0; j < CONTRATCTS_FIVE_PLAYER; j++) {
+                    Boxes boxes = this.boxes.get(random.nextInt(NUM_CONTRACTS));
                     if (boxes.getCanBeBought()) {
                         players.get(i).setContracts(boxes);
-                        moneytoremove += boxes.getPrice();
+                        moneyToRemove += boxes.getPrice();
                         boxes.setPurchased();
                     } else {
                         j--;
                     }
                 }
-                players.get(i).setMoney(5000 - moneytoremove);
+                players.get(i).setMoney(MONEY_FIVE_PLAYER - moneyToRemove);
             }
-            if (players.size() == 6) {
-                for (int j = 0; j < 3; j++) {
-                    Boxes boxes = this.boxes.get(rand.nextInt(26));
+            if (players.size() == SIX_PLAYER) {
+                for (int j = 0; j < CONTRATCTS_SIX_PLAYER; j++) {
+                    Boxes boxes = this.boxes.get(random.nextInt(NUM_CONTRACTS));
                     if (boxes.getCanBeBought()) {
                         players.get(i).setContracts(boxes);
-                        moneytoremove += boxes.getPrice();
+                        moneyToRemove += boxes.getPrice();
                         boxes.setPurchased();
                     } else {
                         j--;
                     }
                 }
-                players.get(i).setMoney(3750 - moneytoremove);
+                players.get(i).setMoney(MONEY_SIX_PLAYER - moneyToRemove);
             }
         }
         Collections.shuffle(players);
@@ -124,20 +143,14 @@ public class PlayerHandler implements Serializable {
         return players.get(i);
     }
 
-    public void salvaStato() throws IOException {
-        try (
-                FileOutputStream fileOutputStream = new FileOutputStream("Giocatori.sr");
-                ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)
-        ) {
+    public void saveState() throws IOException {
+        try (FileOutputStream fileOutputStream = new FileOutputStream("Giocatori.sr"); ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
             objectOutputStream.writeObject(this);
         }
     }
 
     public static PlayerHandler load() throws IOException {
-        try (
-                FileInputStream fileInputStream = new FileInputStream("Giocatori.sr");
-                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)
-        ) {
+        try (FileInputStream fileInputStream = new FileInputStream("Giocatori.sr"); ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
             Object o = objectInputStream.readObject();
             return (PlayerHandler) o;
         } catch (FileNotFoundException e) {
