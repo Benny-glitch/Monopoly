@@ -48,7 +48,7 @@ public class PlayerHandler implements Serializable {
             if (players.size() == 2) {
                 for (int j = 0; j < 7; j++) {
                     Boxes boxes = this.boxes.get(rand.nextInt(26));
-                    if (!boxes.getPurchased()) {
+                    if (boxes.getCanBeBought()) {
                         players.get(i).setContracts(boxes);
                         moneytoremove += boxes.getPrice();
                         boxes.setPurchased();
@@ -61,7 +61,7 @@ public class PlayerHandler implements Serializable {
             if (players.size() == 3) {
                 for (int j = 0; j < 6; j++) {
                     Boxes boxes = this.boxes.get(rand.nextInt(26));
-                    if (!boxes.getPurchased()) {
+                    if (boxes.getCanBeBought()) {
                         players.get(i).setContracts(boxes);
                         moneytoremove += boxes.getPrice();
                         boxes.setPurchased();
@@ -74,7 +74,7 @@ public class PlayerHandler implements Serializable {
             if (players.size() == 4) {
                 for (int j = 0; j < 5; j++) {
                     Boxes boxes = this.boxes.get(rand.nextInt(26));
-                    if (!boxes.getPurchased()) {
+                    if (boxes.getCanBeBought()) {
                         players.get(i).setContracts(boxes);
                         moneytoremove += boxes.getPrice();
                         boxes.setPurchased();
@@ -87,7 +87,7 @@ public class PlayerHandler implements Serializable {
             if (players.size() == 5) {
                 for (int j = 0; j < 4; j++) {
                     Boxes boxes = this.boxes.get(rand.nextInt(26));
-                    if (!boxes.getPurchased()) {
+                    if (boxes.getCanBeBought()) {
                         players.get(i).setContracts(boxes);
                         moneytoremove += boxes.getPrice();
                         boxes.setPurchased();
@@ -100,7 +100,7 @@ public class PlayerHandler implements Serializable {
             if (players.size() == 6) {
                 for (int j = 0; j < 3; j++) {
                     Boxes boxes = this.boxes.get(rand.nextInt(26));
-                    if (!boxes.getPurchased()) {
+                    if (boxes.getCanBeBought()) {
                         players.get(i).setContracts(boxes);
                         moneytoremove += boxes.getPrice();
                         boxes.setPurchased();
