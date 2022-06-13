@@ -117,8 +117,8 @@ public class Player implements Serializable {
         return this.boxes.get(i);
     }
 
-    public void buy(int moneyto) {
-        this.money -= moneyto;
+    public void buy(int moneyToRemove) {
+        this.money -= moneyToRemove;
     }
 
     public void exitPrison() {

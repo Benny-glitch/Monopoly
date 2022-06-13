@@ -88,14 +88,7 @@ public class NewPlayerForm extends JFrame {
                         "Errore nel nome campo non compilato",
                         "Errore",
                         JOptionPane.ERROR_MESSAGE);
-            } /*catch (IOException ex) {
-                        JOptionPane.showMessageDialog(
-                                newplayerForm,
-                                "Errore nello stato del salvataggio del gioco",
-                                "Errore",
-                                JOptionPane.ERROR_MESSAGE);
-                    }*/
-
+            }
         } else {
             JOptionPane.showMessageDialog(
                     newplayerForm,

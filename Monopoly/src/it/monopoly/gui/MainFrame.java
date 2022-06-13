@@ -7,22 +7,17 @@ import java.awt.*;
 import java.io.IOException;
 
 public class MainFrame extends JFrame {
-    public static final Dimension DEFAULT_DIMENSION = new Dimension(800,600);
+    public static final Dimension DEFAULT_DIMENSION = new Dimension(800, 600);
+    ImageIcon imgIcon = new ImageIcon("src/it/monopoly/pawns/easter-egg.png");
     public MainFrame(){
         super("Monopoly");
-
-        try {
-            PlayerHandler.initialize();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         setDeafultConfiguration();
         MainFrameForm Form = new MainFrameForm(this);
         setContentPane(Form.getPanel());
     }
 
     private void setDeafultConfiguration() {
+        this.setIconImage(imgIcon.getImage());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setPreferredSize(DEFAULT_DIMENSION);
         this.setMinimumSize(DEFAULT_DIMENSION);

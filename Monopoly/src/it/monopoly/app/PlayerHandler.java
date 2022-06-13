@@ -143,18 +143,19 @@ public class PlayerHandler implements Serializable {
         return players.get(i);
     }
 
+    //TODO fare il SAVEMANAGER
     public void saveState() throws IOException {
         try (FileOutputStream fileOutputStream = new FileOutputStream("Giocatori.sr"); ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
             objectOutputStream.writeObject(this);
         }
     }
 
-    public static PlayerHandler load() throws IOException {
+    public static PlayerHandler load() throws IOException{
         try (FileInputStream fileInputStream = new FileInputStream("Giocatori.sr"); ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
             Object o = objectInputStream.readObject();
             return (PlayerHandler) o;
-        } catch (FileNotFoundException e) {
-            return null;
+        } catch (IOException e) {
+            throw new IOException();
         } catch (ClassNotFoundException ignore) {
             return new PlayerHandler();
         }

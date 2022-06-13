@@ -35,7 +35,7 @@ public class BoxesHandler implements Serializable {
             rent = scanner.nextInt();
             canBeBought = scanner.next().equals("true");
             try {
-                this.addContracts(name.replace("\n", ""), price, rent, canBeBought);
+                this.addBoxes(name.replace("\n", "").replace("\r",""), price, rent, canBeBought);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -57,11 +57,12 @@ public class BoxesHandler implements Serializable {
         return free_contracts;
     }
 
-    public void addContracts(String name, int price, int rent, boolean canbebought){
+    public void addBoxes(String name, int price, int rent, boolean canbebought){
         Boxes contratto = new Boxes(name, price, rent, canbebought);
         this.boxes.add(contratto);
     }
 
+    //TODO fare il SAVEMANAGER
     public void saveState() throws IOException {
         try (
                 FileOutputStream fileOutputStream = new FileOutputStream("Boxes.sr");

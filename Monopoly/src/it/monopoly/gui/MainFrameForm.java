@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class MainFrameForm {
@@ -21,13 +22,15 @@ public class MainFrameForm {
     private BoxesHandler boxesHandler;
     private PlayerHandler playerHandler;
 
-    public MainFrameForm(MainFrame mainFrame) {
+    public MainFrameForm(MainFrame mainFrame){
+
         setFontStartUP();
         newplayerFrame = new NewPlayerFrame();
 
         playLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+
                 newplayerFrame.setVisible(true);
                 mainFrame.dispose();
             }
@@ -45,12 +48,17 @@ public class MainFrameForm {
             @Override
             public void mouseClicked(MouseEvent ee) {
                 try {
+                    PlayerHandler.initialize();
                     playerHandler = PlayerHandler.load();
                     boxesHandler = BoxesHandler.load();
                     ScoreBoardForm scoreBoardForm = new ScoreBoardForm(boxesHandler, playerHandler);
                     scoreBoardForm.setVisible(true);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+                } catch (IOException e) {
+                    JOptionPane.showMessageDialog(
+                            mainFrame,
+                            "Errore nello stato del salvataggio del gioco",
+                            "Errore",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
