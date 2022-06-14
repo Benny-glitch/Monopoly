@@ -47,7 +47,7 @@ public class NewPlayerForm extends JFrame {
 
     public NewPlayerForm(NewPlayerFrame newPlayerFrame) {
         playerHandler = PlayerHandler.getInstance();
-        boxesHandler = new BoxesHandler();
+        boxesHandler = BoxesHandler.getInstance();
         utils = Utils.getInstance();
 
         setFontStartUP();

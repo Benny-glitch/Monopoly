@@ -1,5 +1,6 @@
 package it.monopoly.gui;
 
+import com.sun.tools.javac.Main;
 import it.monopoly.app.BoxesHandler;
 import it.monopoly.app.PlayerHandler;
 
@@ -10,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class MainFrameForm {
     private JPanel menuPanel;
@@ -69,8 +71,10 @@ public class MainFrameForm {
     }
 
     private void setFontStartUP() {
+        InputStream inputStream = MainFrameForm.class.getResourceAsStream("/it/monopoly/fonts/KabelBd-Normal.ttf");
         try {
-            font = Font.createFont(Font.TRUETYPE_FONT, new File("src/it/monopoly/fonts/KabelBd-Normal.ttf"));
+            assert inputStream != null;
+            font = Font.createFont(Font.TRUETYPE_FONT, inputStream);
         } catch (FontFormatException | IOException e) {
             throw new RuntimeException(e);
         }

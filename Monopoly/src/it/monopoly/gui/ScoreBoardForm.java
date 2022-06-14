@@ -1,5 +1,6 @@
 package it.monopoly.gui;
 
+import it.monopoly.Utils;
 import it.monopoly.app.Dice;
 import it.monopoly.app.BoxesHandler;
 import it.monopoly.app.PlayerHandler;
@@ -28,46 +29,6 @@ public class ScoreBoardForm extends JFrame {
     private JPanel contractsPanel;
     private JPanel dicePanel;
     private JLabel diceLabel;
-    private JLabel casella20;
-    private JLabel casella19;
-    private JLabel casella18;
-    private JLabel casella17;
-    private JLabel casella16;
-    private JLabel casella15;
-    private JLabel casella14;
-    private JLabel casella13;
-    private JLabel casella12;
-    private JLabel casella11;
-    private JLabel casella10;
-    private JLabel casella9;
-    private JLabel casella8;
-    private JLabel casella7;
-    private JLabel casella6;
-    private JLabel casella5;
-    private JLabel casella4;
-    private JLabel casella3;
-    private JLabel casella2;
-    private JLabel casella1;
-    private JLabel casella0;
-    private JLabel casella39;
-    private JLabel casella21;
-    private JLabel casella22;
-    private JLabel casella23;
-    private JLabel casella24;
-    private JLabel casella25;
-    private JLabel casella26;
-    private JLabel casella27;
-    private JLabel casella28;
-    private JLabel casella29;
-    private JLabel casella30;
-    private JLabel casella31;
-    private JLabel casella32;
-    private JLabel casella33;
-    private JLabel casella34;
-    private JLabel casella35;
-    private JLabel casella36;
-    private JLabel casella37;
-    private JLabel casella38;
     private JButton throwDiceButton;
     private JLabel exitPrisonMessage;
     private JLabel payRent;
@@ -77,11 +38,52 @@ public class ScoreBoardForm extends JFrame {
     private JLabel timerLabel;
     private JLabel payTaxLabel;
     private JLabel textTaxLabel;
+    private JLabel contractLabel;
+    private JPanel panel0;
+    private JPanel panel1;
+    private JPanel panel2;
+    private JPanel panel3;
+    private JPanel panel4;
+    private JPanel panel5;
+    private JPanel panel6;
+    private JPanel panel7;
+    private JPanel panel8;
+    private JPanel panel9;
+    private JPanel panel10;
+    private JPanel panel11;
+    private JPanel panel12;
+    private JPanel panel13;
+    private JPanel panel14;
+    private JPanel panel15;
+    private JPanel panel16;
+    private JPanel panel17;
+    private JPanel panel18;
+    private JPanel panel19;
+    private JPanel panel20;
+    private JPanel panel21;
+    private JPanel panel22;
+    private JPanel panel23;
+    private JPanel panel24;
+    private JPanel panel25;
+    private JPanel panel26;
+    private JPanel panel27;
+    private JPanel panel28;
+    private JPanel panel29;
+    private JPanel panel30;
+    private JPanel panel31;
+    private JPanel panel32;
+    private JPanel panel33;
+    private JPanel panel34;
+    private JPanel panel35;
+    private JPanel panel36;
+    private JPanel panel37;
+    private JPanel panel38;
+    private JPanel panel39;
     private final Dice dice;
     private final Turn turn;
     private int turnCounter;
     private int doub;
-    private final List<JLabel> positions;
+    private final List<JPanel> positions;
 
     private Timer timer;
     private int second;
@@ -92,7 +94,7 @@ public class ScoreBoardForm extends JFrame {
 
     DecimalFormat dFormat = new DecimalFormat("00");
 
-    public ScoreBoardForm(BoxesHandler boxesHandler, PlayerHandler playerHandler) {
+    public ScoreBoardForm(BoxesHandler boxesHandler, PlayerHandler playerHandler){
         super("Tabellone");
         formWindowActivated();
         positions = new ArrayList<>();
@@ -107,7 +109,7 @@ public class ScoreBoardForm extends JFrame {
         update_UI(playerHandler, turnCounter);
         doub = 0;
         loadBoxes();
-        setPosition(turnCounter);
+        setPosition();
         exitPrisonMessage.setVisible(false);
         payRent.setVisible(false);
         endTurnButton.setVisible(false);
@@ -125,14 +127,14 @@ public class ScoreBoardForm extends JFrame {
 
                 int roll = dice.roll();
                 diceLabel.setText(String.valueOf(roll));
-                cleanPosition(turnCounter);
+                cleanPosition();
                 playerHandler.getPlayer(turnCounter).changePosition(roll);
                 controlGoToJail(turnCounter);
-                setPosition(turnCounter);
-
+                setPosition();
 
                 if (boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).isPurchased() &&
                         boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getOwner() != null) {
+
                     playerHandler.getPlayer(turnCounter).pay(boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getOwner(),
                             boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getRent());
                     playerRent.setText(String.valueOf(boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getOwner().getUsername()));
@@ -142,12 +144,14 @@ public class ScoreBoardForm extends JFrame {
                     rentToPay.setVisible(true);
                     aLabel.setVisible(true);
                 } else if (!boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).isPurchased() && boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getCanBeBought()) {
+
                     AcquistaProprietaForm acquistaProprietaForm =
                             new AcquistaProprietaForm(boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()), playerHandler.getPlayer(turnCounter), contractsList, money);
                     acquistaProprietaForm.setVisible(true);
-
                     setContractsList(turnCounter);
+                    update_UI(playerHandler, turnCounter);
                 } else if (boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).isATax()) {
+
                     payTaxLabel.setText(boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getRent() + "€");
                     payTaxLabel.setVisible(true);
                     textTaxLabel.setVisible(true);
@@ -184,11 +188,11 @@ public class ScoreBoardForm extends JFrame {
                 doub = 0;
                 payRent.setVisible(false);
                 exitPrisonMessage.setVisible(false);
-                cleanPosition(turnCounter);
+                cleanPosition();
                 turnCounter = turn.Turns();
                 update_UI(playerHandler, turnCounter);
                 rollDiceButton.setVisible(true);
-                setPosition(turnCounter);
+                setPosition();
                 endTurnButton.setVisible(false);
                 if (playerHandler.getPlayer(turnCounter).isInJail()) {
                     if (playerHandler.getPlayer(turnCounter).getShiftsInJail() == 0) {
@@ -207,8 +211,8 @@ public class ScoreBoardForm extends JFrame {
                 try {
                     playerHandler.saveState();
                     boxesHandler.saveState();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+                } catch (IOException ignored) {
+
                 }
             }
         });
@@ -263,57 +267,82 @@ public class ScoreBoardForm extends JFrame {
         contractsList.setModel(demoList);
     }
 
-    private void setPosition(int i) {
-        positions.get(PlayerHandler.getInstance().getPlayer(i).getPosition()).setText(PlayerHandler.getInstance().getPlayer(i).getPawn());
+    private void setPosition() {
+        for (int i = 0; i < PlayerHandler.getInstance().getNumPlayer(); i++) {
+            JLabel pawn = new JLabel(Utils.getIcon(Utils.ICON_PATH + PlayerHandler.getInstance().getPlayer(i).getPawn().toLowerCase().replaceAll(" ","") + "Pawn.png"));
+            GridBagConstraints gridBagConstraints = new GridBagConstraints();
+            pawn.setBorder(BorderFactory.createLineBorder(Color.GREEN,2));
+
+            if(i < 3){
+                gridBagConstraints.gridx = i;
+                gridBagConstraints.gridy = 1;
+            } else {
+               gridBagConstraints.gridx = i - 3;
+               gridBagConstraints.gridy = 2;
+            }
+
+            JPanel card = positions.get(PlayerHandler.getInstance().getPlayer(i).getPosition());
+            card.add(pawn,gridBagConstraints);
+        }
     }
 
-    private void cleanPosition(int i) {
-        positions.get(PlayerHandler.getInstance().getPlayer(i).getPosition()).setText("");
+    private void cleanPosition() {
+        JPanel card = positions.get(PlayerHandler.getInstance().getPlayer(turnCounter).getPosition());
+
+        for(Component component : card.getComponents()){
+            if(component.getClass() == JLabel.class){
+                if(((JLabel) component).getText() == null)
+                    card.remove(component);
+            }
+        }
+        getContentPane().repaint();
     }
 
 
     private void loadBoxes() {
-        positions.add(casella0);
-        positions.add(casella1);
-        positions.add(casella2);
-        positions.add(casella3);
-        positions.add(casella4);
-        positions.add(casella5);
-        positions.add(casella6);
-        positions.add(casella7);
-        positions.add(casella8);
-        positions.add(casella9);
-        positions.add(casella10);
-        positions.add(casella11);
-        positions.add(casella12);
-        positions.add(casella13);
-        positions.add(casella14);
-        positions.add(casella15);
-        positions.add(casella16);
-        positions.add(casella17);
-        positions.add(casella18);
-        positions.add(casella19);
-        positions.add(casella20);
-        positions.add(casella21);
-        positions.add(casella22);
-        positions.add(casella23);
-        positions.add(casella24);
-        positions.add(casella25);
-        positions.add(casella26);
-        positions.add(casella27);
-        positions.add(casella28);
-        positions.add(casella29);
-        positions.add(casella30);
-        positions.add(casella31);
-        positions.add(casella32);
-        positions.add(casella33);
-        positions.add(casella34);
-        positions.add(casella35);
-        positions.add(casella36);
-        positions.add(casella37);
-        positions.add(casella38);
-        positions.add(casella39);
+        positions.add(panel0);
+        positions.add(panel1);
+        positions.add(panel2);
+        positions.add(panel3);
+        positions.add(panel4);
+        positions.add(panel5);
+        positions.add(panel6);
+        positions.add(panel7);
+        positions.add(panel8);
+        positions.add(panel9);
+        positions.add(panel10);
+        positions.add(panel11);
+        positions.add(panel12);
+        positions.add(panel13);
+        positions.add(panel14);
+        positions.add(panel15);
+        positions.add(panel16);
+        positions.add(panel17);
+        positions.add(panel18);
+        positions.add(panel19);
+        positions.add(panel20);
+        positions.add(panel21);
+        positions.add(panel22);
+        positions.add(panel23);
+        positions.add(panel24);
+        positions.add(panel25);
+        positions.add(panel26);
+        positions.add(panel27);
+        positions.add(panel28);
+        positions.add(panel29);
+        positions.add(panel30);
+        positions.add(panel31);
+        positions.add(panel32);
+        positions.add(panel33);
+        positions.add(panel34);
+        positions.add(panel35);
+        positions.add(panel36);
+        positions.add(panel37);
+        positions.add(panel38);
+        positions.add(panel39);
     }
+
+
 
     private void update_UI(PlayerHandler giocatori1, int shift) {
         name.setText(giocatori1.getPlayer(shift).getUsername());

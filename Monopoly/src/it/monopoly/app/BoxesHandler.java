@@ -8,9 +8,22 @@ import java.util.Scanner;
 public class BoxesHandler implements Serializable {
     public static final long serialVersionUID = 1L;
 
+    private static BoxesHandler instance;
+
     private List<Boxes> boxes;
 
-    public BoxesHandler(){
+    public static void initialize() throws IOException {
+        BoxesHandler.instance = BoxesHandler.load();
+    }
+
+    public static BoxesHandler getInstance() {
+        if (instance == null) {
+            instance = new BoxesHandler();
+        }
+        return BoxesHandler.instance;
+    }
+
+    private BoxesHandler(){
         this.boxes = new ArrayList<>(40);
         loadBoxes();
     }

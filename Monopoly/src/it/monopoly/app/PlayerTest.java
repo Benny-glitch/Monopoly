@@ -3,8 +3,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PlayerTest {
-    Player  player = new Player("Benny", false, 0, "Nave da guerra", 0);;
-    BoxesHandler boxesHandler = new BoxesHandler();
+    Player  player = new Player("Benny", false, 0, "Nave da guerra", 0);
+    BoxesHandler boxesHandler = BoxesHandler.getInstance();
     public PlayerTest() throws NullNameException {
 
     }

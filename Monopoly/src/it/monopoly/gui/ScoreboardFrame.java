@@ -14,7 +14,7 @@ public class ScoreboardFrame extends JFrame{
 
     public ScoreboardFrame(PlayerHandler playerHandler) throws FileNotFoundException {
         super("Tabellone");
-        boxesHandler = new BoxesHandler();
+        boxesHandler = BoxesHandler.getInstance();
         ScoreBoardForm scoreboardForm = new ScoreBoardForm(boxesHandler,playerHandler);
         setContentPane(scoreboardForm.getPanel());
         setDeafultConfiguration();

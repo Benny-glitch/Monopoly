@@ -49,7 +49,7 @@ public class PlayerHandler implements Serializable {
 
     private PlayerHandler() {
         players = new ArrayList<>(6);
-        boxes = new BoxesHandler();
+        boxes = BoxesHandler.getInstance();
         random = new Random();
     }
 
