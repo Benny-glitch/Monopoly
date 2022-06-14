@@ -75,6 +75,8 @@ public class ScoreBoardForm extends JFrame {
     private JLabel rentToPay;
     private JLabel aLabel;
     private JLabel timerLabel;
+    private JLabel payTaxLabel;
+    private JLabel textTaxLabel;
     private final Dice dice;
     private final Turn turn;
     private int turnCounter;
@@ -109,15 +111,18 @@ public class ScoreBoardForm extends JFrame {
         exitPrisonMessage.setVisible(false);
         payRent.setVisible(false);
         endTurnButton.setVisible(false);
+        payTaxLabel.setVisible(false);
+        textTaxLabel.setVisible(false);
         this.setIconImage(imgIcon.getImage());
+
         countDownTimer();
         timerLabel.setText("03:00");
-
 
         rollDiceButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 timer.start();
+
                 int roll = dice.roll();
                 diceLabel.setText(String.valueOf(roll));
                 cleanPosition(turnCounter);
@@ -125,7 +130,7 @@ public class ScoreBoardForm extends JFrame {
                 controlGoToJail(turnCounter);
                 setPosition(turnCounter);
 
-                //TODO if per le tasse da pagare
+
                 if (boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).isPurchased() &&
                         boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getOwner() != null) {
                     playerHandler.getPlayer(turnCounter).pay(boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getOwner(),
@@ -141,8 +146,12 @@ public class ScoreBoardForm extends JFrame {
                             new AcquistaProprietaForm(boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()), playerHandler.getPlayer(turnCounter), contractsList, money);
                     acquistaProprietaForm.setVisible(true);
 
-                    update_UI(playerHandler, turnCounter);
                     setContractsList(turnCounter);
+                } else if (boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).isATax()) {
+                    payTaxLabel.setText(boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getRent() + "€");
+                    payTaxLabel.setVisible(true);
+                    textTaxLabel.setVisible(true);
+                    update_UI(playerHandler, turnCounter);
                 }
 
 
@@ -168,7 +177,6 @@ public class ScoreBoardForm extends JFrame {
                 timerLabel.setText("03:00");
                 timer.stop();
                 countDownTimer();
-                timer.start();
                 payRent.setVisible(false);
                 playerRent.setVisible(false);
                 rentToPay.setVisible(false);
@@ -333,7 +341,7 @@ public class ScoreBoardForm extends JFrame {
             }
 
             if (minute == 0 && second == 0) {
-                timer.stop();
+                endTurnButton.doClick();
             }
         });
     }

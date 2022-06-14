@@ -48,7 +48,7 @@ public class PlayerTest {
 
     @Test
     void testGetRentContract(){
-        player.setContracts(new Boxes("VIA",0,0,false));
+        player.setContracts(new Boxes("VIA",0,0,false,false));
         int rentContract = player.getRentContract(0);
         assertEquals(0, rentContract);
     }

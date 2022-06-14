@@ -19,6 +19,7 @@ public class BoxesHandler implements Serializable {
         int rent, price;
         String name;
         boolean canBeBought;
+        boolean aTax;
         Scanner scanner = null;
 
         try {
@@ -34,8 +35,9 @@ public class BoxesHandler implements Serializable {
             price = scanner.nextInt();
             rent = scanner.nextInt();
             canBeBought = scanner.next().equals("true");
+            aTax = scanner.next().equals("true");
             try {
-                this.addBoxes(name.replace("\n", "").replace("\r",""), price, rent, canBeBought);
+                this.addBoxes(name.replace("\n", "").replace("\r",""), price, rent, canBeBought, aTax);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -57,8 +59,8 @@ public class BoxesHandler implements Serializable {
         return free_contracts;
     }
 
-    public void addBoxes(String name, int price, int rent, boolean canbebought){
-        Boxes contratto = new Boxes(name, price, rent, canbebought);
+    public void addBoxes(String name, int price, int rent, boolean canbebought,boolean aTax){
+        Boxes contratto = new Boxes(name, price, rent, canbebought,aTax);
         this.boxes.add(contratto);
     }
 
