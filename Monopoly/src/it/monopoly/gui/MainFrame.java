@@ -1,12 +1,15 @@
 package it.monopoly.gui;
 
+import it.monopoly.app.BoxesHandler;
 import it.monopoly.app.PlayerHandler;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class MainFrame extends JFrame {
+
     public static final Dimension DEFAULT_DIMENSION = new Dimension(800, 600);
     ImageIcon imgIcon = new ImageIcon("src/it/monopoly/pawns/easter-egg.png");
     public MainFrame(){

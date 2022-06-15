@@ -3,6 +3,7 @@ package it.monopoly.app;
 import java.io.Serializable;
 import java.util.*;
 
+
 public class Player implements Serializable {
     public static final long serialVersionUID = 1L;
 
@@ -41,6 +42,11 @@ public class Player implements Serializable {
         return this.shiftsInJail;
     }
 
+    /**
+     * Override del metodo toString utilizzato nella versione precendete del videogioco.
+     * @return una stringa composta dal nome della Proprietà e Affitto su cui il metodo viene chiamato.
+     * @deprecated Metodo utilizzato per la versione CLI del Monopoly. Restiuisce una stringa riguradante: Username, Soldi, Tipo pedina e Contratti del giocatore.
+     */
     public String toString() {
         return " Username =" + this.username + " Soldi=" + this.money + " TipodiPedina=" + this.typeOfPawn + " Contratti=" + this.boxes;
     }
@@ -63,8 +69,14 @@ public class Player implements Serializable {
         return lista_contratti.toString().replace("null", "");
     }
 
-    public void pay(Player reciving, int moneytorecive) {
-        reciving.addMoney(moneytorecive);
+
+    /**
+     * Prende come parametri il giocatore di tipo Player a cui si dovrà pagare una tassa o un' affitto e i soldi di tipo int da togliere al player.
+     * @param player giocatore nel momento in cui viene chimato il metodo
+     * @param moneytorecive soldi da togliere al giocatore
+     */
+    public void pay(Player player, int moneytorecive) {
+        player.addMoney(moneytorecive);
         addMoney(-moneytorecive);
     }
 
@@ -105,6 +117,11 @@ public class Player implements Serializable {
         return this.position;
     }
 
+    /**
+     * Prende in inuput il valore del dado e cambia la posizione, effettua un controllo se la posizione corrente e maggiore della posizone modulo quindi il giocatore ha superato il VIA
+     * allora gli vengono aggiunti 500€
+     * @param roll valore dei dadi calcolato con il metodo {@link Dice#roll()}
+     */
     public void changePosition(int roll) {
         position += roll;
         if (position > position % 39) {

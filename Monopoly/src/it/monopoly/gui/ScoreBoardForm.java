@@ -123,6 +123,8 @@ public class ScoreBoardForm extends JFrame {
         rollDiceButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(playerHandler.getPlayer(turnCounter).isInJail())
+                    timerLabel.hide();
                 timer.start();
 
                 int roll = dice.roll();

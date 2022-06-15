@@ -25,14 +25,13 @@ public class MainFrameForm {
     private PlayerHandler playerHandler;
 
     public MainFrameForm(MainFrame mainFrame){
-
+        setBoxesStrartUP(mainFrame);
         setFontStartUP();
         newplayerFrame = new NewPlayerFrame();
 
         playLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
                 newplayerFrame.setVisible(true);
                 mainFrame.dispose();
             }
@@ -82,5 +81,17 @@ public class MainFrameForm {
         playLabel.setFont(font.deriveFont(Font.PLAIN, 36));
         continueGameLabel.setFont(font.deriveFont(Font.PLAIN, 36));
         exitLabel.setFont(font.deriveFont(Font.PLAIN, 36));
+    }
+
+    private void setBoxesStrartUP(MainFrame mainFrame){
+        try {
+            BoxesHandler.getInstance().loadBoxes();
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(
+                    mainFrame,
+                    "Errore nello stato del salvataggio del gioco",
+                    "Errore",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

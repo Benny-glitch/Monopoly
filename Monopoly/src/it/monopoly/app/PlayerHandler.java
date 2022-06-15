@@ -35,11 +35,20 @@ public class PlayerHandler implements Serializable {
     private int moneyToRemove;
     private Random random;
 
-
+    /**
+     * Metodo che inizializza la classe attraverso il metodo load {@link PlayerHandler#load()} se esiste una classe già serializzata in precendeza.
+     *
+     * @throws IOException se c'è un errore nel caricamento della classe serializzata in precedenza o se questa non esiste.
+     */
     public static void initialize() throws IOException {
         PlayerHandler.instance = PlayerHandler.load();
     }
 
+    /**
+     * Metodo che restituisce l'istanza della classe se non è nulla altrimenti ne viene creata una nuova.
+     *
+     * @return una istanza di PlayerHandler.
+     */
     public static PlayerHandler getInstance() {
         if (instance == null) {
             instance = new PlayerHandler();
@@ -53,6 +62,13 @@ public class PlayerHandler implements Serializable {
         random = new Random();
     }
 
+    /**
+     * Aggiunge un giocatore all' ArrayList di giocatori. Lancia una Exception se il parametro Name vine lasciato vuoto.
+     *
+     * @param username   nome del giocatore da registrare.
+     * @param typeofpawn tipo della pedina scelta dal giocatore.
+     * @throws NullNameException se il se il parametro Name vine lasciato vuoto.
+     */
     public void addPlayer(String username, String typeofpawn) throws NullNameException {
         try {
             Player player = new Player(username, false, 0, typeofpawn, 0);
@@ -134,7 +150,8 @@ public class PlayerHandler implements Serializable {
 
         //schermataTurno.SchermataTurno(giocatori,contratti);
     }
-    public void removePlayer(int player){
+
+    public void removePlayer(int player) {
         players.remove(player);
     }
 
@@ -146,15 +163,30 @@ public class PlayerHandler implements Serializable {
         return players.get(i);
     }
 
-    //TODO fare il SAVEMANAGER
+    /**
+     * Metodo che si occupa della Serializzazione e salvataggio dello stato del gioco richiamato ad ogni fine turno di ogni giocatore.
+     * Genera un Exception se il file non viene generato correttamente o se la classe da salvare non viene passatra correttamente.
+     *
+     * @throws IOException
+     */
     public void saveState() throws IOException {
-        try (FileOutputStream fileOutputStream = new FileOutputStream("Giocatori.sr"); ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)) {
+        try (FileOutputStream fileOutputStream = new FileOutputStream("Player.sr");
+             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)
+        ) {
             objectOutputStream.writeObject(this);
         }
     }
 
-    public static PlayerHandler load() throws IOException{
-        try (FileInputStream fileInputStream = new FileInputStream("Giocatori.sr"); ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
+    /**
+     * Metodo che si occupa del caricamento della classe serializzata. Lancia una Exception se non è stato possibile il caricamento della classe salvata nel
+     * precorso specificato.
+     * @return un'istanza del Boxeshandler se esistenete.
+     * @throws IOException se non è stato possibile il caricamento della classe salvata nel precorso specificato.
+     */
+    public static PlayerHandler load() throws IOException {
+        try (
+                FileInputStream fileInputStream = new FileInputStream("Player.sr");
+                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
             Object o = objectInputStream.readObject();
             return (PlayerHandler) o;
         } catch (IOException e) {

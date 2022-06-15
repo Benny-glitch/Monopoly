@@ -21,6 +21,10 @@ public class Boxes implements Serializable {
         this.aTax = aTax;
     }
 
+    /**
+     * Restituisce un valore booleano per la casella su cui questo metodo viene chiamato.
+     * @return true se la casella è già acquistata false il contrario.
+     */
     public boolean isPurchased() {
         return this.purchased;
     }
@@ -29,6 +33,11 @@ public class Boxes implements Serializable {
         this.purchased = true;
     }
 
+    /**
+     * Restuisce un valore booleano per la casella su cui il metodo viene chiamato.
+     *
+     * @return true la casella in questione e un casella di tipo Tassa false il contrario.
+     */
     public boolean isATax(){
         return this.aTax;
     }
@@ -57,6 +66,10 @@ public class Boxes implements Serializable {
         return this.beBought;
     }
 
+    /**
+     * Override del metodo toString utilizzato nella versione precendete del videogioco.
+     * @return una stringa composta dal nome della Proprietà e Affitto su cui il metodo viene chiamato.
+     */
     public String toString(){
         return "nome Proprieta'= " + this.name + " Affitto= " + this.rent + "\n";
     }

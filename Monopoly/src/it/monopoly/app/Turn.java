@@ -13,6 +13,10 @@ public class Turn {
         count = 0;
     }
 
+    /**
+     * Incrementa l'indice del turno al turno successivo
+     * @return Restituisce un intero che rappresenta il nuovo turno
+     */
     public int Turns(){
         if(count  == nplayer)
             count  = 0;

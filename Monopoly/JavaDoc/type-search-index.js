@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"it.monopoly.app","l":"Boxes"},{"p":"it.monopoly.app","l":"BoxesHandler"},{"p":"it.monopoly.app","l":"Dice"},{"p":"it.monopoly.app","l":"Player"},{"p":"it.monopoly.app","l":"PlayerHandler"},{"p":"it.monopoly.app","l":"Turn"}];updateSearchResults();

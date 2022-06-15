@@ -3,6 +3,13 @@ package it.monopoly.app;
 import javax.swing.*;
 import java.util.Random;
 
+/**
+ * Singleton che rappresenta il dado che il giocatore lancia attraverso il metodo {@link #roll()}.
+ *
+ * Esempio: {@code Dice.roll();}
+ *
+ * @author Benny
+ */
 public class Dice {
     private final int max_bound = 6;
     private final int min_bound = 1;
@@ -15,6 +22,10 @@ public class Dice {
         random = new Random();
     }
 
+    /**
+     * Restituisce la somma di due valori interi calcolati attraverso la funzione random {@link Random} che vanno da un minimo di 1 ad un massimo di 6.
+     * @return la somma di due valori interi calcolati attraverso la funzione random.
+     */
     public int roll() {
         roll1 = random.nextInt(max_bound - min_bound) + min_bound;
         roll2 = random.nextInt(max_bound - min_bound) + min_bound;
