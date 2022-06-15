@@ -6,6 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import it.monopoly.Utils;
 import it.monopoly.app.BoxesHandler;
@@ -122,8 +123,10 @@ public class NewPlayerForm extends JFrame {
     }
 
     private void setFontStartUP() {
+        InputStream inputStream = MainFrameForm.class.getResourceAsStream("/it/monopoly/fonts/KabelBd-Normal.ttf");
         try {
-            font = Font.createFont(Font.TRUETYPE_FONT, new File("src/it/monopoly/fonts/KabelBd-Normal.ttf"));
+            assert inputStream != null;
+            font = Font.createFont(Font.TRUETYPE_FONT, inputStream);
         } catch (FontFormatException | IOException e) {
             throw new RuntimeException(e);
         }
