@@ -6,14 +6,13 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
-import java.util.List;
 
 public class Utils {
-    private static List<ImageIcon> icons;
     private static Utils instance;
     private static Random random;
 
-    public static final String ICON_PATH = "/it/monopoly/images/pawns/";
+    public static final String ICON_PATH = "/it/monopoly/resources/pawns/";
+
 
     public static Utils getInstance() {
         if(instance == null){
@@ -23,15 +22,7 @@ public class Utils {
     }
 
     private Utils(){
-        icons = new ArrayList<>(6);
         random = new Random();
-    }
-
-    public ImageIcon getIcons(int j) throws IndexOutOfBoundsException{
-        if(j > 6){
-            throw new IndexOutOfBoundsException();
-        }
-        return icons.get(j);
     }
 
     public static Image getImage(String imagePath){
@@ -53,7 +44,6 @@ public class Utils {
 
         return image;
     }
-
 
     public static ImageIcon getIcon(String iconPath){
         ImageIcon icon = new ImageIcon();

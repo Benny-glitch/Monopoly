@@ -4,9 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+<<<<<<< Updated upstream
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+=======
+import java.io.*;
+>>>>>>> Stashed changes
 
 import it.monopoly.Utils;
 import it.monopoly.app.BoxesHandler;
@@ -51,7 +55,16 @@ public class NewPlayerForm extends JFrame {
         boxesHandler = BoxesHandler.getInstance();
         utils = Utils.getInstance();
 
-        setFontStartUP();
+        try {
+            setFontStartUP();
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(
+                    newPlayerFrame,
+                    "Errore nello stato del caricamento del font",
+                    "Errore",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
 
         addPlayerLabel.addMouseListener(new MouseAdapter() {
             @Override
@@ -122,14 +135,21 @@ public class NewPlayerForm extends JFrame {
         return newplayerForm;
     }
 
+<<<<<<< Updated upstream
     private void setFontStartUP() {
         InputStream inputStream = MainFrameForm.class.getResourceAsStream("/it/monopoly/fonts/KabelBd-Normal.ttf");
+=======
+    private void setFontStartUP() throws FileNotFoundException {
+        InputStream inputStream = MainFrameForm.class.getResourceAsStream("/it/monopoly/resources/fonts/KabelBd-Normal.ttf");
+
+>>>>>>> Stashed changes
         try {
             assert inputStream != null;
             font = Font.createFont(Font.TRUETYPE_FONT, inputStream);
         } catch (FontFormatException | IOException e) {
             throw new RuntimeException(e);
         }
+
         imageLabelp1.setFont(font.deriveFont(Font.PLAIN, 36));
         imageLabelp2.setFont(font.deriveFont(Font.PLAIN, 36));
         imageLabelp3.setFont(font.deriveFont(Font.PLAIN, 36));

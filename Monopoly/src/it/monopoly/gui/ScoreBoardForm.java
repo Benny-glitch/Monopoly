@@ -118,7 +118,7 @@ public class ScoreBoardForm extends JFrame {
         this.setIconImage(imgIcon.getImage());
 
         countDownTimer();
-        timerLabel.setText("03:00");
+       setTimerLabel();
 
         rollDiceButton.addActionListener(new ActionListener() {
             @Override
@@ -172,7 +172,6 @@ public class ScoreBoardForm extends JFrame {
                     endTurnButton.setVisible(true);
                 }
 
-
                 if (doub == 3) {
                     playerHandler.getPlayer(turnCounter).setIsInJail(true);
                 }
@@ -184,7 +183,7 @@ public class ScoreBoardForm extends JFrame {
         endTurnButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                timerLabel.setText("03:00");
+               setTimerLabel();
                 timer.stop();
                 countDownTimer();
                 payTaxLabel.setVisible(false);
@@ -249,7 +248,6 @@ public class ScoreBoardForm extends JFrame {
     }
 
     private void formWindowActivated() {
-        // Get the size of the screen
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setMinimumSize(dim);
         this.setPreferredSize(dim);
@@ -310,7 +308,6 @@ public class ScoreBoardForm extends JFrame {
         }
         card.repaint();
     }
-
 
     private void loadBoxes() {
         positions.add(panel0);
@@ -385,6 +382,14 @@ public class ScoreBoardForm extends JFrame {
             }
         });
     }
+    
+    private void setTimerLabel(){
+       timerLabel.setText("03:00");
+    }
+
+    private void startUp
+
+
 
     private void ciao() {
         JPanel cell = positions.get(PlayerHandler.getInstance().getPlayer(turnCounter).getPosition());

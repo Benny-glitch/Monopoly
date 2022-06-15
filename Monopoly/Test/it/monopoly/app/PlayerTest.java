@@ -6,7 +6,6 @@ public class PlayerTest {
     Player  player = new Player("Benny", false, 0, "Nave da guerra", 0);
     BoxesHandler boxesHandler = BoxesHandler.getInstance();
     public PlayerTest() throws NullNameException {
-
     }
 
     @Test
@@ -70,6 +69,5 @@ public class PlayerTest {
         String pawn = player.getPawn();
         assertEquals("Nave da guerra", pawn);
     }
-
 
 }

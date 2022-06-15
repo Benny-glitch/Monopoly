@@ -32,7 +32,7 @@ public class PlayerHandler implements Serializable {
 
     private ArrayList<Player> players;
     private BoxesHandler boxes;
-    private int moneyToRemove;
+    private int moneyToSubtract;
     private Random random;
 
     /**
@@ -62,6 +62,7 @@ public class PlayerHandler implements Serializable {
         random = new Random();
     }
 
+<<<<<<< Updated upstream
     /**
      * Aggiunge un giocatore all' ArrayList di giocatori. Lancia una Exception se il parametro Name vine lasciato vuoto.
      *
@@ -70,8 +71,11 @@ public class PlayerHandler implements Serializable {
      * @throws NullNameException se il se il parametro Name vine lasciato vuoto.
      */
     public void addPlayer(String username, String typeofpawn) throws NullNameException {
+=======
+    public void addPlayer(String username, String typeOfPawn) throws NullNameException {
+>>>>>>> Stashed changes
         try {
-            Player player = new Player(username, false, 0, typeofpawn, 0);
+            Player player = new Player(username, false, 0, typeOfPawn, 0);
             players.add(player);
         } catch (NullNameException e) {
             throw e;
@@ -85,65 +89,65 @@ public class PlayerHandler implements Serializable {
                     Boxes boxes = this.boxes.get(random.nextInt(NUM_CONTRACTS));
                     if (boxes.getCanBeBought()) {
                         players.get(i).setContracts(boxes);
-                        moneyToRemove += boxes.getPrice();
+                        moneyToSubtract += boxes.getPrice();
                         boxes.setPurchased();
                     } else {
                         j--;
                     }
                 }
-                players.get(i).setMoney(MONEY_TWO_PLAYER - moneyToRemove);
+                players.get(i).setMoney(MONEY_TWO_PLAYER - moneyToSubtract);
             }
             if (players.size() == THREE_PLAYER) {
                 for (int j = 0; j < CONTRATCTS_THREE_PLAYER; j++) {
                     Boxes boxes = this.boxes.get(random.nextInt(NUM_CONTRACTS));
                     if (boxes.getCanBeBought()) {
                         players.get(i).setContracts(boxes);
-                        moneyToRemove += boxes.getPrice();
+                        moneyToSubtract += boxes.getPrice();
                         boxes.setPurchased();
                     } else {
                         j--;
                     }
                 }
-                players.get(i).setMoney(MONEY_THREE_PLAYER - moneyToRemove);
+                players.get(i).setMoney(MONEY_THREE_PLAYER - moneyToSubtract);
             }
             if (players.size() == FOUR_PLAYER) {
                 for (int j = 0; j < CONTRATCTS_FOUR_PLAYER; j++) {
                     Boxes boxes = this.boxes.get(random.nextInt(NUM_CONTRACTS));
                     if (boxes.getCanBeBought()) {
                         players.get(i).setContracts(boxes);
-                        moneyToRemove += boxes.getPrice();
+                        moneyToSubtract += boxes.getPrice();
                         boxes.setPurchased();
                     } else {
                         j--;
                     }
                 }
-                players.get(i).setMoney(MONEY_FOUR_PLAYER - moneyToRemove);
+                players.get(i).setMoney(MONEY_FOUR_PLAYER - moneyToSubtract);
             }
             if (players.size() == FIVE_PLAYER) {
                 for (int j = 0; j < CONTRATCTS_FIVE_PLAYER; j++) {
                     Boxes boxes = this.boxes.get(random.nextInt(NUM_CONTRACTS));
                     if (boxes.getCanBeBought()) {
                         players.get(i).setContracts(boxes);
-                        moneyToRemove += boxes.getPrice();
+                        moneyToSubtract += boxes.getPrice();
                         boxes.setPurchased();
                     } else {
                         j--;
                     }
                 }
-                players.get(i).setMoney(MONEY_FIVE_PLAYER - moneyToRemove);
+                players.get(i).setMoney(MONEY_FIVE_PLAYER - moneyToSubtract);
             }
             if (players.size() == SIX_PLAYER) {
                 for (int j = 0; j < CONTRATCTS_SIX_PLAYER; j++) {
                     Boxes boxes = this.boxes.get(random.nextInt(NUM_CONTRACTS));
                     if (boxes.getCanBeBought()) {
                         players.get(i).setContracts(boxes);
-                        moneyToRemove += boxes.getPrice();
+                        moneyToSubtract += boxes.getPrice();
                         boxes.setPurchased();
                     } else {
                         j--;
                     }
                 }
-                players.get(i).setMoney(MONEY_SIX_PLAYER - moneyToRemove);
+                players.get(i).setMoney(MONEY_SIX_PLAYER - moneyToSubtract);
             }
         }
         Collections.shuffle(players);
