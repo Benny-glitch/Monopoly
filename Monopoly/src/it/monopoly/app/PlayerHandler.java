@@ -134,6 +134,9 @@ public class PlayerHandler implements Serializable {
 
         //schermataTurno.SchermataTurno(giocatori,contratti);
     }
+    public void removePlayer(int player){
+        players.remove(player);
+    }
 
     public int getNumPlayer() {
         return this.players.size();

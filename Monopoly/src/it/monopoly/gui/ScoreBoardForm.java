@@ -94,7 +94,7 @@ public class ScoreBoardForm extends JFrame {
 
     DecimalFormat dFormat = new DecimalFormat("00");
 
-    public ScoreBoardForm(BoxesHandler boxesHandler, PlayerHandler playerHandler){
+    public ScoreBoardForm(BoxesHandler boxesHandler, PlayerHandler playerHandler) {
         super("Tabellone");
         formWindowActivated();
         positions = new ArrayList<>();
@@ -132,32 +132,36 @@ public class ScoreBoardForm extends JFrame {
                 controlGoToJail(turnCounter);
                 setPosition();
 
-                if (boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).isPurchased() &&
-                        boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getOwner() != null) {
+                if(playerHandler.getPlayer(turnCounter).getMoney() == 0)
+                    playerHandler.removePlayer(turnCounter);
 
-                    playerHandler.getPlayer(turnCounter).pay(boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getOwner(),
-                            boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getRent());
-                    playerRent.setText(String.valueOf(boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getOwner().getUsername()));
-                    rentToPay.setText(boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getRent() + "€");
-                    payRent.setVisible(true);
-                    playerRent.setVisible(true);
-                    rentToPay.setVisible(true);
-                    aLabel.setVisible(true);
-                } else if (!boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).isPurchased() && boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getCanBeBought()) {
+                if (playerHandler.getNumPlayer() == 1) {
+                    win();
+                } else {
+                    if (boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).isPurchased() &&
+                            boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getOwner() != null) {
+                        playerHandler.getPlayer(turnCounter).pay(boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getOwner(),
+                                boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getRent());
+                        playerRent.setText(String.valueOf(boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getOwner().getUsername()));
+                        rentToPay.setText(boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getRent() + "€");
+                        payRent.setVisible(true);
+                        playerRent.setVisible(true);
+                        rentToPay.setVisible(true);
+                        aLabel.setVisible(true);
 
-                    AcquistaProprietaForm acquistaProprietaForm =
-                            new AcquistaProprietaForm(boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()), playerHandler.getPlayer(turnCounter), contractsList, money);
-                    acquistaProprietaForm.setVisible(true);
-                    setContractsList(turnCounter);
-                    update_UI(playerHandler, turnCounter);
-                } else if (boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).isATax()) {
-
-                    payTaxLabel.setText(boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getRent() + "€");
-                    payTaxLabel.setVisible(true);
-                    textTaxLabel.setVisible(true);
-                    update_UI(playerHandler, turnCounter);
+                    } else if (!boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).isPurchased() && boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getCanBeBought()) {
+                        AcquistaProprietaForm acquistaProprietaForm =
+                                new AcquistaProprietaForm(boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()), playerHandler.getPlayer(turnCounter), contractsList, money);
+                        acquistaProprietaForm.setVisible(true);
+                        setContractsList(turnCounter);
+                        update_UI(playerHandler, turnCounter);
+                    } else if (boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).isATax()) {
+                        payTaxLabel.setText(boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getRent() + "€");
+                        payTaxLabel.setVisible(true);
+                        textTaxLabel.setVisible(true);
+                        update_UI(playerHandler, turnCounter);
+                    }
                 }
-
 
                 if (dice.isDouble())
                     doub++;
@@ -181,6 +185,8 @@ public class ScoreBoardForm extends JFrame {
                 timerLabel.setText("03:00");
                 timer.stop();
                 countDownTimer();
+                payTaxLabel.setVisible(false);
+                textTaxLabel.setVisible(false);
                 payRent.setVisible(false);
                 playerRent.setVisible(false);
                 rentToPay.setVisible(false);
@@ -269,33 +275,38 @@ public class ScoreBoardForm extends JFrame {
 
     private void setPosition() {
         for (int i = 0; i < PlayerHandler.getInstance().getNumPlayer(); i++) {
-            JLabel pawn = new JLabel(Utils.getIcon(Utils.ICON_PATH + PlayerHandler.getInstance().getPlayer(i).getPawn().toLowerCase().replaceAll(" ","") + "Pawn.png"));
+            JLabel pawn = new JLabel(Utils.getIcon(Utils.ICON_PATH + PlayerHandler.getInstance().getPlayer(i).getPawn().toLowerCase().replaceAll(" ", "") + "Pawn.png"));
             GridBagConstraints gridBagConstraints = new GridBagConstraints();
-            pawn.setBorder(BorderFactory.createLineBorder(Color.GREEN,2));
+            pawn.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
 
-            if(i < 3){
+            gridBagConstraints.weighty = 1;
+            gridBagConstraints.weightx = 1;
+            gridBagConstraints.fill = GridBagConstraints.BOTH;
+
+            if (i < 3) {
                 gridBagConstraints.gridx = i;
                 gridBagConstraints.gridy = 1;
             } else {
-               gridBagConstraints.gridx = i - 3;
-               gridBagConstraints.gridy = 2;
+                gridBagConstraints.gridx = i - 3;
+                gridBagConstraints.gridy = 2;
             }
-
+            ciao();
             JPanel card = positions.get(PlayerHandler.getInstance().getPlayer(i).getPosition());
-            card.add(pawn,gridBagConstraints);
+            card.add(pawn, gridBagConstraints);
         }
+
     }
 
     private void cleanPosition() {
         JPanel card = positions.get(PlayerHandler.getInstance().getPlayer(turnCounter).getPosition());
 
-        for(Component component : card.getComponents()){
-            if(component.getClass() == JLabel.class){
-                if(((JLabel) component).getText() == null)
+        for (Component component : card.getComponents()) {
+            if (component.getClass() == JLabel.class) {
+                if (((JLabel) component).getText() == null)
                     card.remove(component);
             }
         }
-        getContentPane().repaint();
+        card.repaint();
     }
 
 
@@ -342,8 +353,6 @@ public class ScoreBoardForm extends JFrame {
         positions.add(panel39);
     }
 
-
-
     private void update_UI(PlayerHandler giocatori1, int shift) {
         name.setText(giocatori1.getPlayer(shift).getUsername());
         money.setText(giocatori1.getPlayer(shift).getMoney() + "€");
@@ -375,4 +384,42 @@ public class ScoreBoardForm extends JFrame {
         });
     }
 
+    private void ciao() {
+        JPanel cell = positions.get(PlayerHandler.getInstance().getPlayer(turnCounter).getPosition());
+        for (Component component : cell.getComponents()) {
+
+            if (((JLabel) component).getText() != null) {
+                GridBagConstraints gridBagConstraints = new GridBagConstraints();
+                gridBagConstraints.gridx = 0;
+                gridBagConstraints.gridy = 0;
+                gridBagConstraints.weightx = 1;
+                gridBagConstraints.weighty = 1;
+
+                gridBagConstraints.gridwidth = 0;
+
+                gridBagConstraints.fill = GridBagConstraints.BOTH;
+                cell.add(component, gridBagConstraints);
+            }
+
+        }
+
+        cell.repaint();
+    }
+
+    private void win() {
+        timer.stop();
+        if(JOptionPane.showConfirmDialog(
+                this,
+                "HAI VINTO",
+                "Win message",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.INFORMATION_MESSAGE
+        ) == JOptionPane.OK_OPTION)
+            System.exit(0);
+            System.exit(0);
+    }
 }
+
+
+
+

@@ -57,7 +57,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <icon value="it/monopoly/images/monopolyIcon623 x 230.png"/>
+          <icon value="it/monopoly/images/monopolyImages/monopolyIcon623 x 230.png"/>
           <text value=""/>
         </properties>
       </component>
