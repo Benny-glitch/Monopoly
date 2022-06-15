@@ -4,13 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-<<<<<<< Updated upstream
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-=======
 import java.io.*;
->>>>>>> Stashed changes
+
 
 import it.monopoly.Utils;
 import it.monopoly.app.BoxesHandler;
@@ -135,14 +133,10 @@ public class NewPlayerForm extends JFrame {
         return newplayerForm;
     }
 
-<<<<<<< Updated upstream
-    private void setFontStartUP() {
-        InputStream inputStream = MainFrameForm.class.getResourceAsStream("/it/monopoly/fonts/KabelBd-Normal.ttf");
-=======
+
+
     private void setFontStartUP() throws FileNotFoundException {
         InputStream inputStream = MainFrameForm.class.getResourceAsStream("/it/monopoly/resources/fonts/KabelBd-Normal.ttf");
-
->>>>>>> Stashed changes
         try {
             assert inputStream != null;
             font = Font.createFont(Font.TRUETYPE_FONT, inputStream);

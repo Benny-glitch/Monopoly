@@ -42,7 +42,6 @@ public class BoxesHandler implements Serializable {
      * @throws Exception se c'è un errore nel caricamento dei valori del file nell' ArrayList oppure il file non esiste nel percorso specificato.
      */
     public void loadBoxes() throws FileNotFoundException {
-
         //TODO fare l'InputStream
         int rent, price;
         String name;
@@ -50,7 +49,7 @@ public class BoxesHandler implements Serializable {
         Scanner scanner = null;
 
 
-        scanner = new Scanner(new File("src/it/monopoly/files/boxes.csv"));
+        scanner = new Scanner(new File("Monopoly/src/it/monopoly/files/boxes.csv"));
 
 
         scanner.useDelimiter(",");
@@ -61,7 +60,6 @@ public class BoxesHandler implements Serializable {
             rent = scanner.nextInt();
             canBeBought = scanner.next().equals("true");
             aTax = scanner.next().equals("true");
-
 
             this.addBoxes(name.replace("\n", "").replace("\r",""), price, rent, canBeBought, aTax);
 

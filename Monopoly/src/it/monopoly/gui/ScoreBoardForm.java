@@ -387,9 +387,6 @@ public class ScoreBoardForm extends JFrame {
        timerLabel.setText("03:00");
     }
 
-    private void startUp
-
-
 
     private void ciao() {
         JPanel cell = positions.get(PlayerHandler.getInstance().getPlayer(turnCounter).getPosition());

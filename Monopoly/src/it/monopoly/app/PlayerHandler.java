@@ -62,18 +62,15 @@ public class PlayerHandler implements Serializable {
         random = new Random();
     }
 
-<<<<<<< Updated upstream
+
     /**
      * Aggiunge un giocatore all' ArrayList di giocatori. Lancia una Exception se il parametro Name vine lasciato vuoto.
      *
      * @param username   nome del giocatore da registrare.
-     * @param typeofpawn tipo della pedina scelta dal giocatore.
+     * @param typeOfPawn tipo della pedina scelta dal giocatore.
      * @throws NullNameException se il se il parametro Name vine lasciato vuoto.
      */
-    public void addPlayer(String username, String typeofpawn) throws NullNameException {
-=======
     public void addPlayer(String username, String typeOfPawn) throws NullNameException {
->>>>>>> Stashed changes
         try {
             Player player = new Player(username, false, 0, typeOfPawn, 0);
             players.add(player);
