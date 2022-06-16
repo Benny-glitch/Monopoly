@@ -133,9 +133,9 @@ public class ScoreBoardForm extends JFrame {
                         updateRentUI();
 
                     } else if (GameHandler.getInstance().isPuchesable()) {
-                        BuyPropriertiesFort buyPropriertiesFort =
-                                new BuyPropriertiesFort(GameHandler.getInstance().getPositionBox(),GameHandler.instance.getPlayer(), contractsList, money);
-                        buyPropriertiesFort.setVisible(true);
+                        BuyPropriertiesForm buyPropriertiesForm =
+                                new BuyPropriertiesForm(GameHandler.getInstance().getPositionBox(),GameHandler.instance.getPlayer(), contractsList, money);
+                        buyPropriertiesForm.setVisible(true);
                         setContractsList();
                         update_UI();
 
