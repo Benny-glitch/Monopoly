@@ -97,19 +97,13 @@ public class ScoreBoardForm extends JFrame {
         this.setVisible(true);
         dice = new Dice();
         setContentPane(this.getPanel());
-        jailPanel.setVisible(false);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setMinimumSize(new Dimension(1500, 800));
         turnCounter = 0;
         update_UI();
         doub = 0;
         loadBoxes();
         setPosition();
-        exitPrisonMessage.setVisible(false);
-        payRent.setVisible(false);
-        endTurnButton.setVisible(false);
-        payTaxLabel.setVisible(false);
-        textTaxLabel.setVisible(false);
+        setLabelOFF();
+
         this.setIconImage(imgIcon.getImage());
         countDownTimer();
         setTimerLabel();
@@ -117,41 +111,36 @@ public class ScoreBoardForm extends JFrame {
         rollDiceButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(PlayerHandler.getInstance().getPlayer(turnCounter).isInJail())
-                    timerLabel.hide();
+                if(GameHandler.getInstance().isInJail())
+                    timerLabel.setVisible(false);
                 timer.start();
 
                 int roll = dice.roll();
                 diceLabel.setText(String.valueOf(roll));
                 cleanPosition();
                 PlayerHandler.getInstance().getPlayer(turnCounter).changePosition(roll);
-                controlGoToJail(turnCounter);
+                controlGoToJail();
                 setPosition();
 
-                if(PlayerHandler.getInstance().getPlayer(turnCounter).getMoney() <= 0)
-                    PlayerHandler.getInstance().removePlayer(turnCounter);
+                if(GameHandler.getInstance().getPlayerMoney() <= 0)
+                    GameHandler.getInstance().removePlayer();
 
-                if (PlayerHandler.getInstance().getNumPlayer() == 1) {
+                if (GameHandler.getInstance().getNumPlayers() == 1) {
                     win();
                 } else {
                     if (GameHandler.getInstance().payRentCheck()) {
                         GameHandler.getInstance().payRent();
-                        playerRent.setText(String.valueOf(BoxesHandler.getInstance().getContract(PlayerHandler.getInstance().getPlayer(turnCounter).getPosition()).getOwner().getUsername()));
-                        rentToPay.setText(BoxesHandler.getInstance().getContract(PlayerHandler.getInstance().getPlayer(turnCounter).getPosition()).getRent() + "€");
-                        payRent.setVisible(true);
-                        playerRent.setVisible(true);
-                        rentToPay.setVisible(true);
-                        aLabel.setVisible(true);
-                    } else if (!BoxesHandler.getInstance().getContract(PlayerHandler.getInstance().getPlayer(turnCounter).getPosition()).isPurchased() && BoxesHandler.getInstance().getContract(PlayerHandler.getInstance().getPlayer(turnCounter).getPosition()).getCanBeBought()) {
+                        updateRentUI();
+
+                    } else if (GameHandler.getInstance().isPuchesable()) {
                         BuyPropriertiesFort buyPropriertiesFort =
-                                new BuyPropriertiesFort(BoxesHandler.getInstance().getContract(PlayerHandler.getInstance().getPlayer(turnCounter).getPosition()), PlayerHandler.getInstance().getPlayer(turnCounter), contractsList, money);
+                                new BuyPropriertiesFort(GameHandler.getInstance().getPositionBox(),GameHandler.instance.getPlayer(), contractsList, money);
                         buyPropriertiesFort.setVisible(true);
                         setContractsList();
                         update_UI();
-                    } else if (BoxesHandler.getInstance().getContract(PlayerHandler.getInstance().getPlayer(turnCounter).getPosition()).isATax()) {
-                        payTaxLabel.setText(BoxesHandler.getInstance().getContract(PlayerHandler.getInstance().getPlayer(turnCounter).getPosition()).getRent() + "€");
-                        payTaxLabel.setVisible(true);
-                        textTaxLabel.setVisible(true);
+
+                    } else if (GameHandler.getInstance().isATax()) {
+                        updateTaxUI();
                         update_UI();
                     }
                 }
@@ -164,61 +153,64 @@ public class ScoreBoardForm extends JFrame {
                 }
 
                 if (doub == 3) {
-                    PlayerHandler.getInstance().getPlayer(turnCounter).setIsInJail(true);
+                   GameHandler.getInstance().setIsInJail();
                 }
 
                 update_UI();
             }
         });
 
-        endTurnButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               setTimerLabel();
-                timer.stop();
-                countDownTimer();
-                payTaxLabel.setVisible(false);
-                textTaxLabel.setVisible(false);
-                payRent.setVisible(false);
-                playerRent.setVisible(false);
-                rentToPay.setVisible(false);
-                aLabel.setVisible(false);
-                doub = 0;
-                payRent.setVisible(false);
-                exitPrisonMessage.setVisible(false);
-                cleanPosition();
-                turnCounter = GameHandler.getInstance().turn();
-                update_UI();
-                rollDiceButton.setVisible(true);
-                setPosition();
-                endTurnButton.setVisible(false);
-                if (PlayerHandler.getInstance().getPlayer(turnCounter).isInJail()) {
-                    if (PlayerHandler.getInstance().getPlayer(turnCounter).getShiftsInJail() == 0) {
-                        PlayerHandler.getInstance().getPlayer(turnCounter).buy(125);
-                        PlayerHandler.getInstance().getPlayer(turnCounter).exitPrison();
-                        rollDiceButton.setVisible(true);
-                        jailPanel.setVisible(false);
-                        exitPrisonMessage.setVisible(true);
-                    } else {
-                        jailPanel.setVisible(true);
-                        rollDiceButton.setVisible(false);
-                    }
-                } else
+        endTurnButton.addActionListener(e -> {
+           setTimerLabel();
+            timer.stop();
+            countDownTimer();
+            payTaxLabel.setVisible(false);
+            textTaxLabel.setVisible(false);
+            payRent.setVisible(false);
+            playerRent.setVisible(false);
+            rentToPay.setVisible(false);
+            aLabel.setVisible(false);
+            doub = 0;
+            payRent.setVisible(false);
+            exitPrisonMessage.setVisible(false);
+            cleanPosition();
+            turnCounter = GameHandler.getInstance().turn();
+            update_UI();
+            rollDiceButton.setVisible(true);
+            setPosition();
+            endTurnButton.setVisible(false);
+            if (GameHandler.getInstance().isInJail()) {
+                if (GameHandler.getInstance().getShiftInJail() == 0) {
+                    GameHandler.getInstance().moneyToRemoveJail();
+                    GameHandler.getInstance().exitPrison();
+                    rollDiceButton.setVisible(true);
                     jailPanel.setVisible(false);
-
-                try {
-                    GameHandler.getInstance().saveState();
-                } catch (IOException ignored) {
-
+                    exitPrisonMessage.setVisible(true);
+                } else {
+                    timerLabel.setVisible(false);
+                    jailPanel.setVisible(true);
+                    rollDiceButton.setVisible(false);
                 }
+            } else
+                jailPanel.setVisible(false);
+
+            try {
+                GameHandler.getInstance().saveState();
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(
+                        scoreBoardPanel,
+                        "Errore nel salvataggio dei dati",
+                        "Win message",
+                        JOptionPane.ERROR_MESSAGE
+                );
             }
         });
 
         payexitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PlayerHandler.getInstance().getPlayer(turnCounter).buy(125);
-                PlayerHandler.getInstance().getPlayer(turnCounter).exitPrison();
+                GameHandler.getInstance().moneyToRemoveJail();
+                GameHandler.getInstance().exitPrison();
                 rollDiceButton.setVisible(true);
                 jailPanel.setVisible(false);
             }
@@ -229,12 +221,35 @@ public class ScoreBoardForm extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int roll = dice.roll();
                 if (dice.isDouble()) {
-                    PlayerHandler.getInstance().getPlayer(turnCounter).exitPrison();
+                    GameHandler.getInstance().exitPrison();
                     rollDiceButton.setVisible(true);
                     jailPanel.setVisible(false);
                 }
             }
         });
+    }
+
+    private void updateTaxUI() {
+        payTaxLabel.setText(GameHandler.instance.getRent() + "€");
+        payTaxLabel.setVisible(true);
+        textTaxLabel.setVisible(true);
+    }
+
+    private void updateRentUI() {
+        playerRent.setText(String.valueOf(BoxesHandler.getInstance().getContract(PlayerHandler.getInstance().getPlayer(turnCounter).getPosition()).getOwner().getUsername()));
+        rentToPay.setText(GameHandler.instance.getRent() + "€");
+        payRent.setVisible(true);
+        playerRent.setVisible(true);
+        rentToPay.setVisible(true);
+        aLabel.setVisible(true);
+    }
+
+    private void setLabelOFF() {
+        exitPrisonMessage.setVisible(false);
+        payRent.setVisible(false);
+        endTurnButton.setVisible(false);
+        payTaxLabel.setVisible(false);
+        textTaxLabel.setVisible(false);
     }
 
     private void formWindowActivated() {
@@ -243,11 +258,12 @@ public class ScoreBoardForm extends JFrame {
         this.setPreferredSize(dim);
     }
 
-    public void controlGoToJail(int i) {
-        if (PlayerHandler.getInstance().getPlayer(i).getPosition() == 30) {
-            PlayerHandler.getInstance().getPlayer(i).setIsInJail(true);
+    public void controlGoToJail() {
+        if (GameHandler.getInstance().getPosition() == 30) {
+            GameHandler.getInstance().setIsInJail();
             jailPanel.setVisible(true);
             rollDiceButton.setVisible(false);
+            timerLabel.setVisible(false);
         }
     }
 
@@ -379,7 +395,7 @@ public class ScoreBoardForm extends JFrame {
 
 
     private void ciao() {
-        JPanel cell = positions.get(PlayerHandler.getInstance().getInstance().getPlayer(turnCounter).getPosition());
+        JPanel cell = positions.get(PlayerHandler.getInstance().getPlayer(turnCounter).getPosition());
         for (Component component : cell.getComponents()) {
 
             if (((JLabel) component).getText() != null) {

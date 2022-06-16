@@ -31,8 +31,6 @@ public class MainFrameForm {
         playLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                PlayerHandler.getInstance();
-                BoxesHandler.getInstance();
                 GameHandler.getInstance().start();
                 newplayerFrame.setVisible(true);
                 mainFrame.dispose();
@@ -51,7 +49,6 @@ public class MainFrameForm {
             @Override
             public void mouseClicked(MouseEvent ee) {
                 try {
-
                     GameHandler.getInstance().loadGame();
                     ScoreBoardForm scoreBoardForm = new ScoreBoardForm();
                     scoreBoardForm.setVisible(true);
@@ -86,7 +83,7 @@ public class MainFrameForm {
 
     private void setBoxesStrartUP(MainFrame mainFrame) {
         try {
-            BoxesHandler.getInstance().loadBoxes();
+            GameHandler.getInstance().loadBoaxes();
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(
                     mainFrame,

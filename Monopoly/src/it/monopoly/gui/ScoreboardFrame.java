@@ -11,7 +11,7 @@ public class ScoreboardFrame extends JFrame{
     public static final Dimension DEFAULT_DIMENSION = new Dimension(800,600);
     ImageIcon imgIcon = new ImageIcon("src/it/monopoly/pawns/easter-egg.png");
 
-    public ScoreboardFrame(PlayerHandler playerHandler) throws FileNotFoundException {
+    public ScoreboardFrame() {
         super("Tabellone");
         ScoreBoardForm scoreboardForm = new ScoreBoardForm();
         setContentPane(scoreboardForm.getPanel());
@@ -20,7 +20,7 @@ public class ScoreboardFrame extends JFrame{
 
     private void setDeafultConfiguration() {
         this.setIconImage(imgIcon.getImage());
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
 }

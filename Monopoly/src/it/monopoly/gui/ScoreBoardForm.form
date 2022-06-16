@@ -853,6 +853,7 @@
                     </constraints>
                     <properties>
                       <background color="-4073021"/>
+                      <visible value="false"/>
                     </properties>
                     <border type="none"/>
                     <children>

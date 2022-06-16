@@ -1,5 +1,6 @@
 package it.monopoly.app;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class GameHandler {
@@ -7,7 +8,6 @@ public class GameHandler {
     public static GameHandler instance;
     private int turn;
     private int doubleRoll;
-
 
     private GameHandler(){
         this.turn = 0;
@@ -19,15 +19,79 @@ public class GameHandler {
         }
         return instance;
     }
+
+    public int getRent(){
+        return BoxesHandler.getInstance().getContract(PlayerHandler.getInstance().getPlayer(this.turn).getPosition()).getRent();
+    }
+
+    public int getPosition(){
+        return PlayerHandler.getInstance().getPlayer(this.turn).getPosition();
+    }
+
+    public int getShiftInJail(){
+        return PlayerHandler.getInstance().getPlayer(this.turn).getShiftsInJail();
+    }
+
+    public void moneyToRemoveJail(){
+        PlayerHandler.getInstance().getPlayer(this.turn).buy(125);
+    }
+
+    public void exitPrison(){
+        PlayerHandler.getInstance().getPlayer(this.turn).exitPrison();
+    }
+
+    public boolean isInJail(){
+        return PlayerHandler.getInstance().getPlayer(this.turn).isInJail();
+    }
+
+    public void setIsInJail(){
+        PlayerHandler.getInstance().getPlayer(this.turn).setIsInJail(true);
+    }
+
+    public void loadBoaxes() throws FileNotFoundException {
+        BoxesHandler.getInstance().loadBoxes();
+    }
+
+    public boolean isPuchesable(){
+        return (!BoxesHandler.getInstance().getContract(PlayerHandler.getInstance().getPlayer(this.turn).getPosition()).isPurchased()) && (BoxesHandler.getInstance().getContract(PlayerHandler.getInstance().getPlayer(this.turn).getPosition()).getCanBeBought());
+    }
+
+    public boolean isATax(){
+        return BoxesHandler.getInstance().getContract(PlayerHandler.getInstance().getPlayer(this.turn).getPosition()).isATax();
+    }
+
+    public void addPlayer(String name, String pawn) throws NullNameException {
+        PlayerHandler.getInstance().addPlayer(name,pawn);
+    }
     
     public void start(){
         BoxesHandler.getInstance();
         PlayerHandler.getInstance();
     }
+
+    public int getNumPlayers(){
+        return PlayerHandler.getInstance().getNumPlayer();
+    }
+
+    public void startNewGame(){
+        PlayerHandler.getInstance().setPlayerMoneyAndContracts();
+    }
     
     public void loadGame() throws IOException {
         BoxesHandler.loadGame();
         PlayerHandler.loadGame();
+    }
+
+    public Player getPlayer(){
+        return PlayerHandler.getInstance().getPlayer(this.turn);
+    }
+
+    public void removePlayer(){
+        PlayerHandler.getInstance().removePlayer(this.turn);
+    }
+
+    public void changePosition(){
+
     }
 
     public boolean payRentCheck(){
@@ -38,6 +102,10 @@ public class GameHandler {
             return true;
         }
         return false;
+    }
+
+    public Boxes getPositionBox(){
+        return BoxesHandler.getInstance().getContract(PlayerHandler.getInstance().getPlayer(this.turn).getPosition());
     }
     
     public void payRent(){

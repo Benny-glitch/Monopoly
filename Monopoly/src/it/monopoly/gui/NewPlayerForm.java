@@ -84,9 +84,9 @@ public class NewPlayerForm extends JFrame {
     }
 
     private void addPlayer() {
-        if (PlayerHandler.getInstance().getNumPlayer() < 6) {
+        if (GameHandler.getInstance().getNumPlayers() < 6) {
             try {
-                PlayerHandler.getInstance().addPlayer(nameTextFileld.getText(),String.valueOf(pawnCombobox.getSelectedItem()));
+                GameHandler.getInstance().addPlayer(nameTextFileld.getText(),String.valueOf(pawnCombobox.getSelectedItem()));
                 int x = pawnCombobox.getSelectedIndex();
                 pawnCombobox.removeItemAt(x);
                 nameTextFileld.setText("");
@@ -107,14 +107,14 @@ public class NewPlayerForm extends JFrame {
     }
 
     private void maxPlayers(Frame newPlayerFrame){
-        if (PlayerHandler.getInstance().getNumPlayer() < 2) {
+        if (GameHandler.getInstance().getNumPlayers() < 2) {
             JOptionPane.showMessageDialog(
                     null,
                     "Numero di giocatori troppo basso",
                     "Errore",
                     JOptionPane.ERROR_MESSAGE);
         } else {
-            PlayerHandler.getInstance().setPlayerMoneyAndContracts();
+            GameHandler.getInstance().startNewGame();
             ScoreBoardForm scoreboardFrame = new ScoreBoardForm();
             scoreboardFrame.setVisible(true);
             newPlayerFrame.dispose();
