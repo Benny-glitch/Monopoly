@@ -103,12 +103,12 @@ public class TurnScreen {
             System.out.println(this.boxesHandler.getFreeContracts().replace("null", ""));
             System.out.println("Inserisci l'ID del contratto");
             id_contratto = scanner1.nextInt();
-            if(boxesHandler.get(id_contratto).getCanBeBought()){
+            if(boxesHandler.getContract(id_contratto).getCanBeBought()){
                 System.out.println("Contratto gia' acquistato \n");
                 acquistato = true;
             }else{
-                giocatori.get(i).setContracts(boxesHandler.get(id_contratto));
-                boxesHandler.get(id_contratto).setPurchased();
+                giocatori.get(i).setContracts(boxesHandler.getContract(id_contratto));
+                boxesHandler.getContract(id_contratto).setPurchased();
                 acquistato = false;
             }
         }while(acquistato);

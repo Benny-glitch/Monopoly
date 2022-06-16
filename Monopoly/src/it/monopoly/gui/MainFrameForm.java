@@ -87,7 +87,7 @@ public class MainFrameForm {
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(
                     mainFrame,
-                    "Errore nello stato del salvataggio del gioco",
+                    "Errore nello stato del caricamento delle caselle",
                     "Errore",
                     JOptionPane.ERROR_MESSAGE);
         }

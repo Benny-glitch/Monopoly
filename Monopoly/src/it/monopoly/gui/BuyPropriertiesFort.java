@@ -8,14 +8,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class AcquistaProprietaForm extends JFrame {
+public class BuyPropriertiesFort extends JFrame {
     private JButton siButton;
     private JButton noButton;
     private JPanel AcquistaProprietàPanel;
     private JLabel prezzo;
     private JLabel labelContratto;
 
-    public AcquistaProprietaForm(Boxes contratto, Player giocatore, JList contratti, JLabel saldo) {
+    public BuyPropriertiesFort(Boxes contratto, Player giocatore, JList contratti, JLabel saldo) {
         super();
         this.setVisible(true);
         setContentPane(this.getPanel());

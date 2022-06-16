@@ -1,10 +1,7 @@
 package it.monopoly.gui;
 
 import it.monopoly.Utils;
-import it.monopoly.app.Dice;
-import it.monopoly.app.BoxesHandler;
-import it.monopoly.app.PlayerHandler;
-import it.monopoly.app.Turn;
+import it.monopoly.app.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -80,7 +77,6 @@ public class ScoreBoardForm extends JFrame {
     private JPanel panel38;
     private JPanel panel39;
     private final Dice dice;
-    private final Turn turn;
     private int turnCounter;
     private int doub;
     private final List<JPanel> positions;
@@ -100,7 +96,6 @@ public class ScoreBoardForm extends JFrame {
         positions = new ArrayList<>();
         this.setVisible(true);
         dice = new Dice();
-        turn = new Turn(playerHandler);
         setContentPane(this.getPanel());
         jailPanel.setVisible(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -118,7 +113,7 @@ public class ScoreBoardForm extends JFrame {
         this.setIconImage(imgIcon.getImage());
 
         countDownTimer();
-       setTimerLabel();
+        setTimerLabel();
 
         rollDiceButton.addActionListener(new ActionListener() {
             @Override
@@ -134,31 +129,28 @@ public class ScoreBoardForm extends JFrame {
                 controlGoToJail(turnCounter);
                 setPosition();
 
-                if(playerHandler.getPlayer(turnCounter).getMoney() == 0)
+                if(playerHandler.getPlayer(turnCounter).getMoney() <= 0)
                     playerHandler.removePlayer(turnCounter);
 
                 if (playerHandler.getNumPlayer() == 1) {
                     win();
                 } else {
-                    if (boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).isPurchased() &&
-                            boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getOwner() != null) {
-                        playerHandler.getPlayer(turnCounter).pay(boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getOwner(),
-                                boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getRent());
-                        playerRent.setText(String.valueOf(boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getOwner().getUsername()));
-                        rentToPay.setText(boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getRent() + "€");
+                    if (GameHandler.getInstance().payRentCheck()) {
+                        GameHandler.getInstance().payRent();
+                        playerRent.setText(String.valueOf(boxesHandler.getContract(playerHandler.getPlayer(turnCounter).getPosition()).getOwner().getUsername()));
+                        rentToPay.setText(boxesHandler.getContract(playerHandler.getPlayer(turnCounter).getPosition()).getRent() + "€");
                         payRent.setVisible(true);
                         playerRent.setVisible(true);
                         rentToPay.setVisible(true);
                         aLabel.setVisible(true);
-
-                    } else if (!boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).isPurchased() && boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getCanBeBought()) {
-                        AcquistaProprietaForm acquistaProprietaForm =
-                                new AcquistaProprietaForm(boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()), playerHandler.getPlayer(turnCounter), contractsList, money);
-                        acquistaProprietaForm.setVisible(true);
+                    } else if (!boxesHandler.getContract(playerHandler.getPlayer(turnCounter).getPosition()).isPurchased() && boxesHandler.getContract(playerHandler.getPlayer(turnCounter).getPosition()).getCanBeBought()) {
+                        BuyPropriertiesFort buyPropriertiesFort =
+                                new BuyPropriertiesFort(boxesHandler.getContract(playerHandler.getPlayer(turnCounter).getPosition()), playerHandler.getPlayer(turnCounter), contractsList, money);
+                        buyPropriertiesFort.setVisible(true);
                         setContractsList(turnCounter);
                         update_UI(playerHandler, turnCounter);
-                    } else if (boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).isATax()) {
-                        payTaxLabel.setText(boxesHandler.get(playerHandler.getPlayer(turnCounter).getPosition()).getRent() + "€");
+                    } else if (boxesHandler.getContract(playerHandler.getPlayer(turnCounter).getPosition()).isATax()) {
+                        payTaxLabel.setText(boxesHandler.getContract(playerHandler.getPlayer(turnCounter).getPosition()).getRent() + "€");
                         payTaxLabel.setVisible(true);
                         textTaxLabel.setVisible(true);
                         update_UI(playerHandler, turnCounter);
@@ -196,7 +188,7 @@ public class ScoreBoardForm extends JFrame {
                 payRent.setVisible(false);
                 exitPrisonMessage.setVisible(false);
                 cleanPosition();
-                turnCounter = turn.Turns();
+                turnCounter = GameHandler.getInstance().turn();
                 update_UI(playerHandler, turnCounter);
                 rollDiceButton.setVisible(true);
                 setPosition();
@@ -423,6 +415,7 @@ public class ScoreBoardForm extends JFrame {
             System.exit(0);
     }
 }
+
 
 
 

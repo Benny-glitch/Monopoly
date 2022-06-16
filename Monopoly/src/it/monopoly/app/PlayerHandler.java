@@ -15,7 +15,7 @@ public class PlayerHandler implements Serializable {
     private static final int FIVE_PLAYER = 5;
     private static final int SIX_PLAYER = 6;
 
-    private static final int NUM_CONTRACTS = 26;
+    private static final int NUM_CONTRACTS = 40;
 
     private static final int CONTRATCTS_TWO_PLAYER = 7;
     private static final int CONTRATCTS_THREE_PLAYER = 6;
@@ -81,13 +81,15 @@ public class PlayerHandler implements Serializable {
 
     public void setPlayerMoneyAndContracts() {
         for (int i = 0; i < players.size(); i++) {
+            moneyToSubtract = 0;
             if (players.size() == TWO_PLAYER) {
                 for (int j = 0; j < CONTRATCTS_TWO_PLAYER; j++) {
-                    Boxes boxes = this.boxes.get(random.nextInt(NUM_CONTRACTS));
-                    if (boxes.getCanBeBought()) {
+                    Boxes boxes = this.boxes.getContract(random.nextInt(NUM_CONTRACTS));
+                    if (boxes.getCanBeBought() && !boxes.isPurchased()) {
                         players.get(i).setContracts(boxes);
                         moneyToSubtract += boxes.getPrice();
                         boxes.setPurchased();
+                        boxes.setOwner(players.get(i));
                     } else {
                         j--;
                     }
@@ -96,11 +98,12 @@ public class PlayerHandler implements Serializable {
             }
             if (players.size() == THREE_PLAYER) {
                 for (int j = 0; j < CONTRATCTS_THREE_PLAYER; j++) {
-                    Boxes boxes = this.boxes.get(random.nextInt(NUM_CONTRACTS));
-                    if (boxes.getCanBeBought()) {
+                    Boxes boxes = this.boxes.getContract(random.nextInt(NUM_CONTRACTS));
+                    if (boxes.getCanBeBought() && !boxes.isPurchased()) {
                         players.get(i).setContracts(boxes);
                         moneyToSubtract += boxes.getPrice();
                         boxes.setPurchased();
+                        boxes.setOwner(players.get(i));
                     } else {
                         j--;
                     }
@@ -109,11 +112,12 @@ public class PlayerHandler implements Serializable {
             }
             if (players.size() == FOUR_PLAYER) {
                 for (int j = 0; j < CONTRATCTS_FOUR_PLAYER; j++) {
-                    Boxes boxes = this.boxes.get(random.nextInt(NUM_CONTRACTS));
-                    if (boxes.getCanBeBought()) {
+                    Boxes boxes = this.boxes.getContract(random.nextInt(NUM_CONTRACTS));
+                    if (boxes.getCanBeBought() && !boxes.isPurchased()) {
                         players.get(i).setContracts(boxes);
                         moneyToSubtract += boxes.getPrice();
                         boxes.setPurchased();
+                        boxes.setOwner(players.get(i));
                     } else {
                         j--;
                     }
@@ -122,11 +126,12 @@ public class PlayerHandler implements Serializable {
             }
             if (players.size() == FIVE_PLAYER) {
                 for (int j = 0; j < CONTRATCTS_FIVE_PLAYER; j++) {
-                    Boxes boxes = this.boxes.get(random.nextInt(NUM_CONTRACTS));
-                    if (boxes.getCanBeBought()) {
+                    Boxes boxes = this.boxes.getContract(random.nextInt(NUM_CONTRACTS));
+                    if (boxes.getCanBeBought() && !boxes.isPurchased()) {
                         players.get(i).setContracts(boxes);
                         moneyToSubtract += boxes.getPrice();
                         boxes.setPurchased();
+                        boxes.setOwner(players.get(i));
                     } else {
                         j--;
                     }
@@ -135,11 +140,12 @@ public class PlayerHandler implements Serializable {
             }
             if (players.size() == SIX_PLAYER) {
                 for (int j = 0; j < CONTRATCTS_SIX_PLAYER; j++) {
-                    Boxes boxes = this.boxes.get(random.nextInt(NUM_CONTRACTS));
-                    if (boxes.getCanBeBought()) {
+                    Boxes boxes = this.boxes.getContract(random.nextInt(NUM_CONTRACTS));
+                    if (boxes.getCanBeBought() && !boxes.isPurchased()) {
                         players.get(i).setContracts(boxes);
                         moneyToSubtract += boxes.getPrice();
                         boxes.setPurchased();
+                        boxes.setOwner(players.get(i));
                     } else {
                         j--;
                     }

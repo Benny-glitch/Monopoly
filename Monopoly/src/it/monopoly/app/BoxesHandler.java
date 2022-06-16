@@ -67,7 +67,7 @@ public class BoxesHandler implements Serializable {
         scanner.close();
     }
 
-    public Boxes get(int num) {
+    public Boxes getContract(int num) {
         return boxes.get(num);
     }
 
