@@ -53,13 +53,20 @@ public class PlayerHandler implements Serializable {
         if (instance == null) {
             instance = new PlayerHandler();
         }
-        return PlayerHandler.instance;
+        return instance;
     }
 
     private PlayerHandler() {
         players = new ArrayList<>(6);
         boxes = BoxesHandler.getInstance();
         random = new Random();
+    }
+
+    public static PlayerHandler loadGame() throws IOException {
+        if(instance == null){
+            instance = load();
+        }
+        return instance;
     }
 
 
@@ -177,7 +184,7 @@ public class PlayerHandler implements Serializable {
      * @throws IOException
      */
     public void saveState() throws IOException {
-        try (FileOutputStream fileOutputStream = new FileOutputStream("Player.sr");
+        try (FileOutputStream fileOutputStream = new FileOutputStream("Monopoly/src/it/monopoly/resources/Saves/Player.sr");
              ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)
         ) {
             objectOutputStream.writeObject(this);
@@ -192,7 +199,7 @@ public class PlayerHandler implements Serializable {
      */
     public static PlayerHandler load() throws IOException {
         try (
-                FileInputStream fileInputStream = new FileInputStream("Player.sr");
+                FileInputStream fileInputStream = new FileInputStream("Monopoly/src/it/monopoly/resources/Saves/Player.sr");
                 ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
             Object o = objectInputStream.readObject();
             return (PlayerHandler) o;

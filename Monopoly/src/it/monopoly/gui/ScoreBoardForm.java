@@ -22,7 +22,7 @@ public class ScoreBoardForm extends JFrame {
     private JPanel boardPanel;
     private JButton payexitButton;
     private JPanel jailPanel;
-    private JList<it.monopoly.app.Boxes> contractsList;
+    private JList contractsList;
     private JPanel contractsPanel;
     private JPanel dicePanel;
     private JLabel diceLabel;
@@ -90,7 +90,7 @@ public class ScoreBoardForm extends JFrame {
 
     DecimalFormat dFormat = new DecimalFormat("00");
 
-    public ScoreBoardForm(BoxesHandler boxesHandler, PlayerHandler playerHandler) {
+    public ScoreBoardForm() {
         super("Tabellone");
         formWindowActivated();
         positions = new ArrayList<>();
@@ -101,7 +101,7 @@ public class ScoreBoardForm extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setMinimumSize(new Dimension(1500, 800));
         turnCounter = 0;
-        update_UI(playerHandler, turnCounter);
+        update_UI();
         doub = 0;
         loadBoxes();
         setPosition();
@@ -111,49 +111,48 @@ public class ScoreBoardForm extends JFrame {
         payTaxLabel.setVisible(false);
         textTaxLabel.setVisible(false);
         this.setIconImage(imgIcon.getImage());
-
         countDownTimer();
         setTimerLabel();
 
         rollDiceButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(playerHandler.getPlayer(turnCounter).isInJail())
+                if(PlayerHandler.getInstance().getPlayer(turnCounter).isInJail())
                     timerLabel.hide();
                 timer.start();
 
                 int roll = dice.roll();
                 diceLabel.setText(String.valueOf(roll));
                 cleanPosition();
-                playerHandler.getPlayer(turnCounter).changePosition(roll);
+                PlayerHandler.getInstance().getPlayer(turnCounter).changePosition(roll);
                 controlGoToJail(turnCounter);
                 setPosition();
 
-                if(playerHandler.getPlayer(turnCounter).getMoney() <= 0)
-                    playerHandler.removePlayer(turnCounter);
+                if(PlayerHandler.getInstance().getPlayer(turnCounter).getMoney() <= 0)
+                    PlayerHandler.getInstance().removePlayer(turnCounter);
 
-                if (playerHandler.getNumPlayer() == 1) {
+                if (PlayerHandler.getInstance().getNumPlayer() == 1) {
                     win();
                 } else {
                     if (GameHandler.getInstance().payRentCheck()) {
                         GameHandler.getInstance().payRent();
-                        playerRent.setText(String.valueOf(boxesHandler.getContract(playerHandler.getPlayer(turnCounter).getPosition()).getOwner().getUsername()));
-                        rentToPay.setText(boxesHandler.getContract(playerHandler.getPlayer(turnCounter).getPosition()).getRent() + "€");
+                        playerRent.setText(String.valueOf(BoxesHandler.getInstance().getContract(PlayerHandler.getInstance().getPlayer(turnCounter).getPosition()).getOwner().getUsername()));
+                        rentToPay.setText(BoxesHandler.getInstance().getContract(PlayerHandler.getInstance().getPlayer(turnCounter).getPosition()).getRent() + "€");
                         payRent.setVisible(true);
                         playerRent.setVisible(true);
                         rentToPay.setVisible(true);
                         aLabel.setVisible(true);
-                    } else if (!boxesHandler.getContract(playerHandler.getPlayer(turnCounter).getPosition()).isPurchased() && boxesHandler.getContract(playerHandler.getPlayer(turnCounter).getPosition()).getCanBeBought()) {
+                    } else if (!BoxesHandler.getInstance().getContract(PlayerHandler.getInstance().getPlayer(turnCounter).getPosition()).isPurchased() && BoxesHandler.getInstance().getContract(PlayerHandler.getInstance().getPlayer(turnCounter).getPosition()).getCanBeBought()) {
                         BuyPropriertiesFort buyPropriertiesFort =
-                                new BuyPropriertiesFort(boxesHandler.getContract(playerHandler.getPlayer(turnCounter).getPosition()), playerHandler.getPlayer(turnCounter), contractsList, money);
+                                new BuyPropriertiesFort(BoxesHandler.getInstance().getContract(PlayerHandler.getInstance().getPlayer(turnCounter).getPosition()), PlayerHandler.getInstance().getPlayer(turnCounter), contractsList, money);
                         buyPropriertiesFort.setVisible(true);
-                        setContractsList(turnCounter);
-                        update_UI(playerHandler, turnCounter);
-                    } else if (boxesHandler.getContract(playerHandler.getPlayer(turnCounter).getPosition()).isATax()) {
-                        payTaxLabel.setText(boxesHandler.getContract(playerHandler.getPlayer(turnCounter).getPosition()).getRent() + "€");
+                        setContractsList();
+                        update_UI();
+                    } else if (BoxesHandler.getInstance().getContract(PlayerHandler.getInstance().getPlayer(turnCounter).getPosition()).isATax()) {
+                        payTaxLabel.setText(BoxesHandler.getInstance().getContract(PlayerHandler.getInstance().getPlayer(turnCounter).getPosition()).getRent() + "€");
                         payTaxLabel.setVisible(true);
                         textTaxLabel.setVisible(true);
-                        update_UI(playerHandler, turnCounter);
+                        update_UI();
                     }
                 }
 
@@ -165,10 +164,10 @@ public class ScoreBoardForm extends JFrame {
                 }
 
                 if (doub == 3) {
-                    playerHandler.getPlayer(turnCounter).setIsInJail(true);
+                    PlayerHandler.getInstance().getPlayer(turnCounter).setIsInJail(true);
                 }
 
-                update_UI(playerHandler, turnCounter);
+                update_UI();
             }
         });
 
@@ -189,14 +188,14 @@ public class ScoreBoardForm extends JFrame {
                 exitPrisonMessage.setVisible(false);
                 cleanPosition();
                 turnCounter = GameHandler.getInstance().turn();
-                update_UI(playerHandler, turnCounter);
+                update_UI();
                 rollDiceButton.setVisible(true);
                 setPosition();
                 endTurnButton.setVisible(false);
-                if (playerHandler.getPlayer(turnCounter).isInJail()) {
-                    if (playerHandler.getPlayer(turnCounter).getShiftsInJail() == 0) {
-                        playerHandler.getPlayer(turnCounter).buy(125);
-                        playerHandler.getPlayer(turnCounter).exitPrison();
+                if (PlayerHandler.getInstance().getPlayer(turnCounter).isInJail()) {
+                    if (PlayerHandler.getInstance().getPlayer(turnCounter).getShiftsInJail() == 0) {
+                        PlayerHandler.getInstance().getPlayer(turnCounter).buy(125);
+                        PlayerHandler.getInstance().getPlayer(turnCounter).exitPrison();
                         rollDiceButton.setVisible(true);
                         jailPanel.setVisible(false);
                         exitPrisonMessage.setVisible(true);
@@ -208,8 +207,7 @@ public class ScoreBoardForm extends JFrame {
                     jailPanel.setVisible(false);
 
                 try {
-                    playerHandler.saveState();
-                    boxesHandler.saveState();
+                    GameHandler.getInstance().saveState();
                 } catch (IOException ignored) {
 
                 }
@@ -219,8 +217,8 @@ public class ScoreBoardForm extends JFrame {
         payexitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                playerHandler.getPlayer(turnCounter).buy(125);
-                playerHandler.getPlayer(turnCounter).exitPrison();
+                PlayerHandler.getInstance().getPlayer(turnCounter).buy(125);
+                PlayerHandler.getInstance().getPlayer(turnCounter).exitPrison();
                 rollDiceButton.setVisible(true);
                 jailPanel.setVisible(false);
             }
@@ -231,7 +229,7 @@ public class ScoreBoardForm extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int roll = dice.roll();
                 if (dice.isDouble()) {
-                    playerHandler.getPlayer(turnCounter).exitPrison();
+                    PlayerHandler.getInstance().getPlayer(turnCounter).exitPrison();
                     rollDiceButton.setVisible(true);
                     jailPanel.setVisible(false);
                 }
@@ -257,10 +255,10 @@ public class ScoreBoardForm extends JFrame {
         return this.scoreBoardPanel;
     }
 
-    private void setContractsList(int shiftplayer) {
-        DefaultListModel<it.monopoly.app.Boxes> demoList = new DefaultListModel<it.monopoly.app.Boxes>();
-        for (int i = 0; i < PlayerHandler.getInstance().getPlayer(shiftplayer).getNumContracts(); i++) {
-            demoList.addElement(PlayerHandler.getInstance().getPlayer(shiftplayer).getContract(i));
+    private void setContractsList() {
+        DefaultListModel demoList = new DefaultListModel();
+        for (int i = 0; i < PlayerHandler.getInstance().getPlayer(turnCounter).getNumContracts(); i++) {
+            demoList.addElement(PlayerHandler.getInstance().getPlayer(turnCounter).getContract(i));
         }
         contractsList.setModel(demoList);
     }
@@ -344,10 +342,10 @@ public class ScoreBoardForm extends JFrame {
         positions.add(panel39);
     }
 
-    private void update_UI(PlayerHandler giocatori1, int shift) {
-        name.setText(giocatori1.getPlayer(shift).getUsername());
-        money.setText(giocatori1.getPlayer(shift).getMoney() + "€");
-        setContractsList(shift);
+    private void update_UI() {
+        name.setText(GameHandler.getInstance().getPlayerUsername());
+        money.setText(GameHandler.getInstance().getPlayerMoney() + "€");
+        setContractsList();
     }
 
     private void countDownTimer() {
@@ -381,7 +379,7 @@ public class ScoreBoardForm extends JFrame {
 
 
     private void ciao() {
-        JPanel cell = positions.get(PlayerHandler.getInstance().getPlayer(turnCounter).getPosition());
+        JPanel cell = positions.get(PlayerHandler.getInstance().getInstance().getPlayer(turnCounter).getPosition());
         for (Component component : cell.getComponents()) {
 
             if (((JLabel) component).getText() != null) {

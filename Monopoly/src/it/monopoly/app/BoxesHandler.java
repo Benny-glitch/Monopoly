@@ -28,7 +28,7 @@ public class BoxesHandler implements Serializable {
         if (instance == null) {
             instance = new BoxesHandler();
         }
-        return BoxesHandler.instance;
+        return instance;
     }
 
     private BoxesHandler(){
@@ -100,7 +100,7 @@ public class BoxesHandler implements Serializable {
     //TODO fare il SAVEMANAGER
     public void saveState() throws IOException {
         try (
-                FileOutputStream fileOutputStream = new FileOutputStream("Boxes.sr");
+                FileOutputStream fileOutputStream = new FileOutputStream("Monopoly/src/it/monopoly/resources/Saves/Boxes.sr");
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)
         ) {
             objectOutputStream.writeObject(this);
@@ -115,7 +115,7 @@ public class BoxesHandler implements Serializable {
      */
     public static BoxesHandler load() throws IOException {
         try (
-                FileInputStream fileInputStream = new FileInputStream("Boxes.sr");
+                FileInputStream fileInputStream = new FileInputStream("Monopoly/src/it/monopoly/resources/Saves/Boxes.sr");
                 ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)
         ) {
             Object o = objectInputStream.readObject();
@@ -125,6 +125,14 @@ public class BoxesHandler implements Serializable {
         } catch (ClassNotFoundException ignore) {
             return new BoxesHandler();
         }
+    }
+
+
+    public static BoxesHandler loadGame() throws IOException{
+        if(instance == null){
+            instance = load();
+        }
+        return instance;
     }
 
 }

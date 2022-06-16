@@ -26,7 +26,7 @@ public class Player implements Serializable {
         this.position = position;
     }
 
-    public double getMoney() {
+    public int getMoney() {
         return this.money;
     }
 
@@ -132,6 +132,10 @@ public class Player implements Serializable {
 
     public Boxes getContract(int i) {
         return this.boxes.get(i);
+    }
+
+    public List<Boxes> getContracts(){
+        return boxes;
     }
 
     public void buy(int moneyToRemove) {

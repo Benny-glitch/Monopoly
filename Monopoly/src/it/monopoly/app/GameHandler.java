@@ -25,9 +25,9 @@ public class GameHandler {
         PlayerHandler.getInstance();
     }
     
-    public void load() throws IOException {
-        BoxesHandler.load();
-        PlayerHandler.load();
+    public void loadGame() throws IOException {
+        BoxesHandler.loadGame();
+        PlayerHandler.loadGame();
     }
 
     public boolean payRentCheck(){
@@ -64,6 +64,20 @@ public class GameHandler {
 
     public int getTurn(){
         return this.turn;
+    }
+
+
+    public String getPlayerUsername() {
+        return PlayerHandler.getInstance().getPlayer(turn).getUsername();
+    }
+
+    public int getPlayerMoney() {
+        return PlayerHandler.getInstance().getPlayer(turn).getMoney();
+    }
+
+    public void saveState() throws IOException {
+        PlayerHandler.getInstance().saveState();
+        BoxesHandler.getInstance().saveState();
     }
 
 

@@ -1,6 +1,7 @@
 package it.monopoly.gui;
 
 import it.monopoly.app.BoxesHandler;
+import it.monopoly.app.GameHandler;
 import it.monopoly.app.PlayerHandler;
 
 import javax.swing.*;
@@ -22,7 +23,7 @@ public class MainFrameForm {
     private BoxesHandler boxesHandler;
     private PlayerHandler playerHandler;
 
-    public MainFrameForm(MainFrame mainFrame){
+    public MainFrameForm(MainFrame mainFrame) {
         setBoxesStrartUP(mainFrame);
         setFontStartUP();
         newplayerFrame = new NewPlayerFrame();
@@ -30,6 +31,9 @@ public class MainFrameForm {
         playLabel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                PlayerHandler.getInstance();
+                BoxesHandler.getInstance();
+                GameHandler.getInstance().start();
                 newplayerFrame.setVisible(true);
                 mainFrame.dispose();
             }
@@ -47,16 +51,15 @@ public class MainFrameForm {
             @Override
             public void mouseClicked(MouseEvent ee) {
                 try {
-                    PlayerHandler.initialize();
-                    playerHandler = PlayerHandler.load();
-                    boxesHandler = BoxesHandler.load();
-                    ScoreBoardForm scoreBoardForm = new ScoreBoardForm(boxesHandler, playerHandler);
+
+                    GameHandler.getInstance().loadGame();
+                    ScoreBoardForm scoreBoardForm = new ScoreBoardForm();
                     scoreBoardForm.setVisible(true);
                 } catch (IOException e) {
                     JOptionPane.showMessageDialog(
                             mainFrame,
                             "Errore nello stato del salvataggio del gioco",
-                            "Errore",
+                            "Salvataggio non trovato",
                             JOptionPane.ERROR_MESSAGE);
                 }
             }
@@ -81,7 +84,7 @@ public class MainFrameForm {
         exitLabel.setFont(font.deriveFont(Font.PLAIN, 36));
     }
 
-    private void setBoxesStrartUP(MainFrame mainFrame){
+    private void setBoxesStrartUP(MainFrame mainFrame) {
         try {
             BoxesHandler.getInstance().loadBoxes();
         } catch (FileNotFoundException e) {
